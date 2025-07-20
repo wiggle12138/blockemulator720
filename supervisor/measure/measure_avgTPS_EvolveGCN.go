@@ -62,17 +62,24 @@ func (tat *TestModule_avgTPS_EvolveGCN) UpdateMeasureRecord(b *message.BlockInfo
 	}
 
 	// 累计当前epoch数据
-	tat.excutedTxNum[epochid] += float64(r1TxNum+r2TxNum) / 2
+	tat.excutedTxNum[epochid] += float64(r1TxNum+r2TxNum) / 2 // 保持除以2的逻辑
 	tat.excutedTxNum[epochid] += float64(len(b.InnerShardTxs))
 
 	tat.normalTxNum[epochid] += len(b.InnerShardTxs)
 	tat.relay1TxNum[epochid] += r1TxNum
 	tat.relay2TxNum[epochid] += r2TxNum
 
-	// 记录时间范围
-	if tat.startTime[epochid].IsZero() || tat.startTime[epochid].After(earliestTime) {
+	// 修复：正确的时间范围记录逻辑
+	if tat.startTime[epochid].IsZero() {
 		tat.startTime[epochid] = earliestTime
+	} else {
+		// 记录最早的开始时间
+		if earliestTime.Before(tat.startTime[epochid]) {
+			tat.startTime[epochid] = earliestTime
+		}
 	}
+
+	// 记录最晚的结束时间
 	if tat.endTime[epochid].IsZero() || latestTime.After(tat.endTime[epochid]) {
 		tat.endTime[epochid] = latestTime
 	}

@@ -94,24 +94,26 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 
 	// requestType ...
 	if r.RequestType == message.PartitionReq {
-		// EvolveGCN 账户迁移请求处理
-		eihm.pbftNode.pl.Plog.Println("EvolveGCN: received partition msg, going to perform partition")
-
-		// if a partition Request ...
+		// 执行账户迁移
+		eihm.pbftNode.pl.Plog.Printf("收到PartitionReq请求，处理账户迁移")
 		atm := message.DecodeAccountTransferMsg(r.Msg.Content)
 		eihm.accountTransfer_do(atm)
 
-		// 新增：partition请求完成后也要发送BlockInfo消息，确保epoch更新
+		// 关键修复：发送正确的epoch信息
+		// 使用更新后的AccountTransferRound作为epoch
+		currentEpoch := int(eihm.cdm.AccountTransferRound)
+
 		bim := message.BlockInfoMsg{
 			BlockBodyLength: 0, // 分区请求没有普通交易
 			InnerShardTxs:   make([]*core.Transaction, 0),
-			Epoch:           int(eihm.cdm.AccountTransferRound), // 使用更新后的AccountTransferRound
+			Epoch:           currentEpoch, // 使用正确的epoch
 			Relay1Txs:       make([]*core.Transaction, 0),
 			Relay2Txs:       make([]*core.Transaction, 0),
 			SenderShardID:   eihm.pbftNode.ShardID,
 			ProposeTime:     r.ReqTime,
 			CommitTime:      time.Now(),
 		}
+
 		bByte, err := json.Marshal(bim)
 		if err != nil {
 			log.Panic()
@@ -119,8 +121,8 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 		msg_send := message.MergeMessage(message.CBlockInfo, bByte)
 		go networks.TcpDial(msg_send, eihm.pbftNode.ip_nodeTable[params.SupervisorShard][0])
 
-		eihm.pbftNode.pl.Plog.Printf("EvolveGCN: Sent partition epoch update message with epoch %d",
-			eihm.cdm.AccountTransferRound)
+		eihm.pbftNode.pl.Plog.Printf("节点重配置反馈发送 epoch %d from shard %d",
+			currentEpoch, eihm.pbftNode.ShardID)
 
 		return true
 	}
@@ -436,7 +438,7 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) accountTransfer_do(atm *message.A
 	}
 	eihm.cdm.AccountTransferRound = atm.ATid
 
-	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: AccountTransferRound updated from %d to %d",
+	eihm.pbftNode.pl.Plog.Printf("AccountTransferRound成功updated from %d to %d",
 		previousRound, eihm.cdm.AccountTransferRound)
 
 	eihm.cdm.AccountStateTx = make(map[uint64]*message.AccountStateAndTx)

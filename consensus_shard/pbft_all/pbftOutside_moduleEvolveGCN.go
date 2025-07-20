@@ -97,20 +97,30 @@ func (erom *EvolveGCNRelayOutsideModule) handleInjectTx(content []byte) {
 	erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : has handled injected txs msg, txs: %d \n", erom.pbftNode.ShardID, erom.pbftNode.NodeID, len(it.Txs))
 }
 
-// 处理分区消息（复用 CLPA 逻辑，但增加数据收集）
+// 处理分区消息（修复消息结构体不匹配问题）
 func (erom *EvolveGCNRelayOutsideModule) handlePartitionMsg(content []byte) {
 	erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message from supervisor")
 
-	// ========== 删除重复的数据收集触发，避免数据覆盖 ==========
-	// 原代码：erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
-
-	pm := new(message.PartitionModifiedMap)
-	err := json.Unmarshal(content, pm)
-	if err != nil {
-		log.Panic()
+	// 修复：先尝试新版本结构体，如果失败则使用旧版本
+	pmWithEpoch := new(message.PartitionModifiedMapWithEpoch)
+	err := json.Unmarshal(content, pmWithEpoch)
+	if err == nil {
+		// 新版本消息，包含epoch信息
+		erom.cdm.ModifiedMap = append(erom.cdm.ModifiedMap, pmWithEpoch.PartitionModified)
+		erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : received partition message with epoch %d\n",
+			erom.pbftNode.ShardID, erom.pbftNode.NodeID, pmWithEpoch.EpochID)
+	} else {
+		// 回退到旧版本
+		pm := new(message.PartitionModifiedMap)
+		err = json.Unmarshal(content, pm)
+		if err != nil {
+			log.Panic(err)
+		}
+		erom.cdm.ModifiedMap = append(erom.cdm.ModifiedMap, pm.PartitionModified)
+		erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : received partition message (legacy format)\n",
+			erom.pbftNode.ShardID, erom.pbftNode.NodeID)
 	}
-	erom.cdm.ModifiedMap = append(erom.cdm.ModifiedMap, pm.PartitionModified)
-	erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : has received partition message\n", erom.pbftNode.ShardID, erom.pbftNode.NodeID)
+
 	erom.cdm.PartitionOn = true
 }
 
