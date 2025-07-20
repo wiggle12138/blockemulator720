@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-07-18T19:46:36.693620",
+  "partition_map_file": "data_exchange\\partition_result.json",
+  "total_accounts": 8,
+  "shard_distribution": {
+    "0": 2,
+    "1": 2,
+    "2": 2,
+    "3": 2
+  },
+  "step4_summary": {
+    "performance": {
+      "load_balance": 0.85,
+      "cross_shard_rate": 0.15,
+      "security_score": 0.92,
+      "consensus_latency": 125.5
+    },
+    "suggestions_count": 2,
+    "anomaly_count": 2,
+    "overall_score": 0.88
+  },
+  "application_method": "file_interface"
+}

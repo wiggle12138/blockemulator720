@@ -1,0 +1,17 @@
+supervisor:35
+shard0-node0:37
+shard0-node1:39
+shard0-node2:41
+shard0-node3:43
+shard1-node0:45
+shard1-node1:47
+shard1-node2:49
+shard1-node3:51
+shard2-node0:53
+shard2-node1:55
+shard2-node2:57
+shard2-node3:59
+shard3-node0:61
+shard3-node1:63
+shard3-node2:65
+shard3-node3:67

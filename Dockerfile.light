@@ -1,0 +1,40 @@
+# 轻量化分片系统Docker配置
+FROM python:3.9-slim
+
+# 设置工作目录
+WORKDIR /app
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制requirements文件
+COPY requirements-light.txt .
+
+# 安装Python依赖 (使用CPU版本)
+RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+    torch torchvision && \
+    pip install --no-cache-dir -r requirements-light.txt
+
+# 复制项目文件
+COPY partition/ ./partition/
+COPY muti_scale/ ./muti_scale/
+COPY evolve_GCN/ ./evolve_GCN/
+COPY feedback/ ./feedback/
+COPY *.py ./
+COPY *.json ./
+
+# 创建数据交换目录
+RUN mkdir -p data_exchange
+
+# 设置环境变量
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+
+# 暴露端口
+EXPOSE 8000
+
+# 默认命令
+CMD ["python", "integrated_four_step_pipeline.py", "--mode", "daemon"]

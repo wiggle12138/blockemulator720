@@ -1,0 +1,396 @@
+version: '3.8'
+
+services:
+  # Supervisor 节点 - 协调和数据收集
+  supervisor:
+    image: blockemulator-integrated:latest
+    container_name: supervisor
+    command: ["-c", "-N", "4", "-S", "4"]
+    volumes:
+      - ./docker/Files/selectedTxs_300K.csv:/app/selectedTxs_300K.csv:ro
+      - ./outputs/supervisor:/app/expTest
+      - ./data_exchange:/app/data_exchange
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=supervisor
+      - EVOLVEGCN_ENABLED=true
+      - PYTHON_PATH=/opt/venv/bin/python
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+
+  # 分片0 - 性能洼地 (低配置测试分片适应性)
+  shard0-node0:
+    image: blockemulator-integrated:latest
+    container_name: shard0-node0
+    command: ["-n", "0", "-N", "4", "-s", "0", "-S", "4"]
+    volumes:
+      - ./outputs/shard0-node0:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=0
+      - NODE_ID=0
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.2'
+          memory: 256M
+    depends_on:
+      - supervisor
+
+  shard0-node1:
+    image: blockemulator-integrated:latest
+    container_name: shard0-node1
+    command: ["-n", "1", "-N", "4", "-s", "0", "-S", "4"]
+    volumes:
+      - ./outputs/shard0-node1:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=0
+      - NODE_ID=1
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - supervisor
+
+  shard0-node2:
+    image: blockemulator-integrated:latest
+    container_name: shard0-node2
+    command: ["-n", "2", "-N", "4", "-s", "0", "-S", "4"]
+    volumes:
+      - ./outputs/shard0-node2:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=0
+      - NODE_ID=2
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - supervisor
+
+  shard0-node3:
+    image: blockemulator-integrated:latest
+    container_name: shard0-node3
+    command: ["-n", "3", "-N", "4", "-s", "0", "-S", "4"]
+    volumes:
+      - ./outputs/shard0-node3:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=0
+      - NODE_ID=3
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - supervisor
+
+  # 分片1 - 中低性能
+  shard1-node0:
+    image: blockemulator-integrated:latest
+    container_name: shard1-node0
+    command: ["-n", "0", "-N", "4", "-s", "1", "-S", "4"]
+    volumes:
+      - ./outputs/shard1-node0:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=1
+      - NODE_ID=0
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    depends_on:
+      - supervisor
+
+  shard1-node1:
+    image: blockemulator-integrated:latest
+    container_name: shard1-node1
+    command: ["-n", "1", "-N", "4", "-s", "1", "-S", "4"]
+    volumes:
+      - ./outputs/shard1-node1:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=1
+      - NODE_ID=1
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    depends_on:
+      - supervisor
+
+  shard1-node2:
+    image: blockemulator-integrated:latest
+    container_name: shard1-node2
+    command: ["-n", "2", "-N", "4", "-s", "1", "-S", "4"]
+    volumes:
+      - ./outputs/shard1-node2:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=1
+      - NODE_ID=2
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    depends_on:
+      - supervisor
+
+  shard1-node3:
+    image: blockemulator-integrated:latest
+    container_name: shard1-node3
+    command: ["-n", "3", "-N", "4", "-s", "1", "-S", "4"]
+    volumes:
+      - ./outputs/shard1-node3:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=1
+      - NODE_ID=3
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    depends_on:
+      - supervisor
+
+  # 分片2 - 中高性能
+  shard2-node0:
+    image: blockemulator-integrated:latest
+    container_name: shard2-node0
+    command: ["-n", "0", "-N", "4", "-s", "2", "-S", "4"]
+    volumes:
+      - ./outputs/shard2-node0:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=2
+      - NODE_ID=0
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+    depends_on:
+      - supervisor
+
+  shard2-node1:
+    image: blockemulator-integrated:latest
+    container_name: shard2-node1
+    command: ["-n", "1", "-N", "4", "-s", "2", "-S", "4"]
+    volumes:
+      - ./outputs/shard2-node1:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=2
+      - NODE_ID=1
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+    depends_on:
+      - supervisor
+
+  shard2-node2:
+    image: blockemulator-integrated:latest
+    container_name: shard2-node2
+    command: ["-n", "2", "-N", "4", "-s", "2", "-S", "4"]
+    volumes:
+      - ./outputs/shard2-node2:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=2
+      - NODE_ID=2
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+    depends_on:
+      - supervisor
+
+  shard2-node3:
+    image: blockemulator-integrated:latest
+    container_name: shard2-node3
+    command: ["-n", "3", "-N", "4", "-s", "2", "-S", "4"]
+    volumes:
+      - ./outputs/shard2-node3:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=2
+      - NODE_ID=3
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+    depends_on:
+      - supervisor
+
+  # 分片3 - 高性能
+  shard3-node0:
+    image: blockemulator-integrated:latest
+    container_name: shard3-node0
+    command: ["-n", "0", "-N", "4", "-s", "3", "-S", "4"]
+    volumes:
+      - ./outputs/shard3-node0:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=3
+      - NODE_ID=0
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    depends_on:
+      - supervisor
+
+  shard3-node1:
+    image: blockemulator-integrated:latest
+    container_name: shard3-node1
+    command: ["-n", "1", "-N", "4", "-s", "3", "-S", "4"]
+    volumes:
+      - ./outputs/shard3-node1:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=3
+      - NODE_ID=1
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    depends_on:
+      - supervisor
+
+  shard3-node2:
+    image: blockemulator-integrated:latest
+    container_name: shard3-node2
+    command: ["-n", "2", "-N", "4", "-s", "3", "-S", "4"]
+    volumes:
+      - ./outputs/shard3-node2:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=3
+      - NODE_ID=2
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    depends_on:
+      - supervisor
+
+  shard3-node3:
+    image: blockemulator-integrated:latest
+    container_name: shard3-node3
+    command: ["-n", "3", "-N", "4", "-s", "3", "-S", "4"]
+    volumes:
+      - ./outputs/shard3-node3:/app/expTest
+      - ./data_exchange:/app/data_exchange:ro
+    networks:
+      - blockchain_net
+    environment:
+      - NODE_ROLE=worker
+      - SHARD_ID=3
+      - NODE_ID=3
+      - EVOLVEGCN_ENABLED=true
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    depends_on:
+      - supervisor
+
+networks:
+  blockchain_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  shared_data:
+    driver: local

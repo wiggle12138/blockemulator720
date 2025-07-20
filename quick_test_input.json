@@ -1,0 +1,1 @@
+{"node_features": [{"node_id": "test1", "features": [1.0]}, {"node_id": "test2", "features": [2.0]}], "edges": [["test1", "test2", 1.0]]}

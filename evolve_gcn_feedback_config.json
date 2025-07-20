@@ -1,0 +1,205 @@
+{
+  "system": {
+    "name": "BlockEmulator_EvolveGCN_Feedback_System",
+    "version": "1.0.0",
+    "description": "BlockEmulator集成EvolveGCN和feedback反馈优化分片系统"
+  },
+  "modules": {
+    "enable_evolve_gcn": true,
+    "enable_feedback": true,
+    "enable_integration": true,
+    "enable_monitoring": true
+  },
+  "environment": {
+    "python_path": "python",
+    "module_path": "./",
+    "data_exchange_dir": "./data_exchange",
+    "log_dir": "./logs",
+    "output_dir": "./outputs",
+    "temp_dir": "./temp"
+  },
+  "evolve_gcn": {
+    "enabled": true,
+    "model_config": {
+      "num_timesteps": 5,
+      "embed_dim": 64,
+      "hidden_dim": 128,
+      "num_layers": 3,
+      "dropout": 0.1,
+      "activation": "relu"
+    },
+    "training_config": {
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "max_epochs": 50,
+      "early_stopping_patience": 10,
+      "validation_split": 0.2
+    },
+    "optimization": {
+      "optimizer": "adam",
+      "weight_decay": 0.0001,
+      "lr_scheduler": "cosine",
+      "warmup_epochs": 5
+    },
+    "loss_weights": {
+      "balance_weight": 1.0,
+      "cross_weight": 1.5,
+      "security_weight": 0.5,
+      "performance_weight": 1.2
+    },
+    "data_config": {
+      "min_nodes": 50,
+      "max_nodes": 500,
+      "min_shards": 2,
+      "max_shards": 16,
+      "transaction_types": ["transfer", "contract", "stake"]
+    }
+  },
+  "feedback": {
+    "enabled": true,
+    "controller_config": {
+      "feedback_weight": 1.0,
+      "evolution_threshold": 0.1,
+      "max_feedback_history": 100,
+      "enable_evolution": true
+    },
+    "performance_weights": {
+      "balance": 0.4,
+      "cross_shard": 0.3,
+      "security": 0.3,
+      "throughput": 0.2,
+      "latency": 0.2
+    },
+    "thresholds": {
+      "min_performance_score": 0.6,
+      "min_load_balance_score": 0.7,
+      "max_cross_shard_ratio": 0.3,
+      "min_security_score": 0.8
+    },
+    "adaptation": {
+      "learning_rate": 0.01,
+      "adaptation_window": 10,
+      "stability_threshold": 0.05
+    }
+  },
+  "integration": {
+    "mode": "continuous",
+    "max_iterations": 10,
+    "epochs_per_iteration": 8,
+    "output_interval": 30,
+    "sync_interval": 5,
+    "timeout": 300
+  },
+  "blockchain": {
+    "network": {
+      "node_count": 100,
+      "shard_count": 4,
+      "consensus_type": "pbft",
+      "block_time": 5,
+      "transaction_pool_size": 1000
+    },
+    "performance": {
+      "target_tps": 1000,
+      "target_latency": 1.0,
+      "max_queue_length": 100,
+      "min_confirmation_time": 3
+    },
+    "security": {
+      "min_validators_per_shard": 4,
+      "byzantine_tolerance": 0.33,
+      "signature_scheme": "bls",
+      "hash_algorithm": "sha256"
+    }
+  },
+  "monitoring": {
+    "enabled": true,
+    "metrics": {
+      "performance": ["tps", "latency", "throughput"],
+      "network": ["node_count", "shard_distribution", "cross_shard_ratio"],
+      "security": ["validator_count", "byzantine_resistance", "attack_detection"],
+      "system": ["cpu_usage", "memory_usage", "disk_usage"]
+    },
+    "collection_interval": 10,
+    "retention_period": 86400,
+    "alert_thresholds": {
+      "high_latency": 5.0,
+      "low_tps": 100,
+      "high_cross_shard": 0.5,
+      "low_security": 0.6
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file_logging": true,
+    "console_logging": true,
+    "max_file_size": "10MB",
+    "backup_count": 5,
+    "loggers": {
+      "evolve_gcn": "DEBUG",
+      "feedback": "INFO",
+      "integration": "INFO",
+      "blockchain": "WARNING"
+    }
+  },
+  "data_processing": {
+    "batch_size": 1000,
+    "preprocessing": {
+      "normalize_features": true,
+      "handle_missing_values": "interpolate",
+      "outlier_detection": "iqr",
+      "feature_scaling": "standard"
+    },
+    "validation": {
+      "enable_data_validation": true,
+      "schema_validation": true,
+      "range_validation": true,
+      "consistency_check": true
+    }
+  },
+  "optimization": {
+    "strategies": {
+      "genetic_algorithm": {
+        "enabled": false,
+        "population_size": 50,
+        "mutation_rate": 0.1,
+        "crossover_rate": 0.8,
+        "generations": 100
+      },
+      "simulated_annealing": {
+        "enabled": false,
+        "initial_temperature": 100,
+        "cooling_rate": 0.95,
+        "min_temperature": 0.1
+      },
+      "gradient_descent": {
+        "enabled": true,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "nesterov": true
+      }
+    },
+    "constraints": {
+      "max_optimization_time": 300,
+      "convergence_threshold": 0.001,
+      "max_iterations": 1000
+    }
+  },
+  "experimental": {
+    "enable_advanced_features": false,
+    "features": {
+      "auto_parameter_tuning": false,
+      "multi_objective_optimization": false,
+      "reinforcement_learning": false,
+      "federated_learning": false
+    },
+    "research_mode": false
+  },
+  "debugging": {
+    "enable_debug_mode": false,
+    "verbose_logging": false,
+    "save_intermediate_results": false,
+    "profiling": false,
+    "memory_tracking": false
+  }
+}

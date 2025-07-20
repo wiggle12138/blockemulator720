@@ -1,0 +1,60 @@
+{
+  "system": {
+    "name": "BlockEmulator_Integration_System",
+    "version": "1.0.0"
+  },
+  "modules": {
+    "enable_evolve_gcn": true,
+    "enable_feedback": true,
+    "enable_integration": true
+  },
+  "environment": {
+    "python_path": "python",
+    "module_path": "./",
+    "data_exchange_dir": "./data_exchange",
+    "log_level": "INFO"
+  },
+  "evolve_gcn": {
+    "model_path": "./evolve_GCN/trained_models/",
+    "temporal_embeddings_path": "./evolve_GCN/temporal_embeddings.pkl",
+    "num_timesteps": 5,
+    "embed_dim": 64,
+    "hidden_dim": 128,
+    "learning_rate": 0.001,
+    "max_epochs": 50
+  },
+  "feedback": {
+    "feedback_weight": 1.0,
+    "evolution_threshold": 0.1,
+    "max_feedback_history": 100,
+    "performance_weights": {
+      "balance": 0.4,
+      "cross_shard": 0.3,
+      "security": 0.3
+    }
+  },
+  "integration": {
+    "mode": "continuous",
+    "max_iterations": 10,
+    "epochs_per_iteration": 8,
+    "output_interval": 30,
+    "sync_interval": 5,
+    "timeout": 300
+  },
+  "blockchain": {
+    "node_count": 100,
+    "shard_count": 4,
+    "target_tps": 1000,
+    "target_latency": 1.0
+  },
+  "monitoring": {
+    "enabled": true,
+    "collection_interval": 10,
+    "metrics": ["tps", "latency", "cross_shard_ratio", "balance_score"]
+  },
+  "logging": {
+    "level": "INFO",
+    "file_logging": true,
+    "console_logging": true
+  }
+}

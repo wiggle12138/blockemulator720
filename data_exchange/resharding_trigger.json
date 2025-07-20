@@ -1,0 +1,6 @@
+{
+  "action": "trigger_resharding",
+  "partition_map_file": "data_exchange\\partition_result.json",
+  "timestamp": "2025-07-18T19:46:38.425915",
+  "status": "pending"
+}

@@ -1,0 +1,10 @@
+Config: {ConsensusMethod:4 PbftViewChangeTimeOut:20000 ExpDataRootDir:expTest BlockInterval:5000 BlocksizeInBytes:200000 MaxBlockSizeGlobal:2000 UseBlocksizeInBytes:0 InjectSpeed:2000 TotalDataSize:160000 TxBatchSize:16000 BrokerNum:10 RelayWithMerkleProof:0 DatasetFile:./selectedTxs_300K.csv ReconfigTimeGap:50 Delay:-1 JitterRange:-1 Bandwidth:10000000}
+2025/07/19 20:46:04 Wrong ShardID. This ShardID is -1, but only 4 shards in the current config. 
+panic: Wrong ShardID. This ShardID is -1, but only 4 shards in the current config. 
+
+goroutine 1 [running]:
+log.Panicf({0x18bb247?, 0xc0001261c0?}, {0xc00020ff20?, 0x0?, 0x6?})
+	E:/Program Files/Go/src/log/log.go:439 +0x65
+main.main()
+	E:/Codefield/block-emulator-main717/main.go:66 +0x3cc
+exit status 2
