@@ -26,10 +26,17 @@ sys.path.append('./evolve_GCN/models')
 sys.path.append('./feedback')
 
 try:
-    from integrated_four_step_pipeline import OriginalIntegratedFourStepPipeline
-except ImportError as e:
-    print(f"[ERROR]: [CHAR][CHAR][CHAR][CHAR][CHAR][CHAR][CHAR][CHAR][CHAR]: {e}")
-    sys.exit(1)
+    # 优先使用真实的四步分片系统集成
+    from real_integrated_four_step_pipeline import RealIntegratedFourStepPipeline as OriginalIntegratedFourStepPipeline
+    print("[SUCCESS] 导入真实四步分片系统集成")
+except ImportError as e1:
+    try:
+        # 如果真实系统不可用，回退到原来的实现
+        from integrated_four_step_pipeline import OriginalIntegratedFourStepPipeline
+        print("[WARNING] 使用简化版四步分片系统 (真实系统不可用)")
+    except ImportError as e2:
+        print(f"[ERROR] 无法导入任何四步分片系统: 真实系统={e1}, 简化系统={e2}")
+        sys.exit(1)
 
 class EvolveGCNGoInterface:
     """Go[CHAR][CHAR][CALL]EvolveGCN[CHAR][CHAR][CHAR]"""

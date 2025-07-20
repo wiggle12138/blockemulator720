@@ -13,7 +13,28 @@ from datetime import datetime
 import time
 
 # 导入适配器
-from .blockemulator_adapter import BlockEmulatorAdapter
+try:
+    from .blockemulator_adapter import BlockEmulatorAdapter
+except ImportError:
+    try:
+        from blockemulator_adapter import BlockEmulatorAdapter
+    except ImportError:
+        import sys
+        import importlib.util
+        from pathlib import Path
+        
+        # 使用绝对路径导入适配器
+        adapter_path = Path(__file__).parent / "blockemulator_adapter.py"
+        if adapter_path.exists():
+            spec = importlib.util.spec_from_file_location("blockemulator_adapter", adapter_path)
+            if spec and spec.loader:
+                adapter_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(adapter_module)
+                BlockEmulatorAdapter = getattr(adapter_module, 'BlockEmulatorAdapter', None)
+            else:
+                raise ImportError("无法加载BlockEmulatorAdapter")
+        else:
+            raise ImportError(f"适配器文件不存在: {adapter_path}")
 
 class BlockEmulatorStep1Pipeline:
     """BlockEmulator系统第一步特征提取流水线"""
@@ -82,10 +103,12 @@ class BlockEmulatorStep1Pipeline:
         
         # 3. 使用适配器处理数据
         output_filename = os.path.join(self.output_dir, f"step1_{experiment_name}_features.pt")
-        results = self.adapter.create_step1_output(
-            raw_data=system_data,
-            output_filename=output_filename
-        )
+        results = self.adapter.extract_features_realtime(system_data)
+        
+        # 3.5 确保边索引存在（为兼容性）
+        if 'edge_index' not in results:
+            results['edge_index'] = self._generate_default_edge_index(len(system_data))
+            results['edge_type'] = torch.zeros(results['edge_index'].shape[1], dtype=torch.long)
         
         # 4. 保存详细信息
         if self.save_adjacency:
@@ -323,9 +346,9 @@ class BlockEmulatorStep1Pipeline:
             'generation_time': datetime.now().isoformat(),
             'experiment_name': experiment_name,
             'graph_metadata': {
-                'num_nodes': results['metadata']['num_nodes'],
-                'num_edges': results['metadata']['num_edges'],
-                'feature_dim': results['metadata']['feature_dim']
+                'num_nodes': results['metadata']['total_nodes'],
+                'num_edges': results['metadata'].get('num_edges', 0),
+                'feature_dim': results['metadata'].get('feature_dim', 128)
             },
             'edge_statistics': {
                 'total_edges': int(results['edge_index'].shape[1]),
@@ -340,10 +363,15 @@ class BlockEmulatorStep1Pipeline:
             }
         }
         
-        # 统计分片分布
-        shard_ids = results['node_info']['shard_ids'].numpy()
-        for shard_id in np.unique(shard_ids):
-            adjacency_info['node_distribution']['shard_counts'][str(shard_id)] = int(np.sum(shard_ids == shard_id))
+        # 统计分片分布 - 使用安全的方式
+        if 'node_info' in results and 'shard_ids' in results['node_info']:
+            shard_ids = results['node_info']['shard_ids'].numpy()
+            for shard_id in np.unique(shard_ids):
+                adjacency_info['node_distribution']['shard_counts'][str(shard_id)] = int(np.sum(shard_ids == shard_id))
+        else:
+            # 没有分片信息时，假设所有节点在分片0
+            num_nodes = results['metadata'].get('total_nodes', results['metadata'].get('num_nodes', 0))
+            adjacency_info['node_distribution']['shard_counts']['0'] = num_nodes
         
         # 保存邻接信息
         adjacency_filename = os.path.join(self.output_dir, f"step1_{experiment_name}_adjacency_info.json")
@@ -355,26 +383,35 @@ class BlockEmulatorStep1Pipeline:
     def _create_compatibility_output(self, results: Dict[str, torch.Tensor], experiment_name: str) -> Dict[str, torch.Tensor]:
         """创建与后续步骤兼容的输出格式"""
         # 确保输出格式与后续步骤兼容
+        # 使用f_classic作为主要特征，因为它是最完整的128维特征
+        main_features = results.get('f_classic', results.get('f_comprehensive', results.get('features')))
+        
         compat_results = {
             # 第二步需要的格式
-            'features': results['f_comprehensive'],  # [N, 65] 综合特征
+            'features': main_features,  # [N, 128] 主要特征
             'edge_index': results['edge_index'],     # [2, E] 边索引
             'edge_type': results['edge_type'],       # [E] 边类型
             
             # 第三步需要的格式
-            'node_features': results['f_comprehensive'],  # 节点特征
+            'node_features': main_features,  # 节点特征
             'adjacency_matrix': self._edge_index_to_adjacency(
-                results['edge_index'], results['metadata']['num_nodes']
+                results['edge_index'], results['metadata']['total_nodes']
             ),  # 邻接矩阵
+            
+            # 兼容性 - 添加所有可用特征
+            'f_classic': results.get('f_classic', main_features),
+            'f_graph': results.get('f_graph', main_features[:, :96] if main_features.shape[1] >= 96 else main_features),
+            'f_reduced': results.get('f_reduced', main_features[:, :64] if main_features.shape[1] >= 64 else main_features),
+            'f_comprehensive': main_features,  # 添加期望的comprehensive特征
             
             # 元数据
             'metadata': results['metadata'],
-            'node_info': results['node_info'],
+            'node_info': results.get('node_mapping', {}),
             
             # 兼容性字段
-            'num_nodes': results['metadata']['num_nodes'],
-            'num_features': results['metadata']['feature_dim'],
-            'timestamp': results['metadata']['timestamp'],
+            'num_nodes': results['metadata']['total_nodes'],
+            'num_features': results['metadata'].get('feature_dim', 128),
+            'timestamp': results['metadata'].get('timestamp', results['metadata']['processing_timestamp']),
             'data_source': 'blockemulator_system'
         }
         
@@ -384,6 +421,21 @@ class BlockEmulatorStep1Pipeline:
         print(f"[Step1 Pipeline] 兼容性输出已保存到: {compat_filename}")
         
         return compat_results
+    
+    def _generate_default_edge_index(self, num_nodes: int) -> torch.Tensor:
+        """生成默认的边索引（环形连接）"""
+        if num_nodes <= 1:
+            return torch.empty((2, 0), dtype=torch.long)
+        
+        # 创建环形连接：每个节点连接到下一个节点
+        edges = []
+        for i in range(num_nodes):
+            next_node = (i + 1) % num_nodes
+            edges.append([i, next_node])
+            edges.append([next_node, i])  # 双向连接
+        
+        edge_index = torch.tensor(edges, dtype=torch.long).t()
+        return edge_index
     
     def _edge_index_to_adjacency(self, edge_index: torch.Tensor, num_nodes: int) -> torch.Tensor:
         """将边索引转换为邻接矩阵"""

@@ -1,371 +1,371 @@
-S0N0: 2025/07/20 19:04:33 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1362 
-S0N0: 2025/07/20 19:04:34 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:04:34 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:04:34 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:04:34 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:34 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:34 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:04:34 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:34 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:34 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:04:34 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:04:34 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:04:34 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:04:34 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 1...now height = 0 
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 1... 
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 1 
-S0N0: 2025/07/20 19:04:34 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:04:34 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:04:34 messageHandle.go:270: S0N0: this round of pbft 1 is end 
-S0N0: 2025/07/20 19:04:34 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:04:34 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1599 
-S0N0: 2025/07/20 19:04:35 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 468 
-S0N0: 2025/07/20 19:04:36 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 957 
-S0N0: 2025/07/20 19:04:37 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1446 
-S0N0: 2025/07/20 19:04:38 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 1
-S0N0: 2025/07/20 19:04:38 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:04:39 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1191 
-S0N0: 2025/07/20 19:04:40 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 691 
-S0N0: 2025/07/20 19:04:41 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 734 
-S0N0: 2025/07/20 19:04:42 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 60 
-S0N0: 2025/07/20 19:04:42 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:04:42 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:04:42 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:04:42 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:42 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:42 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:42 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:42 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:04:42 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:04:42 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:04:42 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:04:42 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:04:42 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 2...now height = 1 
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 2... 
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 2 
-S0N0: 2025/07/20 19:04:42 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:04:42 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:04:42 messageHandle.go:270: S0N0: this round of pbft 2 is end 
-S0N0: 2025/07/20 19:04:42 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:04:43 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 70 
-S0N0: 2025/07/20 19:04:44 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1216 
-S0N0: 2025/07/20 19:04:45 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 706 
-S0N0: 2025/07/20 19:04:46 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1367 
-S0N0: 2025/07/20 19:04:46 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 2
-S0N0: 2025/07/20 19:04:46 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:04:47 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1167 
-S0N0: 2025/07/20 19:04:48 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 83 
-S0N0: 2025/07/20 19:04:49 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 110 
-S0N0: 2025/07/20 19:04:50 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:04:50 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 45 
-S0N0: 2025/07/20 19:04:50 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:04:50 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:04:50 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:50 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:50 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:50 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:50 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:04:50 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:04:50 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:04:50 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:04:50 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:04:50 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 3...now height = 2 
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 3... 
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 3 
-S0N0: 2025/07/20 19:04:50 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:04:50 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:04:50 messageHandle.go:270: S0N0: this round of pbft 3 is end 
-S0N0: 2025/07/20 19:04:50 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:04:51 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 923 
-S0N0: 2025/07/20 19:04:52 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1630 
-S0N0: 2025/07/20 19:04:53 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1656 
-S0N0: 2025/07/20 19:04:54 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 700 
-S0N0: 2025/07/20 19:04:54 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 3
-S0N0: 2025/07/20 19:04:54 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:04:55 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 911 
-S0N0: 2025/07/20 19:04:56 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1538 
-S0N0: 2025/07/20 19:04:57 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1398 
-S0N0: 2025/07/20 19:04:58 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:04:58 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:04:58 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 621 
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:04:58 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:58 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:58 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:04:58 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:58 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:04:58 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:04:58 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:04:58 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:04:58 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:04:58 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:04:58 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 4...now height = 3 
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 4... 
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 4 
-S0N0: 2025/07/20 19:04:58 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:04:58 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:04:58 messageHandle.go:270: S0N0: this round of pbft 4 is end 
-S0N0: 2025/07/20 19:04:59 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:04:59 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1486 
-S0N0: 2025/07/20 19:05:00 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 617 
-S0N0: 2025/07/20 19:05:01 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 68 
-S0N0: 2025/07/20 19:05:02 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 209 
-S0N0: 2025/07/20 19:05:02 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 4
-S0N0: 2025/07/20 19:05:02 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:05:03 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 770 
-S0N0: 2025/07/20 19:05:05 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1597 
-S0N0: 2025/07/20 19:05:06 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1530 
-S0N0: 2025/07/20 19:05:06 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:06 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:06 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:06 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:06 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:06 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:06 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:06 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:06 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:06 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:05:06 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:05:06 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:05:06 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 5...now height = 4 
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 5... 
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 5 
-S0N0: 2025/07/20 19:05:06 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:05:06 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:05:06 messageHandle.go:270: S0N0: this round of pbft 5 is end 
-S0N0: 2025/07/20 19:05:06 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:05:07 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1379 
-S0N0: 2025/07/20 19:05:08 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 767 
-S0N0: 2025/07/20 19:05:09 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1486 
-S0N0: 2025/07/20 19:05:10 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1558 
-S0N0: 2025/07/20 19:05:11 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 5
-S0N0: 2025/07/20 19:05:11 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:05:11 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 673 
-S0N0: 2025/07/20 19:05:12 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 779 
-S0N0: 2025/07/20 19:05:13 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1500 
-S0N0: 2025/07/20 19:05:14 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1431 
-S0N0: 2025/07/20 19:05:14 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:14 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:14 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:14 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:14 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:14 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:14 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:14 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:14 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:14 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:14 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:14 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:05:14 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:14 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:05:14 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:05:14 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:14 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:14 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 6...now height = 5 
-S0N0: 2025/07/20 19:05:15 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 6... 
-S0N0: 2025/07/20 19:05:15 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 6 
-S0N0: 2025/07/20 19:05:15 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:05:15 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:05:15 messageHandle.go:270: S0N0: this round of pbft 6 is end 
-S0N0: 2025/07/20 19:05:15 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:05:15 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 533 
-S0N0: 2025/07/20 19:05:16 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1595 
-S0N0: 2025/07/20 19:05:17 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1544 
-S0N0: 2025/07/20 19:05:18 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 692 
-S0N0: 2025/07/20 19:05:19 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 6
-S0N0: 2025/07/20 19:05:19 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:05:19 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1543 
-S0N0: 2025/07/20 19:05:20 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1377 
-S0N0: 2025/07/20 19:05:21 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 646 
-S0N0: 2025/07/20 19:05:22 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:22 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:22 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 309 
-S0N0: 2025/07/20 19:05:22 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:22 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:22 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:22 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:22 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:22 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:22 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:22 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:22 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:22 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:22 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:05:22 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:05:22 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:05:22 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:22 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:22 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 7...now height = 6 
-S0N0: 2025/07/20 19:05:23 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 7... 
-S0N0: 2025/07/20 19:05:23 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 7 
-S0N0: 2025/07/20 19:05:23 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:05:23 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:05:23 messageHandle.go:270: S0N0: this round of pbft 7 is end 
-S0N0: 2025/07/20 19:05:23 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:05:23 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 74 
-S0N0: 2025/07/20 19:05:24 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 140 
-S0N0: 2025/07/20 19:05:25 pbft.go:302: EvolveGCN S0N0: received node state collection request
-S0N0: 2025/07/20 19:05:25 pbft.go:313: EvolveGCN S0N0: collected 1 state snapshots for feature collection
-S0N0: 2025/07/20 19:05:25 pbft.go:334: EvolveGCN S0N0: feature data sent to supervisor
-S0N0: 2025/07/20 19:05:27 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 7
-S0N0: 2025/07/20 19:05:27 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:05:30 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:30 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:30 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:30 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:30 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:30 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:30 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:30 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:30 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:30 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:05:30 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:05:30 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:05:30 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 8...now height = 7 
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 8... 
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 8 
-S0N0: 2025/07/20 19:05:30 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:05:30 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:05:30 messageHandle.go:270: S0N0: this round of pbft 8 is end 
-S0N0: 2025/07/20 19:05:30 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:05:34 pbftOutside_moduleEvolveGCN.go:29: EvolveGCN: received partition message, triggering node feature collection
-S0N0: 2025/07/20 19:05:34 pbftOutside_moduleEvolveGCN.go:102: EvolveGCN: received partition message from supervisor
-S0N0: 2025/07/20 19:05:34 pbftOutside_moduleEvolveGCN.go:113: EvolveGCN S0N0 : has received partition message
-S0N0: 2025/07/20 19:05:34 pbftOutside_moduleEvolveGCN.go:132: EvolveGCN ready message from shard 1, seqid is 8
-S0N0: 2025/07/20 19:05:38 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 587 
-S0N0: 2025/07/20 19:05:38 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:26: EvolveGCN: ready to partition
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:281: EvolveGCN: Ready for partition
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:313: EvolveGCN: The size of tx pool is:  30117
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:348: EvolveGCN: The txSend to shard 1 is generated 
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:361: EvolveGCN: The message to shard 1 is sent
-S0N0: 2025/07/20 19:05:38 pbftInside_moduleEvolveGCN.go:363: EvolveGCN: after sending, The size of tx pool is:  11124
-S0N0: 2025/07/20 19:05:39 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 552 
-S0N0: 2025/07/20 19:05:39 pbftOutside_moduleEvolveGCN.go:143: EvolveGCN S0N0 has added the accoutStateandTx from 1 to pool
-S0N0: 2025/07/20 19:05:39 pbftOutside_moduleEvolveGCN.go:149: EvolveGCN S0N0 has added all accoutStateandTx~~~
-S0N0: 2025/07/20 19:05:40 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1189 
-S0N0: 2025/07/20 19:05:40 pbftInside_moduleEvolveGCN.go:374: EvolveGCN S0N0 : begin partition proposing
-S0N0: 2025/07/20 19:05:40 pbftInside_moduleEvolveGCN.go:383: EvolveGCN: The number of ReceivedNewTx:  14648
-S0N0: 2025/07/20 19:05:40 pbftInside_moduleEvolveGCN.go:393: EvolveGCN: The size of txpool:  27513
-S0N0: 2025/07/20 19:05:40 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:40 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:40 pbftInside_moduleEvolveGCN.go:63: S0N0 : a partition block
-S0N0: 2025/07/20 19:05:40 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:40 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:40 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:40 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:40 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:40 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:40 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:40 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:40 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:05:41 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:05:41 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:05:41 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:98: EvolveGCN: received partition msg, going to perform partition
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:425: EvolveGCN: 22788 key-vals are updated
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:428: EvolveGCN: 5567 addrs to add
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:429: EvolveGCN: 5567 accountstates to add
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:439: EvolveGCN: AccountTransferRound updated from 0 to 1
-S0N0: 2025/07/20 19:05:41 pbftInside_moduleEvolveGCN.go:122: EvolveGCN: Sent partition epoch update message with epoch 1
-S0N0: 2025/07/20 19:05:41 messageHandle.go:270: S0N0: this round of pbft 9 is end 
-S0N0: 2025/07/20 19:05:41 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:05:41 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 496 
-S0N0: 2025/07/20 19:05:42 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 499 
-S0N0: 2025/07/20 19:05:43 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 9
-S0N0: 2025/07/20 19:05:43 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:05:43 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1186 
-S0N0: 2025/07/20 19:05:44 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 492 
-S0N0: 2025/07/20 19:05:45 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 615 
-S0N0: 2025/07/20 19:05:46 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:46 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:46 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1325 
-S0N0: 2025/07/20 19:05:46 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:46 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:46 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:46 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:46 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:46 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:46 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:46 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:46 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:46 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:46 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:05:46 messageHandle.go:233: S0N0 received the Commit from ...0
-S0N0: 2025/07/20 19:05:46 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:05:46 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:47 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:47 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 10...now height = 9 
-S0N0: 2025/07/20 19:05:47 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 10... 
-S0N0: 2025/07/20 19:05:47 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 10 
-S0N0: 2025/07/20 19:05:47 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:05:47 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:05:47 messageHandle.go:270: S0N0: this round of pbft 10 is end 
-S0N0: 2025/07/20 19:05:47 messageHandle.go:280: S0N0 get sequenceLock unlocked...
-S0N0: 2025/07/20 19:05:47 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 359 
-S0N0: 2025/07/20 19:05:48 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 51 
-S0N0: 2025/07/20 19:05:49 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 89 
-S0N0: 2025/07/20 19:05:50 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 558 
-S0N0: 2025/07/20 19:05:51 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 10
-S0N0: 2025/07/20 19:05:51 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
-S0N0: 2025/07/20 19:05:51 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 701 
-S0N0: 2025/07/20 19:05:52 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1273 
-S0N0: 2025/07/20 19:05:53 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 517 
-S0N0: 2025/07/20 19:05:54 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
-S0N0: 2025/07/20 19:05:54 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
-S0N0: 2025/07/20 19:05:54 messageHandle.go:61: S0N0 put the request into the pool ...
-S0N0: 2025/07/20 19:05:54 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
-S0N0: 2025/07/20 19:05:54 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
-S0N0: 2025/07/20 19:05:54 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:54 messageHandle.go:141: S0N0 : has broadcast the prepare message 
-S0N0: 2025/07/20 19:05:54 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:54 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:54 messageHandle.go:152: S0N0 : received the Prepare ...
-S0N0: 2025/07/20 19:05:54 messageHandle.go:188: S0N0 : is going to commit
-S0N0: 2025/07/20 19:05:54 messageHandle.go:203: S0N0 : commit is broadcast
-S0N0: 2025/07/20 19:05:54 messageHandle.go:233: S0N0 received the Commit from ...1
-S0N0: 2025/07/20 19:05:54 messageHandle.go:233: S0N0 received the Commit from ...2
-S0N0: 2025/07/20 19:05:54 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 558 
-S0N0: 2025/07/20 19:05:54 messageHandle.go:233: S0N0 received the Commit from ...3
-S0N0: 2025/07/20 19:05:55 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
-S0N0: 2025/07/20 19:05:55 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
-S0N0: 2025/07/20 19:05:55 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 11...now height = 10 
-S0N0: 2025/07/20 19:05:55 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 11... 
-S0N0: 2025/07/20 19:05:55 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 11 
-S0N0: 2025/07/20 19:05:55 toolFuncs.go:134: S0N0 : sended relay txs to 1
-S0N0: 2025/07/20 19:05:55 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
-S0N0: 2025/07/20 19:05:55 messageHandle.go:270: S0N0: this round of pbft 11 is end 
+S0N0: 2025/07/20 20:38:35 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1362 
+S0N0: 2025/07/20 20:38:36 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1599 
+S0N0: 2025/07/20 20:38:37 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 468 
+S0N0: 2025/07/20 20:38:38 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 957 
+S0N0: 2025/07/20 20:38:38 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:38:38 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:38:38 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:38:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:38 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:38:38 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:38:38 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:38:38 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:38:38 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:38:38 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 19...now height = 18 
+S0N0: 2025/07/20 20:38:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 19... 
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 19 
+S0N0: 2025/07/20 20:38:38 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:38:38 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:38:38 messageHandle.go:270: S0N0: this round of pbft 19 is end 
+S0N0: 2025/07/20 20:38:38 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:38:39 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1446 
+S0N0: 2025/07/20 20:38:40 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1191 
+S0N0: 2025/07/20 20:38:41 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 18
+S0N0: 2025/07/20 20:38:41 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:38:41 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 691 
+S0N0: 2025/07/20 20:38:42 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 734 
+S0N0: 2025/07/20 20:38:43 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 60 
+S0N0: 2025/07/20 20:38:44 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 70 
+S0N0: 2025/07/20 20:38:45 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1216 
+S0N0: 2025/07/20 20:38:46 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 706 
+S0N0: 2025/07/20 20:38:46 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:38:46 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:38:46 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:38:46 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:46 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:46 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:46 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:38:46 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:38:46 messageHandle.go:233: S0N0 received the Commit from ...3
+S0N0: 2025/07/20 20:38:46 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:38:46 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:38:46 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 20...now height = 19 
+S0N0: 2025/07/20 20:38:46 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 20... 
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 20 
+S0N0: 2025/07/20 20:38:46 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:38:46 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:38:46 messageHandle.go:270: S0N0: this round of pbft 20 is end 
+S0N0: 2025/07/20 20:38:46 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:38:47 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1367 
+S0N0: 2025/07/20 20:38:48 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1167 
+S0N0: 2025/07/20 20:38:49 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 19
+S0N0: 2025/07/20 20:38:49 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:38:49 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 83 
+S0N0: 2025/07/20 20:38:50 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 110 
+S0N0: 2025/07/20 20:38:51 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 45 
+S0N0: 2025/07/20 20:38:52 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 923 
+S0N0: 2025/07/20 20:38:53 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1630 
+S0N0: 2025/07/20 20:38:54 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1656 
+S0N0: 2025/07/20 20:38:54 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:38:54 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:38:54 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:38:54 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:54 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:54 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:54 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:38:54 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:38:54 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:38:54 messageHandle.go:233: S0N0 received the Commit from ...3
+S0N0: 2025/07/20 20:38:54 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:38:54 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:38:54 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 21...now height = 20 
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 21... 
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 21 
+S0N0: 2025/07/20 20:38:54 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:38:54 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:38:54 messageHandle.go:270: S0N0: this round of pbft 21 is end 
+S0N0: 2025/07/20 20:38:54 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:38:55 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 700 
+S0N0: 2025/07/20 20:38:56 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 911 
+S0N0: 2025/07/20 20:38:57 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 20
+S0N0: 2025/07/20 20:38:57 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:38:57 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1538 
+S0N0: 2025/07/20 20:38:58 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1398 
+S0N0: 2025/07/20 20:38:59 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 621 
+S0N0: 2025/07/20 20:39:00 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1486 
+S0N0: 2025/07/20 20:39:01 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 617 
+S0N0: 2025/07/20 20:39:02 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:39:02 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 68 
+S0N0: 2025/07/20 20:39:02 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:39:02 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:02 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:39:02 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:02 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:02 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:39:02 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:39:02 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:39:02 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:39:02 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:39:02 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:39:02 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 22...now height = 21 
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 22... 
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 22 
+S0N0: 2025/07/20 20:39:02 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:39:02 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:39:02 messageHandle.go:270: S0N0: this round of pbft 22 is end 
+S0N0: 2025/07/20 20:39:02 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:39:03 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 209 
+S0N0: 2025/07/20 20:39:04 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 770 
+S0N0: 2025/07/20 20:39:05 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 21
+S0N0: 2025/07/20 20:39:05 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:39:05 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1597 
+S0N0: 2025/07/20 20:39:06 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1530 
+S0N0: 2025/07/20 20:39:07 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1379 
+S0N0: 2025/07/20 20:39:08 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 767 
+S0N0: 2025/07/20 20:39:09 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1486 
+S0N0: 2025/07/20 20:39:10 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:39:10 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:39:10 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:39:10 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:10 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1558 
+S0N0: 2025/07/20 20:39:10 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:10 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:10 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:39:10 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:39:10 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:39:10 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:39:10 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:39:10 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 23...now height = 22 
+S0N0: 2025/07/20 20:39:10 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 23... 
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 23 
+S0N0: 2025/07/20 20:39:10 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:39:10 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:39:10 messageHandle.go:270: S0N0: this round of pbft 23 is end 
+S0N0: 2025/07/20 20:39:10 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:39:11 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 673 
+S0N0: 2025/07/20 20:39:12 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 779 
+S0N0: 2025/07/20 20:39:13 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 22
+S0N0: 2025/07/20 20:39:13 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:39:13 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1500 
+S0N0: 2025/07/20 20:39:14 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1431 
+S0N0: 2025/07/20 20:39:15 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 533 
+S0N0: 2025/07/20 20:39:16 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1595 
+S0N0: 2025/07/20 20:39:17 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1544 
+S0N0: 2025/07/20 20:39:18 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:39:18 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:39:18 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:39:18 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:18 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:18 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:18 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:39:18 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:39:18 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:39:18 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:39:18 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:39:18 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 24...now height = 23 
+S0N0: 2025/07/20 20:39:18 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 24... 
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 24 
+S0N0: 2025/07/20 20:39:18 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:39:18 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:39:18 messageHandle.go:270: S0N0: this round of pbft 24 is end 
+S0N0: 2025/07/20 20:39:18 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:39:18 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 692 
+S0N0: 2025/07/20 20:39:19 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1543 
+S0N0: 2025/07/20 20:39:21 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1377 
+S0N0: 2025/07/20 20:39:21 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 23
+S0N0: 2025/07/20 20:39:21 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:39:22 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 646 
+S0N0: 2025/07/20 20:39:23 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 309 
+S0N0: 2025/07/20 20:39:24 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 74 
+S0N0: 2025/07/20 20:39:25 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 140 
+S0N0: 2025/07/20 20:39:26 pbft.go:302: EvolveGCN S0N0: received node state collection request
+S0N0: 2025/07/20 20:39:26 pbft.go:313: EvolveGCN S0N0: collected 1 state snapshots for feature collection
+S0N0: 2025/07/20 20:39:26 pbft.go:334: EvolveGCN S0N0: feature data sent to supervisor
+S0N0: 2025/07/20 20:39:26 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:39:26 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:39:26 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:39:26 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:26 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:26 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:26 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:39:26 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:39:26 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:39:26 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:39:26 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:39:26 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 25...now height = 24 
+S0N0: 2025/07/20 20:39:26 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 25... 
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:141: S0N0 : main node is trying to send relay txs at height = 25 
+S0N0: 2025/07/20 20:39:26 toolFuncs.go:134: S0N0 : sended relay txs to 1
+S0N0: 2025/07/20 20:39:26 pbftInside_moduleEvolveGCN.go:197: S0N0 : sended excuted txs
+S0N0: 2025/07/20 20:39:26 messageHandle.go:270: S0N0: this round of pbft 25 is end 
+S0N0: 2025/07/20 20:39:26 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:39:29 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 24
+S0N0: 2025/07/20 20:39:29 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:39:30 pbftOutside_moduleEvolveGCN.go:29: EvolveGCN: received partition message, triggering node feature collection
+S0N0: 2025/07/20 20:39:30 pbftOutside_moduleEvolveGCN.go:102: EvolveGCN: received partition message from supervisor
+S0N0: 2025/07/20 20:39:30 pbftOutside_moduleEvolveGCN.go:113: EvolveGCN S0N0 : has received partition message
+S0N0: 2025/07/20 20:39:34 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1089 
+S0N0: 2025/07/20 20:39:34 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:39:34 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:39:34 pbftInside_moduleEvolveGCN.go:26: EvolveGCN: ready to partition
+S0N0: 2025/07/20 20:39:34 pbftInside_moduleEvolveGCN.go:281: EvolveGCN: Ready for partition
+S0N0: 2025/07/20 20:39:35 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 923 
+S0N0: 2025/07/20 20:39:36 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 690 
+S0N0: 2025/07/20 20:39:36 pbftOutside_moduleEvolveGCN.go:132: EvolveGCN ready message from shard 1, seqid is 25
+S0N0: 2025/07/20 20:39:37 pbftOutside_moduleEvolveGCN.go:143: EvolveGCN S0N0 has added the accoutStateandTx from 1 to pool
+S0N0: 2025/07/20 20:39:37 pbftOutside_moduleEvolveGCN.go:149: EvolveGCN S0N0 has added all accoutStateandTx~~~
+S0N0: 2025/07/20 20:39:37 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1127 
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:313: EvolveGCN: The size of tx pool is:  34201
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:348: EvolveGCN: The txSend to shard 1 is generated 
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:361: EvolveGCN: The message to shard 1 is sent
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:363: EvolveGCN: after sending, The size of tx pool is:  20500
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:374: EvolveGCN S0N0 : begin partition proposing
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:383: EvolveGCN: The number of ReceivedNewTx:  17512
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:393: EvolveGCN: The size of txpool:  38012
+S0N0: 2025/07/20 20:39:37 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:63: S0N0 : a partition block
+S0N0: 2025/07/20 20:39:37 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:39:37 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:37 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:39:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:38 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:39:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:38 messageHandle.go:188: S0N0 : is going to commit
+S0N0: 2025/07/20 20:39:38 messageHandle.go:203: S0N0 : commit is broadcast
+S0N0: 2025/07/20 20:39:38 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:39:38 messageHandle.go:233: S0N0 received the Commit from ...0
+S0N0: 2025/07/20 20:39:38 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:98: EvolveGCN: received partition msg, going to perform partition
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:425: EvolveGCN: 22217 key-vals are updated
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:428: EvolveGCN: 5520 addrs to add
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:429: EvolveGCN: 5520 accountstates to add
+S0N0: 2025/07/20 20:39:38 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:38 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1256 
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:439: EvolveGCN: AccountTransferRound updated from 0 to 1
+S0N0: 2025/07/20 20:39:38 pbftInside_moduleEvolveGCN.go:122: EvolveGCN: Sent partition epoch update message with epoch 1
+S0N0: 2025/07/20 20:39:38 messageHandle.go:270: S0N0: this round of pbft 26 is end 
+S0N0: 2025/07/20 20:39:38 messageHandle.go:280: S0N0 get sequenceLock unlocked...
+S0N0: 2025/07/20 20:39:39 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 554 
+S0N0: 2025/07/20 20:39:40 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1044 
+S0N0: 2025/07/20 20:39:41 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1021 
+S0N0: 2025/07/20 20:39:42 messageHandle.go:54: S0N0 get sequenceLock locked, now trying to propose...
+S0N0: 2025/07/20 20:39:42 pbftInside_moduleEvolveGCN.go:23: EvolveGCN: HandleinPropose
+S0N0: 2025/07/20 20:39:42 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 380 
+S0N0: 2025/07/20 20:39:42 messageHandle.go:61: S0N0 put the request into the pool ...
+S0N0: 2025/07/20 20:39:42 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:42 pbftInside_moduleEvolveGCN.go:81: S0N0 : the pre-prepare message is correct, putting it into the RequestPool. 
+S0N0: 2025/07/20 20:39:42 messageHandle.go:141: S0N0 : has broadcast the prepare message 
+S0N0: 2025/07/20 20:39:42 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:43 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1496 
+S0N0: 2025/07/20 20:39:44 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1943 
+S0N0: 2025/07/20 20:39:45 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1904 
+S0N0: 2025/07/20 20:39:46 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 911 
+S0N0: 2025/07/20 20:39:47 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 836 
+S0N0: 2025/07/20 20:39:48 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 433 
+S0N0: 2025/07/20 20:39:49 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1032 
+S0N0: 2025/07/20 20:39:50 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 937 
+S0N0: 2025/07/20 20:39:51 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 833 
+S0N0: 2025/07/20 20:39:52 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1220 
+S0N0: 2025/07/20 20:39:53 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1041 
+S0N0: 2025/07/20 20:39:54 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 489 
+S0N0: 2025/07/20 20:39:55 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1287 
+S0N0: 2025/07/20 20:39:56 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1928 
+S0N0: 2025/07/20 20:39:57 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1921 
+S0N0: 2025/07/20 20:39:58 view_change.go:20: Main node is time out, now trying to view change. 
+S0N0: 2025/07/20 20:39:58 view_change.go:37: View change message is broadcasted. 
+S0N0: 2025/07/20 20:39:58 view_change.go:53: Received view change message from Node 0
+S0N0: 2025/07/20 20:39:58 view_change.go:53: Received view change message from Node 2
+S0N0: 2025/07/20 20:39:58 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1320 
+S0N0: 2025/07/20 20:39:59 view_change.go:53: Received view change message from Node 1
+S0N0: 2025/07/20 20:39:59 view_change.go:85: Received new view message from Node 0
+S0N0: 2025/07/20 20:39:59 view_change.go:85: Received new view message from Node 2
+S0N0: 2025/07/20 20:39:59 view_change.go:85: Received new view message from Node 1
+S0N0: 2025/07/20 20:39:59 view_change.go:93: New view is updated.
+S0N0: 2025/07/20 20:39:59 view_change.go:85: Received new view message from Node 3
+S0N0: 2025/07/20 20:39:59 pbftInside_moduleEvolveGCN.go:53: EvolveGCN: HandleinPrePrepare
+S0N0: 2025/07/20 20:39:59 pbftInside_moduleEvolveGCN.go:67: S0N0 : not a valid block
+S0N0: 2025/07/20 20:39:59 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:59 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:39:59 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:01 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 26
+S0N0: 2025/07/20 20:40:01 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:40:07 messageHandle.go:119: S0N0 : the Sequence id is not consistent, so refuse to prepare. 
+S0N0: 2025/07/20 20:40:07 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:07 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:07 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:09 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 27
+S0N0: 2025/07/20 20:40:09 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:40:15 messageHandle.go:119: S0N0 : the Sequence id is not consistent, so refuse to prepare. 
+S0N0: 2025/07/20 20:40:15 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:15 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:15 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:17 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 28
+S0N0: 2025/07/20 20:40:17 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:40:19 view_change.go:20: Main node is time out, now trying to view change. 
+S0N0: 2025/07/20 20:40:19 view_change.go:37: View change message is broadcasted. 
+S0N0: 2025/07/20 20:40:19 view_change.go:53: Received view change message from Node 0
+S0N0: 2025/07/20 20:40:23 messageHandle.go:119: S0N0 : the Sequence id is not consistent, so refuse to prepare. 
+S0N0: 2025/07/20 20:40:23 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:40:23 messageHandle.go:233: S0N0 received the Commit from ...1
+S0N0: 2025/07/20 20:40:23 messageHandle.go:176: S0N0 : inconsistent sequence ID, refuse to commit
+S0N0: 2025/07/20 20:40:23 messageHandle.go:176: S0N0 : inconsistent sequence ID, refuse to commit
+S0N0: 2025/07/20 20:40:23 messageHandle.go:176: S0N0 : inconsistent sequence ID, refuse to commit
+S0N0: 2025/07/20 20:40:23 messageHandle.go:233: S0N0 received the Commit from ...2
+S0N0: 2025/07/20 20:40:23 messageHandle.go:233: S0N0 received the Commit from ...3
+S0N0: 2025/07/20 20:40:23 messageHandle.go:241: S0N0 : has received 2f + 1 commits ... 
+S0N0: 2025/07/20 20:40:23 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:23 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:23 pbftInside_moduleEvolveGCN.go:92: EvolveGCN: HandleinCommit
+S0N0: 2025/07/20 20:40:23 messageHandle.go:152: S0N0 : received the Prepare ...
+S0N0: 2025/07/20 20:40:23 pbftInside_moduleEvolveGCN.go:130: S0N0 : adding the block 28...now height = 26 
+S0N0: 2025/07/20 20:40:23 pbftInside_moduleEvolveGCN.go:136: S0N0 : added the block 28... 
+S0N0: 2025/07/20 20:40:23 messageHandle.go:270: S0N0: this round of pbft 27 is end 
+S0N0: 2025/07/20 20:40:23 pbft.go:302: EvolveGCN S0N0: received node state collection request
+S0N0: 2025/07/20 20:40:23 pbft.go:313: EvolveGCN S0N0: collected 3 state snapshots for feature collection
+S0N0: 2025/07/20 20:40:23 pbft.go:334: EvolveGCN S0N0: feature data sent to supervisor
+S0N0: 2025/07/20 20:40:25 pbftOutside_moduleEvolveGCN.go:55: EvolveGCN S0N0 : has received relay txs from shard 1, the senderSeq is 29
+S0N0: 2025/07/20 20:40:25 pbftOutside_moduleEvolveGCN.go:60: EvolveGCN S0N0 : has handled relay txs msg
+S0N0: 2025/07/20 20:40:25 pbft.go:342: S0N0 : handling stop and collect message
+S0N0: 2025/07/20 20:40:26 pbft.go:356: S0N0 : collected 3 state snapshots, preparing to send batch
+S0N0: 2025/07/20 20:40:26 pbft.go:388: S0N0 : batch data sent successfully
+S0N0: 2025/07/20 20:40:26 pbft.go:286: handling stop message
+S0N0: 2025/07/20 20:40:26 pbft.go:291: handled stop message in TCPListen Routine
+S0N0: 2025/07/20 20:40:26 messageHandle.go:81: S0N0 get stopSignal in Propose Routine, now stop...
+0: 2025/07/20 19:05:55 messageHandle.go:270: S0N0: this round of pbft 11 is end 
 S0N0: 2025/07/20 19:05:55 messageHandle.go:280: S0N0 get sequenceLock unlocked...
 S0N0: 2025/07/20 19:05:56 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 1120 
 S0N0: 2025/07/20 19:05:57 pbftOutside_moduleEvolveGCN.go:97: EvolveGCN S0N0 : has handled injected txs msg, txs: 392 

@@ -102,7 +102,7 @@ def test_empty_shard_handling():
         
         # 分析分片结果
         hard_assignment = torch.argmax(S_t, dim=1)
-        shard_sizes = torch.bincount(hard_assignment, minlength=K_t)
+        shard_sizes = torch.bincount(hard_assignment, minlength=int(K_t))
         
         # 统计信息
         empty_shards = torch.sum(shard_sizes == 0).item()

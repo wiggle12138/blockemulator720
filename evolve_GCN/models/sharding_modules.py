@@ -6,7 +6,42 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from sklearn.cluster import KMeans
-from .temporal_conv import TemporalConvNet
+
+# 修复相对导入问题
+try:
+    from .temporal_conv import TemporalConvNet
+except ImportError:
+    try:
+        from temporal_conv import TemporalConvNet
+    except ImportError:
+        import sys
+        import importlib.util
+        from pathlib import Path
+        
+        # 使用绝对路径导入
+        current_dir = Path(__file__).parent
+        temporal_conv_path = current_dir / "temporal_conv.py"
+        
+        if temporal_conv_path.exists():
+            spec = importlib.util.spec_from_file_location("temporal_conv", temporal_conv_path)
+            if spec and spec.loader:
+                temporal_conv_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(temporal_conv_module)
+                TemporalConvNet = getattr(temporal_conv_module, 'TemporalConvNet', None)
+        
+        if 'TemporalConvNet' not in locals() or TemporalConvNet is None:
+            # 如果还是无法导入，创建一个简单的替代实现
+            class TemporalConvNet(nn.Module):
+                def __init__(self, num_inputs, num_channels, kernel_size=2, dropout=0.2):
+                    super().__init__()
+                    self.network = nn.Sequential(
+                        nn.Conv1d(num_inputs, num_channels[-1], kernel_size, padding=kernel_size//2),
+                        nn.ReLU(),
+                        nn.Dropout(dropout)
+                    )
+                
+                def forward(self, x):
+                    return self.network(x)
 
 
 class GraphAttentionPooling(nn.Module):

@@ -1,79 +1,74 @@
-Supervisor: 2025/07/20 19:04:28 committee_evolvegcn.go:1437: EvolveGCN: Starting Python service warmup...
-Supervisor: 2025/07/20 19:04:30 committee_evolvegcn.go:812: EvolveGCN: Using system Python as fallback
-Supervisor: 2025/07/20 19:04:34 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:04:34 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 1362 transactions from shard 0
-Supervisor: 2025/07/20 19:04:37 committee_evolvegcn.go:1484: EvolveGCN: Python service warmup completed in 6.25 seconds
-Supervisor: 2025/07/20 19:04:37 committee_evolvegcn.go:1485: EvolveGCN: Warmup output: [PRELOAD] EvolveGCN预加载服务启动中...
+Supervisor: 2025/07/20 20:38:30 committee_evolvegcn.go:1437: EvolveGCN: Starting Python service warmup...
+Supervisor: 2025/07/20 20:38:35 committee_evolvegcn.go:1484: EvolveGCN: Python service warmup completed in 3.03 seconds
+Supervisor: 2025/07/20 20:38:35 committee_evolvegcn.go:1485: EvolveGCN: Warmup output: [PRELOAD] EvolveGCN预加载服务启动中...
 [PRELOAD] 正在加载PyTorch...
 [PRELOAD] 预热模型组件...
 [PRELOAD] 检测到CUDA，进行GPU预热...
 [PRELOAD] CUDA预热完成
 [PRELOAD] [SUCCESS] 模型预加载完成，设备: cuda
 [WARMUP] 预热完成，服务就绪
-Supervisor: 2025/07/20 19:04:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:04:38 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:04:42 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:04:42 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:04:46 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:04:46 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:04:50 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:04:50 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:04:54 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:04:54 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:04:59 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:04:59 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:03 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:05:03 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:05:07 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:05:07 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:11 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:05:11 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:05:15 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:05:15 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:19 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:05:19 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:05:23 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:05:23 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:174: EvolveGCN Epoch 1: Step 1 - Triggering node feature collection with confirmation...
-Supervisor: 2025/07/20 19:05:25 supervisor.go:269: Triggering node state collection with confirmation mechanism...
-Supervisor: 2025/07/20 19:05:25 supervisor.go:351: Sent node state requests to 8/8 nodes
-Supervisor: 2025/07/20 19:05:25 supervisor.go:290: Waiting for collection confirmation from all nodes...
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 1-0
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 0-0
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 0-3
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 1-1
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 1-2
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 0-2
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 1-3
-Supervisor: 2025/07/20 19:05:25 supervisor.go:379: Received node report from 0-1
-Supervisor: 2025/07/20 19:05:25 supervisor.go:302: All nodes confirmed collection completion
-Supervisor: 2025/07/20 19:05:25 supervisor.go:285: All nodes confirmed state collection completed
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:178: EvolveGCN Epoch 1: All nodes confirmed feature collection completed
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:183: EvolveGCN Epoch 1: Pre-reconfiguration CTX ratio: 0.2886
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:186: EvolveGCN Epoch 1: Step 3 - Running EvolveGCN partition algorithm...
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:299: EvolveGCN: Starting four-step partition pipeline...
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:302: EvolveGCN: Using pre-configured Python environment from config file...
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:812: EvolveGCN: Using system Python as fallback
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:319: EvolveGCN Step 1: Feature extraction...
-Supervisor: 2025/07/20 19:05:25 committee_evolvegcn.go:524: EvolveGCN Step 1: Extracting node features...
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:578: EvolveGCN Step 1: Extracted features for 22788 nodes
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:328: EvolveGCN: Calling Python four-step pipeline...
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:901: EvolveGCN: Preparing input for Python four-step pipeline...
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:916: EvolveGCN: Input JSON size: 18420544 bytes, contains 22788 nodes
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:925: EvolveGCN: Successfully wrote input file: evolvegcn_input.json
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:812: EvolveGCN: Using system Python as fallback
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:931: EvolveGCN: Executing Python four-step pipeline with: python
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:932: EvolveGCN: Input file: evolvegcn_input.json, Output file: evolvegcn_output.json
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:939: EvolveGCN: Input file size: 18420544 bytes
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:953: EvolveGCN: Setting working directory to: D:\Desktop\实验室\blockemulator720
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:964: EvolveGCN: Starting Python pipeline execution...
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:965: EvolveGCN: Command: python [python evolvegcn_go_interface.py --input evolvegcn_input.json --output evolvegcn_output.json]
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:968: EvolveGCN: Environment variables: [ALLUSERSPROFILE=C:\ProgramData APPDATA=C:\Users\86131\AppData\Roaming asl.log=Destination=file ChocolateyInstall=C:\ProgramData\chocolatey ChocolateyLastPathUpdate=133773366822157157 CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_7024_CTNGLEHPFZSMOGVR CommonProgramFiles=C:\Program Files\Common Files CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files CommonProgramW6432=C:\Program Files\Common Files COMPUTERNAME=LAPTOP-EMLB2M5J ComSpec=C:\WINDOWS\system32\cmd.exe CONDA_DEFAULT_ENV=blockemulator_torch CONDA_EXE=D:\Environment\Anaconda3\Scripts\conda.exe CONDA_PREFIX=D:\Environment\Anaconda_envs\envs\blockemulator_torch CONDA_PREFIX_1=D:\Environment\Anaconda3 CONDA_PROMPT_MODIFIER=(blockemulator_torch)  CONDA_PYTHON_EXE=D:\Environment\Anaconda3\python.exe CONDA_SHLVL=2 CUDA_PATH=D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4 CUDA_PATH_V11_4=D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4 curl=D:\Environment\curl-8.11.0_4-win64-mingw DriverData=C:\Windows\System32\Drivers\DriverData FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer FPS_BROWSER_USER_PROFILE_STRING=Default GoLand=D:\download apps\GoLand\GoLand 2024.2.3\bin; GOPATH=D:\Environment\GoWorks\go GOPROXY= https://goproxy.cn,direct GOROOT=D:\Environment\Go HOMEDRIVE=C: HOMEPATH=\Users\86131 LOCALAPPDATA=C:\Users\86131\AppData\Local LOGONSERVER=\\LAPTOP-EMLB2M5J NUMBER_OF_PROCESSORS=12 NVCUDASAMPLES11_4_ROOT=D:\Environment\Data_cuda\Data\NVIDIA Corporation\CUDA Samples\v11.4 NVCUDASAMPLES_ROOT=D:\Environment\Data_cuda\Data\NVIDIA Corporation\CUDA Samples\v11.4 NVTOOLSEXT_PATH=C:\Program Files\NVIDIA Corporation\NvToolsExt\ OneDrive=C:\Users\86131\OneDrive ORIGINAL_XDG_CURRENT_DESKTOP=undefined OS=Windows_NT Path=D:\Environment\Anaconda_envs\envs\blockemulator_torch;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\mingw-w64\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\usr\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Scripts;D:\Environment\Anaconda_envs\envs\blockemulator_torch\bin;D:\Environment\Anaconda3\condabin;D:\Environment\Go\bin;D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;C:\Program Files\Common Files\Oracle\Java\javapath;D:\Ubuntu\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;D:\VScode setting background\mingw64\bin;C:\Program Files\dotnet;D:\Environment\Go\bin;D:\Environment;C:\ProgramData\chocolatey\bin;D:\Program Files\MySQL\MySQL Server 8.0\bin;D:\Environment\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;D:\Environment\Java\jdk_21\bin;D:\download apps\Bandizip;D:\Environment\Anaconda3;D:\Environment\Anaconda3\Scripts;D:\Environment\Anaconda3\Library\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.2.0;D:\download apps\Typora;D:\Environment\Python\Scripts;D:\Environment\Python;C:\Users\86131\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;D:\Dev-Cpp\MinGW64\bin;.;D:\download apps\GoLand\GoLand 2024.2.3\bin;.;C:\Users\86131\go\bin;C:\Users\86131\AppData\Roaming\npm;D:\download apps\cursor\resources\app\bin;c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\scripts\noConfigScripts;c:\Users\86131\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL POWERSHELL_DISTRIBUTION_CHANNEL=PSES PROCESSOR_ARCHITECTURE=AMD64 PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD PROCESSOR_LEVEL=23 PROCESSOR_REVISION=6001 ProgramData=C:\ProgramData ProgramFiles=C:\Program Files ProgramFiles(x86)=C:\Program Files (x86) ProgramW6432=C:\Program Files PSExecutionPolicyPreference=Bypass PSModulePath=C:\Users\86131\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules;c:\Users\86131\.vscode\extensions\ms-vscode.powershell-2025.2.0\modules PUBLIC=C:\Users\Public SESSIONNAME=Console SSL_CERT_DIR=D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\ssl\certs SSL_CERT_FILE=D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\ssl\cacert.pem SystemDrive=C: SystemRoot=C:\WINDOWS TEMP=C:\Users\86131\AppData\Local\Temp TMP=C:\Users\86131\AppData\Local\Temp USERDOMAIN=LAPTOP-EMLB2M5J USERDOMAIN_ROAMINGPROFILE=LAPTOP-EMLB2M5J USERNAME=86131 USERPROFILE=C:\Users\86131 windir=C:\WINDOWS VSCODE_INJECTION=1 TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.99.0 LANG=zh_CN.UTF-8 COLORTERM=truecolor GIT_ASKPASS=d:\Microsoft VS Code\resources\app\extensions\git\dist\askpass.sh VSCODE_GIT_ASKPASS_NODE=D:\Microsoft VS Code\Code.exe VSCODE_GIT_ASKPASS_EXTRA_ARGS= VSCODE_GIT_ASKPASS_MAIN=d:\Microsoft VS Code\resources\app\extensions\git\dist\askpass-main.js VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-b83f55fd14-sock PYDEVD_DISABLE_FILE_VALIDATION=1 VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\.noConfigDebugAdapterEndpoints\endpoint-729383c9d0170df0.txt BUNDLED_DEBUGPY_PATH=c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy XML_CATALOG_FILES=file:///D:/Environment/Anaconda_envs/envs/blockemulator_torch/etc/xml/catalog _CONDA_EXE=D:\Environment\Anaconda3\Scripts\conda.exe _CONDA_ROOT=D:\Environment\Anaconda3 __CONDA_OPENSSL_CERT_DIR_SET=1 __CONDA_OPENSSL_CERT_FILE_SET=1 PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 PYTHONUTF8=1]
-Supervisor: 2025/07/20 19:05:26 committee_evolvegcn.go:984: EvolveGCN: Using encoding-safe preloaded service (fastest)
-Supervisor: 2025/07/20 19:05:27 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/20 19:05:27 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1013: EvolveGCN: Python pipeline execution completed
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1014: EvolveGCN: STDOUT: [INIT] EvolveGCN Preload Service starting
+Supervisor: 2025/07/20 20:38:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:38:38 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:38:41 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:38:41 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:38:46 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:38:46 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:38:49 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:38:49 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:38:54 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:38:54 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:38:57 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:38:57 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:39:02 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:39:02 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:39:05 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:39:05 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:39:10 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:39:10 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:39:13 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:39:13 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:39:18 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:39:18 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:39:21 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:39:21 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:174: EvolveGCN Epoch 1: Step 1 - Triggering node feature collection with confirmation...
+Supervisor: 2025/07/20 20:39:26 supervisor.go:269: Triggering node state collection with confirmation mechanism...
+Supervisor: 2025/07/20 20:39:26 supervisor.go:351: Sent node state requests to 8/8 nodes
+Supervisor: 2025/07/20 20:39:26 supervisor.go:290: Waiting for collection confirmation from all nodes...
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 0-0
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 1-3
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 0-3
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 0-1
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 0-2
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 1-0
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 1-1
+Supervisor: 2025/07/20 20:39:26 supervisor.go:379: Received node report from 1-2
+Supervisor: 2025/07/20 20:39:26 supervisor.go:302: All nodes confirmed collection completion
+Supervisor: 2025/07/20 20:39:26 supervisor.go:285: All nodes confirmed state collection completed
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:178: EvolveGCN Epoch 1: All nodes confirmed feature collection completed
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:183: EvolveGCN Epoch 1: Pre-reconfiguration CTX ratio: 0.2916
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:186: EvolveGCN Epoch 1: Step 3 - Running EvolveGCN partition algorithm...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:299: EvolveGCN: Starting four-step partition pipeline...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:302: EvolveGCN: Using pre-configured Python environment from config file...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:319: EvolveGCN Step 1: Feature extraction...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:524: EvolveGCN Step 1: Extracting node features...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:578: EvolveGCN Step 1: Extracted features for 22217 nodes
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:328: EvolveGCN: Calling Python four-step pipeline...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:901: EvolveGCN: Preparing input for Python four-step pipeline...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:916: EvolveGCN: Input JSON size: 17937381 bytes, contains 22217 nodes
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:925: EvolveGCN: Successfully wrote input file: evolvegcn_input.json
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:931: EvolveGCN: Executing Python four-step pipeline with: E:\Codefield\BlockEmulator\.venv\Scripts\python.exe
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:932: EvolveGCN: Input file: evolvegcn_input.json, Output file: evolvegcn_output.json
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:939: EvolveGCN: Input file size: 17937381 bytes
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:953: EvolveGCN: Setting working directory to: E:\Codefield\blockemulator720
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:964: EvolveGCN: Starting Python pipeline execution...
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:965: EvolveGCN: Command: E:\Codefield\BlockEmulator\.venv\Scripts\python.exe [E:\Codefield\BlockEmulator\.venv\Scripts\python.exe evolvegcn_go_interface.py --input evolvegcn_input.json --output evolvegcn_output.json]
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:968: EvolveGCN: Environment variables: [ALLUSERSPROFILE=C:\ProgramData APPCODE_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\appcode.vmoptions APPDATA=C:\Users\yuegao\AppData\Roaming CABAL_DIR=E:\cabal ChocolateyInstall=C:\Users\yuegao\AppData\Local\UniGetUI\Chocolatey ChocolateyLastPathUpdate=133955868131587124 CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_6276_EOCXTFQOCHXFYXUP CLASSPATH=E:\muJava\mujava.jar;E:\muJava\openjava.jar;D:\Program Files\Java\jdk1.8.0_102\lib\tools.jar;E:\muJava\junit-4.13.2.jar;E:\muJava\hamcrest-core-1.3.jar; CLION_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\clion.vmoptions CommonProgramFiles=C:\Program Files\Common Files CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files CommonProgramW6432=C:\Program Files\Common Files COMPUTERNAME=LAPTOP-0QNO8DMD ComSpec=C:\WINDOWS\system32\cmd.exe CUDA_HOME=E:\Program Files\NVIDlA GPU ComputingToolkit\CUDA\v12.9 CUDA_PATH=E:\Program Files\NVIDlA GPU ComputingToolkit\CUDA\v12.9 CUDA_PATH_V12_9=E:\Program Files\NVIDlA GPU ComputingToolkit\CUDA\v12.9 DATAGRIP_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\datagrip.vmoptions DATASPELL_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\dataspell.vmoptions DEVECOSTUDIO_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\devecostudio.vmoptions DriverData=C:\Windows\System32\Drivers\DriverData EFC_6440_1262719628=1 EFC_6440_1592913036=1 EFC_6440_2283032206=1 EFC_6440_2775293581=1 EFC_6440_3789132940=1 ERLANG_HOME=E:\Program Files\Erlang OTP GATEWAY_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\gateway.vmoptions GHCUP_INSTALL_BASE_PREFIX=E:\ GHCUP_MSYS2_ENV=MINGW64 GoLand=E:\Program Files\JetBrains\GoLand 2025.1.1\bin; GOLAND_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\goland.vmoptions GOPATH=E:\development\go HADOOP_HOME=E:\hadoop-2.8.3\hadoop-2.8.3 HOMEDRIVE=C: HOMEPATH=\Users\yuegao IDEA_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\idea.vmoptions IntelliJ IDEA=E:\Program Files\JetBrains\IntelliJ IDEA 2024.3\bin; IntelliJ IDEA Community Edition=E:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3\bin; JAVA_HOME=E:\Program Files\java\openjdk-22.0.2 JAVA_HOME22=E:\Program Files\java\openjdk-22.0.2 JAVA_HOME8=D:\Program Files\Java\jdk1.8.0_102 JETBRAINSCLIENT_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\jetbrainsclient.vmoptions JETBRAINS_CLIENT_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\jetbrains_client.vmoptions JMETER_HOME=E:\apache-jmeter-5.6.3\apache-jmeter-5.6.3 LIB=E:\msys64\ucrt64\lib LOCALAPPDATA=C:\Users\yuegao\AppData\Local LOGONSERVER=\\LAPTOP-0QNO8DMD NODE_HOME=E:\Nodejs NUMBER_OF_PROCESSORS=16 OneDrive=E:\OneDrive OneDriveConsumer=E:\OneDrive ORIGINAL_XDG_CURRENT_DESKTOP=undefined OS=Windows_NT Path=E:\Codefield\BlockEmulator\.venv/Scripts;D:\WindowsApps\Microsoft.PowerShell_7.5.0.0_x64__8wekyb3d8bbwe;C:\Windows\system32;E:\Programs\Python\Python38\;E:\Programs\Python\Python38\python.exe;E:\Programs\Python\Python38\Scripts;E:\ProgramData\anaconda3\python.exe;E:\ProgramData\anaconda3\Scripts;D:\vmware\bin\;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Git\cmd;C:\Program Files\dotnet\;D:\nodejs\;E:\ProgramData\chocolatey\bin;E:\Program Files\java\openjdk-22.0.2\bin;E:\Program Files\java\openjdk-22.0.2\jre\bin;E:\Program Files\Bandizip\;C:\Program Files\Docker\Docker\resources\bin;E:\Program Files\MATLAB\R2024a\runtime\win64;E:\Program Files\MATLAB\R2024a\bin;E:\ghcup\bin\;E:\Program Files\MySQL\MySQL Server 5.5\bin;E:\apache-maven-3.9.9\bin;D:\Program Files\sumatrapdf\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;E:\Program Files\CMake\bin;C:\Python312;E:\Program Files\typst;E:\Program Files\komorebi\bin\;E:\Program Files\whkd\bin\;E:\Program Files\draw.io\;E:\Program Files\Erlang OTP\bin;E:\Program Files\RabbitMQ Server\rabbitmq_server-4.0.7\sbin;E:\apache-jmeter-5.6.3\apache-jmeter-5.6.3\bin;E:\Program Files\gs\gs10.05.0\bin;E:\poppler-24.08.0\Library\bin;E:\poppler-24.08.0\dist;E:\Program Files\PDF24;E:\Nodejs;E:\Nodejs\node_moudules;E:\Nodejs\node_global\;E:\Nodejs\node_global\node_modules\spago;E:\major\bin;E:\Program Files (x86)\Tencent\微信web开发者工具\dll;E:\Redis\;E:\msys64\ucrt64\bin;E:\msys64\ucrt64\lib;C:\Users\yuegao\AppData\Roaming\Python\Python312\Scripts\;E:\hadoop-2.8.3\hadoop-2.8.3\bin;E:\Program Files\Go\bin;E:\Program Files\Kubernetes\Minikube;C:\Program Files\NVIDIA Corporation\Nsight Compute 2025.2.0\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;E:\Program Files\NVIDlA GPU ComputingToolkit\CUDA\v12.9\bin;E:\Program Files\NVIDlA GPU ComputingToolkit\CUDA\v12.9\libnvvp;E:\development\go\bin;E:\ProgramData\chocolatey\bin;E:\Program Files (x86)\Xshell8\;C:\Program Files\Pandoc\;C:\Users\yuegao\AppData\Local\UniGetUI\Chocolatey\bin;E:\Applications\Scoop\shims;C:\Users\yuegao\.cargo\bin;C:\Users\21404\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\21404\AppData\Local\Programs\Python\Python311\;C:\Users\yuegao\AppData\Local\Microsoft\WindowsApps;C:\Users\21404\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\mingw64\bin;C:\Users\yuegao\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\yuegao\AppData\Roaming\npm;D:\zig\zig-windows-x86_64-0.12.0-dev.1769+bf5ab5451;E:\Xilinx\Vivado\2019.2\bin;C:\Users\yuegao\AppData\Local\JetBrains\Toolbox\scripts;E:\ghcup\bin;E:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3\bin;E:\Program Files\JetBrains\PyCharm Community Edition 2024.2.3\bin;E:\Program Files\JetBrains\IntelliJ IDEA 2024.3\bin;C:\Users\yuegao\AppData\Local\Microsoft\WindowsApps;E:\Program Files\Project Graph;E:\Project Graph;C:\Users\yuegao\.dotnet\tools;C:\Users\yuegao\AppData\Local\Microsoft\WinGet\Links;;E:\ollama;C:\Users\yuegao\go\bin;E:\Program Files\JetBrains\GoLand 2025.1.1\bin;;E:\Program Files\JetBrains\PyCharm 2025.1.1.1\bin;C:\Users\yuegao\AppData\Local\Programs\pympress-1.8.6-x86_64.msi\;c:\Users\yuegao\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL PHPSTORM_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\phpstorm.vmoptions PROCESSOR_ARCHITECTURE=AMD64 PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 141 Stepping 1, GenuineIntel PROCESSOR_LEVEL=6 PROCESSOR_REVISION=8d01 ProgramData=C:\ProgramData ProgramFiles=C:\Program Files ProgramFiles(x86)=C:\Program Files (x86) ProgramW6432=C:\Program Files PSModulePath=C:\Users\yuegao\Documents\PowerShell\Modules;C:\Program Files\PowerShell\Modules;d:\windowsapps\microsoft.powershell_7.5.0.0_x64__8wekyb3d8bbwe\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules PUBLIC=C:\Users\Public PyCharm=E:\Program Files\JetBrains\PyCharm 2025.1.1.1\bin; PyCharm Community Edition=E:\Program Files\JetBrains\PyCharm Community Edition 2024.2.3\bin; PYCHARM_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\pycharm.vmoptions PYTHON_HOME=E:\Programs\Python\Python38 PYTHON_HOME310=C:\Program Files\Python310 PYTHON_HOME312=C:\Python312 PYTHON_HOME38=E:\Programs\Python\Python38 RABBITMQ_SERVER=E:\Program Files\RabbitMQ Server\rabbitmq_server-4.0.7 RIDER_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\rider.vmoptions RUBYMINE_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\rubymine.vmoptions SCOOP=E:\Applications\Scoop SESSIONNAME=Console SILICONFLOW_APIKEY=sk-kalasvoppeqvayfptetqdyenjlhtnumrwncwaohghzomkcjd STUDIO_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\studio.vmoptions SystemDrive=C: SystemRoot=C:\WINDOWS TEMP=C:\Users\yuegao\AppData\Local\Temp TESSDATA_PREFIX=E:\Program Files\Tesseract-OCR\tessdata TMP=C:\Users\yuegao\AppData\Local\Temp USERDOMAIN=LAPTOP-0QNO8DMD USERDOMAIN_ROAMINGPROFILE=LAPTOP-0QNO8DMD USERNAME=21404 USERPROFILE=C:\Users\yuegao VIRTUAL_ENV=E:\Codefield\BlockEmulator\.venv VIRTUAL_ENV_PROMPT=.venv WEBIDE_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\webide.vmoptions WEBSTORM_VM_OPTIONS=E:\Program Files\JetBrains\IDAEroot\vmoptions\webstorm.vmoptions windir=C:\WINDOWS ZES_ENABLE_SYSMAN=1 TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.102.0 LANG=zh_CN.UTF-8 COLORTERM=truecolor GIT_ASKPASS=c:\Users\yuegao\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\git\dist\askpass.sh VSCODE_GIT_ASKPASS_NODE=C:\Users\yuegao\AppData\Local\Programs\Microsoft VS Code\Code.exe VSCODE_GIT_ASKPASS_EXTRA_ARGS= VSCODE_GIT_ASKPASS_MAIN=c:\Users\yuegao\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\git\dist\askpass-main.js VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-1b0dfcdb09-sock VSCODE_INJECTION=1 PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 PYTHONUTF8=1]
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:984: EvolveGCN: Using encoding-safe preloaded service (fastest)
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
+Supervisor: 2025/07/20 20:39:26 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1013: EvolveGCN: Python pipeline execution completed
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1014: EvolveGCN: STDOUT: [INIT] EvolveGCN Preload Service starting
 [INIT] Input file: evolvegcn_input.json
 [INIT] Output file: evolvegcn_output.json
 [PRELOAD] EvolveGCN Preload Service starting...
@@ -82,106 +77,100 @@ Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1014: EvolveGCN: STDOUT: 
 [PRELOAD] CUDA detected, warming up GPU...
 [PRELOAD] CUDA warmup completed
 [PRELOAD] [SUCCESS] Model preloading completed, device: cuda
-[PROCESS] Processing request with 22788 nodes
-[PROCESS] [SUCCESS] Processing completed, time: 0.40s
+[PROCESS] Processing request with 22217 nodes
+[PROCESS] [SUCCESS] Processing completed, time: 0.34s
 [SUCCESS] EvolveGCN four-step pipeline completed
-[RESULT] Processed nodes: 22788.0
+[RESULT] Processed nodes: 22217.0
 [RESULT] Cross-shard edges: 0
 [RESULT] Performance score: 1.000
 [OUTPUT] Results saved to: evolvegcn_output.json
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1029: EvolveGCN: Output file created successfully, size: 1185556 bytes
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1033: EvolveGCN: Parsing pipeline output from: evolvegcn_output.json
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1040: EvolveGCN: Successfully parsed output, partition map size: 22788
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1043: EvolveGCN: Cleaning up temporary files...
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1047: EvolveGCN: Python pipeline completed, processed 22788 nodes with 0 cross-shard edges
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:336: EvolveGCN: Pipeline completed successfully. Cross-shard edges: 0
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:337: EvolveGCN: ✅ Real EvolveGCN algorithm active (CLPA placeholder replaced)
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:188: EvolveGCN Epoch 1: Partition completed, cross-shard edges: 0
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:192: EvolveGCN Epoch 1: Post-reconfiguration estimated CTX ratio: 0.0000
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:360: EvolveGCN Metrics: Epoch 1 - CTX ratio change: 0.2886 -> 0.0000 (reduction: 0.2886)
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:198: EvolveGCN Epoch 1: Step 6 - Sending partition messages with 4-second fixed wait...
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1491: EvolveGCN: Sending partition map with 4-second fixed wait for epoch 1...
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1511: EvolveGCN: Partition messages sent to 2 shards
-Supervisor: 2025/07/20 19:05:34 committee_evolvegcn.go:1514: EvolveGCN: Waiting 4 seconds for nodes to process reconfiguration...
-Supervisor: 2025/07/20 19:05:38 committee_evolvegcn.go:1517: EvolveGCN: Fixed wait completed for epoch 1
-Supervisor: 2025/07/20 19:05:38 committee_evolvegcn.go:211: EvolveGCN Epoch 1: Successfully completed with fixed 4-second wait
-Supervisor: 2025/07/20 19:05:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 0.
-Supervisor: 2025/07/20 19:05:38 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:456: EvolveGCN: epoch updated from 0 to 1 (from shard 1)
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:40 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:05:41 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
-Supervisor: 2025/07/20 19:05:43 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:43 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:05:47 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:05:47 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:51 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:51 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:05:55 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:05:55 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:05:59 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:05:59 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:06:03 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:06:03 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:06:07 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:06:07 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:06:11 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:06:11 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:06:15 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:06:15 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:06:19 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:06:19 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:06:23 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:06:23 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:06:27 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
-Supervisor: 2025/07/20 19:06:27 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 0
-Supervisor: 2025/07/20 19:06:28 committee_evolvegcn.go:227: EvolveGCN Final Epoch 2: Executing final reconfiguration...
-Supervisor: 2025/07/20 19:06:28 supervisor.go:269: Triggering node state collection with confirmation mechanism...
-Supervisor: 2025/07/20 19:06:28 supervisor.go:351: Sent node state requests to 8/8 nodes
-Supervisor: 2025/07/20 19:06:28 supervisor.go:290: Waiting for collection confirmation from all nodes...
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 1-2
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 0-2
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 1-0
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 1-3
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 0-3
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 1-1
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 0-0
-Supervisor: 2025/07/20 19:06:28 supervisor.go:379: Received node report from 0-1
-Supervisor: 2025/07/20 19:06:28 supervisor.go:302: All nodes confirmed collection completion
-Supervisor: 2025/07/20 19:06:28 supervisor.go:285: All nodes confirmed state collection completed
-Supervisor: 2025/07/20 19:06:31 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
-Supervisor: 2025/07/20 19:06:31 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:299: EvolveGCN: Starting four-step partition pipeline...
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:302: EvolveGCN: Using pre-configured Python environment from config file...
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:812: EvolveGCN: Using system Python as fallback
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:319: EvolveGCN Step 1: Feature extraction...
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:524: EvolveGCN Step 1: Extracting node features...
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:578: EvolveGCN Step 1: Extracted features for 31851 nodes
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:328: EvolveGCN: Calling Python four-step pipeline...
-Supervisor: 2025/07/20 19:06:33 committee_evolvegcn.go:901: EvolveGCN: Preparing input for Python four-step pipeline...
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:916: EvolveGCN: Input JSON size: 23397530 bytes, contains 31851 nodes
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:925: EvolveGCN: Successfully wrote input file: evolvegcn_input.json
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:812: EvolveGCN: Using system Python as fallback
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:931: EvolveGCN: Executing Python four-step pipeline with: python
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:932: EvolveGCN: Input file: evolvegcn_input.json, Output file: evolvegcn_output.json
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:939: EvolveGCN: Input file size: 23397530 bytes
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:953: EvolveGCN: Setting working directory to: D:\Desktop\实验室\blockemulator720
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:964: EvolveGCN: Starting Python pipeline execution...
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:965: EvolveGCN: Command: python [python evolvegcn_go_interface.py --input evolvegcn_input.json --output evolvegcn_output.json]
-Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:968: EvolveGCN: Environment variables: [ALLUSERSPROFILE=C:\ProgramData APPDATA=C:\Users\86131\AppData\Roaming asl.log=Destination=file ChocolateyInstall=C:\ProgramData\chocolatey ChocolateyLastPathUpdate=133773366822157157 CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_7024_CTNGLEHPFZSMOGVR CommonProgramFiles=C:\Program Files\Common Files CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files CommonProgramW6432=C:\Program Files\Common Files COMPUTERNAME=LAPTOP-EMLB2M5J ComSpec=C:\WINDOWS\system32\cmd.exe CONDA_DEFAULT_ENV=blockemulator_torch CONDA_EXE=D:\Environment\Anaconda3\Scripts\conda.exe CONDA_PREFIX=D:\Environment\Anaconda_envs\envs\blockemulator_torch CONDA_PREFIX_1=D:\Environment\Anaconda3 CONDA_PROMPT_MODIFIER=(blockemulator_torch)  CONDA_PYTHON_EXE=D:\Environment\Anaconda3\python.exe CONDA_SHLVL=2 CUDA_PATH=D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4 CUDA_PATH_V11_4=D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4 curl=D:\Environment\curl-8.11.0_4-win64-mingw DriverData=C:\Windows\System32\Drivers\DriverData FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer FPS_BROWSER_USER_PROFILE_STRING=Default GoLand=D:\download apps\GoLand\GoLand 2024.2.3\bin; GOPATH=D:\Environment\GoWorks\go GOPROXY= https://goproxy.cn,direct GOROOT=D:\Environment\Go HOMEDRIVE=C: HOMEPATH=\Users\86131 LOCALAPPDATA=C:\Users\86131\AppData\Local LOGONSERVER=\\LAPTOP-EMLB2M5J NUMBER_OF_PROCESSORS=12 NVCUDASAMPLES11_4_ROOT=D:\Environment\Data_cuda\Data\NVIDIA Corporation\CUDA Samples\v11.4 NVCUDASAMPLES_ROOT=D:\Environment\Data_cuda\Data\NVIDIA Corporation\CUDA Samples\v11.4 NVTOOLSEXT_PATH=C:\Program Files\NVIDIA Corporation\NvToolsExt\ OneDrive=C:\Users\86131\OneDrive ORIGINAL_XDG_CURRENT_DESKTOP=undefined OS=Windows_NT Path=D:\Environment\Anaconda_envs\envs\blockemulator_torch;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\mingw-w64\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\usr\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Scripts;D:\Environment\Anaconda_envs\envs\blockemulator_torch\bin;D:\Environment\Anaconda3\condabin;D:\Environment\Go\bin;D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;C:\Program Files\Common Files\Oracle\Java\javapath;D:\Ubuntu\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;D:\VScode setting background\mingw64\bin;C:\Program Files\dotnet;D:\Environment\Go\bin;D:\Environment;C:\ProgramData\chocolatey\bin;D:\Program Files\MySQL\MySQL Server 8.0\bin;D:\Environment\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;D:\Environment\Java\jdk_21\bin;D:\download apps\Bandizip;D:\Environment\Anaconda3;D:\Environment\Anaconda3\Scripts;D:\Environment\Anaconda3\Library\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.2.0;D:\download apps\Typora;D:\Environment\Python\Scripts;D:\Environment\Python;C:\Users\86131\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;D:\Dev-Cpp\MinGW64\bin;.;D:\download apps\GoLand\GoLand 2024.2.3\bin;.;C:\Users\86131\go\bin;C:\Users\86131\AppData\Roaming\npm;D:\download apps\cursor\resources\app\bin;c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\scripts\noConfigScripts;c:\Users\86131\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL POWERSHELL_DISTRIBUTION_CHANNEL=PSES PROCESSOR_ARCHITECTURE=AMD64 PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD PROCESSOR_LEVEL=23 PROCESSOR_REVISION=6001 ProgramData=C:\ProgramData ProgramFiles=C:\Program Files ProgramFiles(x86)=C:\Program Files (x86) ProgramW6432=C:\Program Files PSExecutionPolicyPreference=Bypass PSModulePath=C:\Users\86131\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules;c:\Users\86131\.vscode\extensions\ms-vscode.powershell-2025.2.0\modules PUBLIC=C:\Users\Public SESSIONNAME=Console SSL_CERT_DIR=D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\ssl\certs SSL_CERT_FILE=D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\ssl\cacert.pem SystemDrive=C: SystemRoot=C:\WINDOWS TEMP=C:\Users\86131\AppData\Local\Temp TMP=C:\Users\86131\AppData\Local\Temp USERDOMAIN=LAPTOP-EMLB2M5J USERDOMAIN_ROAMINGPROFILE=LAPTOP-EMLB2M5J USERNAME=86131 USERPROFILE=C:\Users\86131 windir=C:\WINDOWS VSCODE_INJECTION=1 TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.99.0 LANG=zh_CN.UTF-8 COLORTERM=truecolor GIT_ASKPASS=d:\Microsoft VS Code\resources\app\extensions\git\dist\askpass.sh VSCODE_GIT_ASKPASS_NODE=D:\Microsoft VS Code\Code.exe VSCODE_GIT_ASKPASS_EXTRA_ARGS= VSCODE_GIT_ASKPASS_MAIN=d:\Microsoft VS Code\resources\app\extensions\git\dist\askpass-main.js VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-b83f55fd14-sock PYDEVD_DISABLE_FILE_VALIDATION=1 VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\.noConfigDebugAdapterEndpoints\endpoint-729383c9d0170df0.txt BUNDLED_DEBUGPY_PATH=c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy XML_CATALOG_FILES=file:///D:/Environment/Anaconda_envs/envs/blockemulator_torch/etc/xml/catalog _CONDA_EXE=D:\Environment\Anaconda3\Scripts\conda.exe _CONDA_ROOT=D:\Environment\Anaconda3 __CONDA_OPENSSL_CERT_DIR_SET=1 __CONDA_OPENSSL_CERT_FILE_SET=1 PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 PYTHONUTF8=1]
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1029: EvolveGCN: Output file created successfully, size: 1155908 bytes
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1033: EvolveGCN: Parsing pipeline output from: evolvegcn_output.json
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1040: EvolveGCN: Successfully parsed output, partition map size: 22217
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1043: EvolveGCN: Cleaning up temporary files...
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1047: EvolveGCN: Python pipeline completed, processed 22217 nodes with 0 cross-shard edges
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:336: EvolveGCN: Pipeline completed successfully. Cross-shard edges: 0
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:337: EvolveGCN: ✅ Real EvolveGCN algorithm active (CLPA placeholder replaced)
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:188: EvolveGCN Epoch 1: Partition completed, cross-shard edges: 0
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:192: EvolveGCN Epoch 1: Post-reconfiguration estimated CTX ratio: 0.0000
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:360: EvolveGCN Metrics: Epoch 1 - CTX ratio change: 0.2916 -> 0.0000 (reduction: 0.2916)
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:198: EvolveGCN Epoch 1: Step 6 - Sending partition messages with 4-second fixed wait...
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1491: EvolveGCN: Sending partition map with 4-second fixed wait for epoch 1...
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1511: EvolveGCN: Partition messages sent to 2 shards
+Supervisor: 2025/07/20 20:39:30 committee_evolvegcn.go:1514: EvolveGCN: Waiting 4 seconds for nodes to process reconfiguration...
+Supervisor: 2025/07/20 20:39:34 committee_evolvegcn.go:1517: EvolveGCN: Fixed wait completed for epoch 1
+Supervisor: 2025/07/20 20:39:34 committee_evolvegcn.go:211: EvolveGCN Epoch 1: Successfully completed with fixed 4-second wait
+Supervisor: 2025/07/20 20:39:34 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/20 20:39:34 committee_evolvegcn.go:476: EvolveGCN: Processing block info with 4000 transactions from shard 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:456: EvolveGCN: epoch updated from 0 to 1 (from shard 0)
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:39:38 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:39:59 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:39:59 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:40:01 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:40:01 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:40:07 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:40:07 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:40:09 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:40:09 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:40:15 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:40:15 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:40:17 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:40:17 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:40:23 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 0 in epoch 1.
+Supervisor: 2025/07/20 20:40:23 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 0 with epoch 1
+Supervisor: 2025/07/20 20:40:23 supervisor.go:178: Supervisor: triggering node state collection before stop&collect...
+Supervisor: 2025/07/20 20:40:23 supervisor.go:269: Triggering node state collection with confirmation mechanism...
+Supervisor: 2025/07/20 20:40:23 supervisor.go:351: Sent node state requests to 8/8 nodes
+Supervisor: 2025/07/20 20:40:23 supervisor.go:290: Waiting for collection confirmation from all nodes...
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 1-0
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 1-2
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 0-3
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 1-1
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 0-1
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 1-3
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 0-0
+Supervisor: 2025/07/20 20:40:23 supervisor.go:379: Received node report from 0-2
+Supervisor: 2025/07/20 20:40:23 supervisor.go:302: All nodes confirmed collection completion
+Supervisor: 2025/07/20 20:40:23 supervisor.go:285: All nodes confirmed state collection completed
+Supervisor: 2025/07/20 20:40:25 committee_evolvegcn.go:449: EvolveGCN Supervisor: received from shard 1 in epoch 1.
+Supervisor: 2025/07/20 20:40:25 committee_evolvegcn.go:470: EvolveGCN: Received partition request message from shard 1 with epoch 1
+Supervisor: 2025/07/20 20:40:25 supervisor.go:185: Supervisor: now sending cstop_and_collect message to all nodes
+Supervisor: 2025/07/20 20:40:35 supervisor.go:195: Supervisor: waiting for 8 nodes to report features...
+Supervisor: 2025/07/20 20:40:35 supervisor.go:237: All node reports received.
+Supervisor: 2025/07/20 20:40:35 supervisor.go:244: Received reports from nodes: [0-3 1-1 0-1 1-3 0-0 0-2 1-0 1-2]
+Supervisor: 2025/07/20 20:40:35 supervisor.go:222: Supervisor: now Closing
+Supervisor: 2025/07/20 20:40:35 supervisor.go:429: Closing...
+Supervisor: 2025/07/20 20:40:35 supervisor.go:431: Average_TPS
+Supervisor: 2025/07/20 20:40:35 supervisor.go:432: [787.2052470212049] 787.2052470212049
+Supervisor: 2025/07/20 20:40:35 supervisor.go:431: Transaction_Confirm_Latency
+Supervisor: 2025/07/20 20:40:35 supervisor.go:432: [17.868108726265337] 17.868108726265337
+Supervisor: 2025/07/20 20:40:35 supervisor.go:431: CrossTransaction_ratio
+Supervisor: 2025/07/20 20:40:35 supervisor.go:432: [0.4129639441879242 39633 16367] 0.4129639441879242
+Supervisor: 2025/07/20 20:40:35 supervisor.go:431: Tx_number
+Supervisor: 2025/07/20 20:40:35 supervisor.go:432: [39633] 39633
+Supervisor: 2025/07/20 20:40:35 supervisor.go:431: Tx_Details
+Supervisor: 2025/07/20 20:40:36 supervisor.go:432: [] 0
+Supervisor: 2025/07/20 20:40:36 supervisor.go:431: Node_Features
+Supervisor: 2025/07/20 20:40:36 supervisor.go:432: [0 39.65909090909091 38.77272727272727] 44
+Supervisor: 2025/07/20 20:40:36 supervisor.go:437: Outputting node features data...
+Supervisor: 2025/07/20 20:40:36 supervisor.go:438: Node_Features
+Supervisor: 2025/07/20 20:40:36 supervisor.go:439: [0 39.65909090909091 38.77272727272727] 44
+ATH_V11_4=D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4 curl=D:\Environment\curl-8.11.0_4-win64-mingw DriverData=C:\Windows\System32\Drivers\DriverData FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer FPS_BROWSER_USER_PROFILE_STRING=Default GoLand=D:\download apps\GoLand\GoLand 2024.2.3\bin; GOPATH=D:\Environment\GoWorks\go GOPROXY= https://goproxy.cn,direct GOROOT=D:\Environment\Go HOMEDRIVE=C: HOMEPATH=\Users\86131 LOCALAPPDATA=C:\Users\86131\AppData\Local LOGONSERVER=\\LAPTOP-EMLB2M5J NUMBER_OF_PROCESSORS=12 NVCUDASAMPLES11_4_ROOT=D:\Environment\Data_cuda\Data\NVIDIA Corporation\CUDA Samples\v11.4 NVCUDASAMPLES_ROOT=D:\Environment\Data_cuda\Data\NVIDIA Corporation\CUDA Samples\v11.4 NVTOOLSEXT_PATH=C:\Program Files\NVIDIA Corporation\NvToolsExt\ OneDrive=C:\Users\86131\OneDrive ORIGINAL_XDG_CURRENT_DESKTOP=undefined OS=Windows_NT Path=D:\Environment\Anaconda_envs\envs\blockemulator_torch;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\mingw-w64\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\usr\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\bin;D:\Environment\Anaconda_envs\envs\blockemulator_torch\Scripts;D:\Environment\Anaconda_envs\envs\blockemulator_torch\bin;D:\Environment\Anaconda3\condabin;D:\Environment\Go\bin;D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;D:\Environment\Data_cuda\Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;C:\Program Files\Common Files\Oracle\Java\javapath;D:\Ubuntu\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;D:\VScode setting background\mingw64\bin;C:\Program Files\dotnet;D:\Environment\Go\bin;D:\Environment;C:\ProgramData\chocolatey\bin;D:\Program Files\MySQL\MySQL Server 8.0\bin;D:\Environment\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;D:\Environment\Java\jdk_21\bin;D:\download apps\Bandizip;D:\Environment\Anaconda3;D:\Environment\Anaconda3\Scripts;D:\Environment\Anaconda3\Library\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.2.0;D:\download apps\Typora;D:\Environment\Python\Scripts;D:\Environment\Python;C:\Users\86131\AppData\Local\Microsoft\WindowsApps;D:\Microsoft VS Code\bin;D:\Dev-Cpp\MinGW64\bin;.;D:\download apps\GoLand\GoLand 2024.2.3\bin;.;C:\Users\86131\go\bin;C:\Users\86131\AppData\Roaming\npm;D:\download apps\cursor\resources\app\bin;c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\scripts\noConfigScripts;c:\Users\86131\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL POWERSHELL_DISTRIBUTION_CHANNEL=PSES PROCESSOR_ARCHITECTURE=AMD64 PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD PROCESSOR_LEVEL=23 PROCESSOR_REVISION=6001 ProgramData=C:\ProgramData ProgramFiles=C:\Program Files ProgramFiles(x86)=C:\Program Files (x86) ProgramW6432=C:\Program Files PSExecutionPolicyPreference=Bypass PSModulePath=C:\Users\86131\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules;c:\Users\86131\.vscode\extensions\ms-vscode.powershell-2025.2.0\modules PUBLIC=C:\Users\Public SESSIONNAME=Console SSL_CERT_DIR=D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\ssl\certs SSL_CERT_FILE=D:\Environment\Anaconda_envs\envs\blockemulator_torch\Library\ssl\cacert.pem SystemDrive=C: SystemRoot=C:\WINDOWS TEMP=C:\Users\86131\AppData\Local\Temp TMP=C:\Users\86131\AppData\Local\Temp USERDOMAIN=LAPTOP-EMLB2M5J USERDOMAIN_ROAMINGPROFILE=LAPTOP-EMLB2M5J USERNAME=86131 USERPROFILE=C:\Users\86131 windir=C:\WINDOWS VSCODE_INJECTION=1 TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.99.0 LANG=zh_CN.UTF-8 COLORTERM=truecolor GIT_ASKPASS=d:\Microsoft VS Code\resources\app\extensions\git\dist\askpass.sh VSCODE_GIT_ASKPASS_NODE=D:\Microsoft VS Code\Code.exe VSCODE_GIT_ASKPASS_EXTRA_ARGS= VSCODE_GIT_ASKPASS_MAIN=d:\Microsoft VS Code\resources\app\extensions\git\dist\askpass-main.js VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-b83f55fd14-sock PYDEVD_DISABLE_FILE_VALIDATION=1 VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\.noConfigDebugAdapterEndpoints\endpoint-729383c9d0170df0.txt BUNDLED_DEBUGPY_PATH=c:\Users\86131\.vscode\extensions\ms-python.debugpy-2025.10.0-win32-x64\bundled\libs\debugpy XML_CATALOG_FILES=file:///D:/Environment/Anaconda_envs/envs/blockemulator_torch/etc/xml/catalog _CONDA_EXE=D:\Environment\Anaconda3\Scripts\conda.exe _CONDA_ROOT=D:\Environment\Anaconda3 __CONDA_OPENSSL_CERT_DIR_SET=1 __CONDA_OPENSSL_CERT_FILE_SET=1 PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 PYTHONUTF8=1]
 Supervisor: 2025/07/20 19:06:34 committee_evolvegcn.go:984: EvolveGCN: Using encoding-safe preloaded service (fastest)
 Supervisor: 2025/07/20 19:06:42 committee_evolvegcn.go:1013: EvolveGCN: Python pipeline execution completed
 Supervisor: 2025/07/20 19:06:42 committee_evolvegcn.go:1014: EvolveGCN: STDOUT: [INIT] EvolveGCN Preload Service starting

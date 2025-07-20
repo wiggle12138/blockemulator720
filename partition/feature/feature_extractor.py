@@ -8,11 +8,50 @@ from typing import List, Dict, Tuple
 from torch_geometric.nn import RGCNConv
 import torch.nn.functional as F
 
-from .nodeInitialize import Node
-from .data_processor import DataProcessor
-from .graph_builder import HeterogeneousGraphBuilder
-from .config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
-from .sliding_window_extractor import EnhancedSequenceFeatureEncoder
+# 修复相对导入问题
+try:
+    from .nodeInitialize import Node
+    from .data_processor import DataProcessor
+    from .graph_builder import HeterogeneousGraphBuilder
+    from .config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
+    from .sliding_window_extractor import EnhancedSequenceFeatureEncoder
+except ImportError:
+    import sys
+    import importlib.util
+    from pathlib import Path
+    
+    # 使用绝对路径导入
+    current_dir = Path(__file__).parent
+    
+    def load_module(module_name, file_path):
+        spec = importlib.util.spec_from_file_location(module_name, file_path)
+        if spec and spec.loader:
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            return module
+        return None
+    
+    # 加载所需模块
+    node_init_module = load_module("nodeInitialize", current_dir / "nodeInitialize.py")
+    Node = getattr(node_init_module, 'Node', None) if node_init_module else None
+    
+    data_processor_module = load_module("data_processor", current_dir / "data_processor.py") 
+    DataProcessor = getattr(data_processor_module, 'DataProcessor', None) if data_processor_module else None
+    
+    graph_builder_module = load_module("graph_builder", current_dir / "graph_builder.py")
+    HeterogeneousGraphBuilder = getattr(graph_builder_module, 'HeterogeneousGraphBuilder', None) if graph_builder_module else None
+    
+    config_module = load_module("config", current_dir / "config.py")
+    if config_module:
+        FeatureDimensions = getattr(config_module, 'FeatureDimensions', None)
+        RelationTypes = getattr(config_module, 'RelationTypes', None)
+        NodeTypes = getattr(config_module, 'NodeTypes', None) 
+        EncodingMaps = getattr(config_module, 'EncodingMaps', None)
+    else:
+        FeatureDimensions = RelationTypes = NodeTypes = EncodingMaps = None
+    
+    sliding_window_module = load_module("sliding_window_extractor", current_dir / "sliding_window_extractor.py")
+    EnhancedSequenceFeatureEncoder = getattr(sliding_window_module, 'EnhancedSequenceFeatureEncoder', None) if sliding_window_module else None
 
 class ComprehensiveFeatureExtractor:
     """全面的特征提取器 - 使用所有70+个特征"""

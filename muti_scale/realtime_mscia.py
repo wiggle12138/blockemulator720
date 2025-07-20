@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 
 # 导入原始MSCIA组件
-from All_Final import TemporalMSCIA, subgraph_contrastive_loss, graph_contrastive_loss, node_contrastive_loss
+from muti_scale.All_Final import TemporalMSCIA, subgraph_contrastive_loss, graph_contrastive_loss, node_contrastive_loss
 
 
 class RealtimeMSCIADataset(Dataset):
