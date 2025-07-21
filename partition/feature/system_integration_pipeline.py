@@ -92,8 +92,15 @@ class BlockEmulatorStep1Pipeline:
         
         # 1. 获取系统收集的原始数据
         try:
-            raw_node_data = node_features_module.GetAllCollectedData()
-            print(f"[Step1 Pipeline] 成功获取 {len(raw_node_data)} 个节点的原始数据")
+            # 检查输入类型
+            if isinstance(node_features_module, dict):
+                # 新的数据接口格式：直接是转换后的数据
+                raw_node_data = node_features_module.get('node_features', [])
+                print(f"[Step1 Pipeline] 接收字典格式数据: {len(raw_node_data)} 个节点")
+            else:
+                # 传统的NodeFeaturesModule接口
+                raw_node_data = node_features_module.GetAllCollectedData()
+                print(f"[Step1 Pipeline] 成功获取 {len(raw_node_data)} 个节点的原始数据")
         except Exception as e:
             print(f"[Step1 Pipeline] 获取系统数据失败: {e}")
             raise

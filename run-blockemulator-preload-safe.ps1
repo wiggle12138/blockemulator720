@@ -16,6 +16,8 @@ $ExePath = if (Test-Path ".\blockEmulator_Windows_UTF8.exe") {
     ".\blockEmulator_Windows_Precompile.exe"
 }
 
+Write-Host "[INFO] 使用可执行文件: $ExePath" -ForegroundColor Green
+
 # 使用用户指定的Python环境路径
 $PythonExePath = "D:\Environment\Anaconda_envs\envs\blockemulator_torch\python.exe"
 

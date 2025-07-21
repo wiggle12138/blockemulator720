@@ -5,6 +5,8 @@ import (
 	"blockEmulator/params"
 	"fmt"
 	"log"
+	"os"
+	"runtime"
 
 	"github.com/spf13/pflag"
 )
@@ -24,7 +26,31 @@ var (
 	isGenerateForExeFile bool
 )
 
+// initializeUTF8Environment sets up UTF-8 encoding environment
+func initializeUTF8Environment() {
+	// Set UTF-8 environment variables for cross-platform support
+	os.Setenv("LANG", "en_US.UTF-8")
+	os.Setenv("LC_ALL", "en_US.UTF-8")
+	os.Setenv("LC_CTYPE", "en_US.UTF-8")
+
+	// For Python subprocess UTF-8 encoding
+	os.Setenv("PYTHONIOENCODING", "utf-8")
+	os.Setenv("PYTHONUTF8", "1")
+
+	// Windows-specific UTF-8 console setup
+	if runtime.GOOS == "windows" {
+		// The Windows-specific UTF-8 console initialization
+		// is handled by utf8_windows.go through build tags
+	}
+
+	// Log UTF-8 environment setup
+	log.Printf("[UTF-8] Environment initialized for %s/%s", runtime.GOOS, runtime.GOARCH)
+}
+
 func main() {
+	// Initialize UTF-8 encoding support for cross-platform compatibility
+	initializeUTF8Environment()
+
 	// Read basic configs
 	params.ReadConfigFile()
 
