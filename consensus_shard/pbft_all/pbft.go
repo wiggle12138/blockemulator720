@@ -297,7 +297,7 @@ func (p *PbftConsensusNode) closePbft() {
 	p.CurChain.CloseBlockChain()
 }
 
-// 处理节点状态请求 - 修复：添加数据发送逻辑
+// 处理节点状态请求 - 修复：使用同步发送确保可靠性
 func (p *PbftConsensusNode) handleRequestNodeState(_ []byte) {
 	p.pl.Plog.Printf("EvolveGCN S%dN%d: received node state collection request", p.ShardID, p.NodeID)
 
@@ -328,11 +328,25 @@ func (p *PbftConsensusNode) handleRequestNodeState(_ []byte) {
 
 		msg := message.MergeMessage(message.CBatchReplyNodeState, data)
 
-		// 异步发送数据到supervisor
+		// 修复：改为同步发送，确保supervisor收到响应
+		var wg sync.WaitGroup
+		wg.Add(1)
+
+		go networks.TcpDialAndWait(msg, params.SupervisorAddr, &wg)
+
+		// 等待发送完成，最多等待3秒
+		done := make(chan struct{})
 		go func() {
-			networks.TcpDial(msg, params.SupervisorAddr)
-			p.pl.Plog.Printf("EvolveGCN S%dN%d: feature data sent to supervisor", p.ShardID, p.NodeID)
+			wg.Wait()
+			close(done)
 		}()
+
+		select {
+		case <-done:
+			p.pl.Plog.Printf("EvolveGCN S%dN%d: feature data sent to supervisor successfully", p.ShardID, p.NodeID)
+		case <-time.After(3 * time.Second):
+			p.pl.Plog.Printf("EvolveGCN S%dN%d: timeout sending feature data to supervisor", p.ShardID, p.NodeID)
+		}
 	} else {
 		p.pl.Plog.Printf("EvolveGCN S%dN%d: no state data collected for features", p.ShardID, p.NodeID)
 	}

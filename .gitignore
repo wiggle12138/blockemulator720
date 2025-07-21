@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-*.exe
-=======
 *.ldb
 *.exe
 
@@ -47,4 +44,3 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
->>>>>>> 03c71e6b7a7819d06982b9f0732eac71c59d7c87

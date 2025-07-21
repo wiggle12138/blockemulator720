@@ -87,6 +87,43 @@ func (tat *TestModule_avgTPS_EvolveGCN) UpdateMeasureRecord(b *message.BlockInfo
 
 func (tat *TestModule_avgTPS_EvolveGCN) HandleExtraMessage([]byte) {}
 
+// 新增：获取当前数据而不触发CSV写入
+func (tat *TestModule_avgTPS_EvolveGCN) GetCurrentData() (perEpochTPS []float64, totalTPS float64) {
+	// 计算每个epoch的TPS，但不写入CSV
+	perEpochTPS = make([]float64, tat.epochID+1)
+	totalTxNum := 0.0
+	eTime := time.Now()
+	lTime := time.Time{}
+
+	const minTimeWindow = 1.0 // 最小时间窗口1秒，避免除零或异常高TPS
+
+	for eid, exTxNum := range tat.excutedTxNum {
+		timeGap := tat.endTime[eid].Sub(tat.startTime[eid]).Seconds()
+
+		// 时间窗口保护：避免系统快速终止导致的异常高TPS
+		if timeGap < minTimeWindow {
+			timeGap = minTimeWindow
+		}
+
+		perEpochTPS[eid] = exTxNum / timeGap
+		totalTxNum += exTxNum
+
+		if eTime.After(tat.startTime[eid]) {
+			eTime = tat.startTime[eid]
+		}
+		if tat.endTime[eid].After(lTime) {
+			lTime = tat.endTime[eid]
+		}
+	}
+
+	totalTimeGap := lTime.Sub(eTime).Seconds()
+	if totalTimeGap < minTimeWindow {
+		totalTimeGap = minTimeWindow
+	}
+	totalTPS = totalTxNum / totalTimeGap
+	return
+}
+
 // 输出结果 - 与Relay方式完全一致
 func (tat *TestModule_avgTPS_EvolveGCN) OutputRecord() (perEpochTPS []float64, totalTPS float64) {
 	tat.writeToCSV()

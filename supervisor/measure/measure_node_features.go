@@ -526,3 +526,9 @@ func (nfm *NodeFeaturesModule) buildRowFromState(state message.ReplyNodeStateMsg
 	}
 	return row
 }
+
+// 新增：获取当前数据而不触发CSV写入
+func (nfm *NodeFeaturesModule) GetCurrentData() ([]float64, float64) {
+	// NodeFeaturesModule不需要返回数值数据，返回默认值
+	return []float64{}, 0.0
+}

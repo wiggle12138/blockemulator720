@@ -17,7 +17,6 @@ import (
 	"io"
 	"log"
 	"net"
-	"strconv"
 	"sync"
 	"time"
 )
@@ -174,54 +173,27 @@ func (d *Supervisor) SupervisorTxHandling() {
 		time.Sleep(time.Second)
 	}
 
-	// ========== 新增：实验终态前主动触发一次节点特征收集 ==========
-	d.sl.Slog.Println("Supervisor: triggering node state collection before stop&collect...")
-	d.TriggerNodeStateCollection()
-	// 可选：等待节点响应（如1~2秒，或更长，视网络情况）
-	time.Sleep(2 * time.Second)
-
-	// send stop and collect message
-	stopmsg := message.MergeMessage(message.CStopAndCollect, []byte("please collect and report all states"))
-	d.sl.Slog.Println("Supervisor: now sending cstop_and_collect message to all nodes")
+	// send stop message
+	stopmsg := message.MergeMessage(message.CStop, []byte("stop"))
+	d.sl.Slog.Println("Supervisor: now sending cstop message to all nodes")
 	for sid := uint64(0); sid < d.ChainConfig.ShardNums; sid++ {
 		for nid := uint64(0); nid < d.ChainConfig.Nodes_perShard; nid++ {
 			networks.TcpDial(stopmsg, d.Ip_nodeTable[sid][nid])
 		}
 	}
-	// 修复：延长等待时间，确保节点有足够时间进行ping等真实数据收集
-	time.Sleep(time.Duration(params.Delay+params.JitterRange+10) * time.Second)
+	time.Sleep(time.Duration(params.Delay+params.JitterRange+2) * time.Second)
 
-	totalNodes := int(d.ChainConfig.ShardNums * d.ChainConfig.Nodes_perShard)
-	d.sl.Slog.Printf("Supervisor: waiting for %d nodes to report features...", totalNodes)
-	// 阻塞等待所有节点上报或超时
-	d.waitAllNodeReports()
-
-	// ========== 新增：收集全局统计指标并注入到nodeFeaturesMod ==========
-	globalMetrics := make(map[string]string)
+	// ========== 生成最终测量结果 ==========
+	var finalResults []string
 	for _, mod := range d.testMeasureMods {
 		name := mod.OutputMetricName()
-		// 这里只处理wrs.md中需要的全局指标，复用measure模块服务于我们的异构特征数据
-		if name == "Average_TPS" {
-			_, totalTPS := mod.OutputRecord()
-			globalMetrics["OnChainBehavior.TransactionCapability.AvgTPS"] = strconv.FormatFloat(totalTPS, 'f', 2, 64)
-		}
-		if name == "CrossTransaction_ratio" {
-			_, totCTXratio := mod.OutputRecord()
-			globalMetrics["OnChainBehavior.TransactionTypes.NormalTxRatio"] = strconv.FormatFloat(totCTXratio, 'f', 3, 64)
-		}
-		if name == "Transaction_Confirm_Latency" {
-			_, totLatency := mod.OutputRecord()
-			globalMetrics["OnChainBehavior.TransactionCapability.ConfirmationDelay"] = strconv.FormatFloat(totLatency, 'f', 2, 64) + "s"
-		}
-		// 你可以在这里继续添加其他measure模块与wrs.md字段的映射
+		perEpochData, totalData := mod.OutputRecord()
+		finalResults = append(finalResults, fmt.Sprintf("%s: %v, Total: %v", name, perEpochData, totalData))
 	}
-	d.nodeFeaturesMod.SetGlobalMetrics(globalMetrics)
-	// ========== 生成node_features.csv ==========
-	d.nodeFeaturesMod.OutputRecord()
 
 	d.sl.Slog.Println("Supervisor: now Closing")
 	d.listenStop = true
-	d.CloseSupervisor()
+	d.CloseSupervisor(finalResults)
 }
 
 // 新增：等待所有节点上报或超时
@@ -425,12 +397,12 @@ func (d *Supervisor) TcpListen() {
 }
 
 // close Supervisor, and record the data in .csv file
-func (d *Supervisor) CloseSupervisor() {
+func (d *Supervisor) CloseSupervisor(finalResults []string) {
 	d.sl.Slog.Println("Closing...")
-	for _, measureMod := range d.testMeasureMods {
-		d.sl.Slog.Println(measureMod.OutputMetricName())
-		d.sl.Slog.Println(measureMod.OutputRecord())
-		println()
+
+	// 修复：不再重复调用OutputRecord，直接输出已计算的结果
+	for _, result := range finalResults {
+		d.sl.Slog.Println(result)
 	}
 
 	// 输出节点特征数据

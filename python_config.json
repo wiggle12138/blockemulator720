@@ -1,0 +1,19 @@
+﻿{
+  "enable_evolve_gcn": true,
+  "enable_feedback": true,
+  "python_path": "D:\\Environment\\Anaconda_envs\\envs\\blockemulator_torch",
+  "module_path": "./",
+  "max_iterations": 10,
+  "epochs_per_iteration": 8,
+  "data_exchange_dir": "./data_exchange",
+  "output_interval": 30,
+  "continuous_mode": true,
+  "log_level": "INFO",
+  "evolvegcn_integration": {
+    "enabled": true,
+    "algorithm": "four_step_pipeline",
+    "fallback_to_clpa": false,
+    "auto_detect_venv": false,
+    "description": "EvolveGCN integrated with specified Python environment"
+  }
+}
