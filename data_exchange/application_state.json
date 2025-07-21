@@ -1,23 +1,22 @@
 {
-  "timestamp": "2025-07-18T19:46:36.693620",
+  "timestamp": "2025-07-20T22:23:13.620366",
   "partition_map_file": "data_exchange\\partition_result.json",
-  "total_accounts": 8,
+  "total_accounts": 25,
   "shard_distribution": {
-    "0": 2,
-    "1": 2,
-    "2": 2,
-    "3": 2
+    "0": 3,
+    "2": 15,
+    "1": 7
   },
   "step4_summary": {
     "performance": {
-      "load_balance": 0.85,
-      "cross_shard_rate": 0.15,
-      "security_score": 0.92,
-      "consensus_latency": 125.5
+      "load_balance": 0.26678794622421265,
+      "cross_shard_rate": 0.0,
+      "security_score": 0.85,
+      "consensus_latency": 125.0
     },
     "suggestions_count": 2,
-    "anomaly_count": 2,
-    "overall_score": 0.88
+    "anomaly_count": 0,
+    "overall_score": 0.5852780676371342
   },
   "application_method": "file_interface"
 }

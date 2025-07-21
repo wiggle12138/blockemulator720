@@ -21,13 +21,49 @@ try:
     from .config import FeatureDimensions, EncodingMaps
     from .graph_builder import HeterogeneousGraphBuilder
 except ImportError:
-    # 处理相对导入失败的情况
+    # 处理相对导入失败的情况 - 使用更robust的导入方式
     import sys
-    import os
-    sys.path.append(os.path.dirname(__file__))
-    from feature_extractor import UnifiedFeatureExtractor, ComprehensiveFeatureExtractor
-    from nodeInitialize import Node
-    from data_processor import DataProcessor
+    import importlib.util
+    from pathlib import Path
+    
+    current_dir = Path(__file__).parent
+    
+    def load_module_safe(module_name, file_path):
+        try:
+            if file_path.exists():
+                spec = importlib.util.spec_from_file_location(module_name, file_path)
+                if spec and spec.loader:
+                    module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(module)
+                    return module
+        except Exception as e:
+            print(f"警告: 无法加载模块 {module_name}: {e}")
+        return None
+    
+    # 加载特征提取器
+    feature_extractor_module = load_module_safe("feature_extractor", current_dir / "feature_extractor.py")
+    if feature_extractor_module:
+        UnifiedFeatureExtractor = getattr(feature_extractor_module, 'UnifiedFeatureExtractor', None)
+        ComprehensiveFeatureExtractor = getattr(feature_extractor_module, 'ComprehensiveFeatureExtractor', None)
+    else:
+        UnifiedFeatureExtractor = ComprehensiveFeatureExtractor = None
+    
+    # 加载其他模块
+    node_init_module = load_module_safe("nodeInitialize", current_dir / "nodeInitialize.py")
+    Node = getattr(node_init_module, 'Node', None) if node_init_module else None
+    
+    data_processor_module = load_module_safe("data_processor", current_dir / "data_processor.py")
+    DataProcessor = getattr(data_processor_module, 'DataProcessor', None) if data_processor_module else None
+    
+    config_module = load_module_safe("config", current_dir / "config.py")
+    if config_module:
+        FeatureDimensions = getattr(config_module, 'FeatureDimensions', None)
+        EncodingMaps = getattr(config_module, 'EncodingMaps', None)
+    else:
+        FeatureDimensions = EncodingMaps = None
+    
+    graph_builder_module = load_module_safe("graph_builder", current_dir / "graph_builder.py")
+    HeterogeneousGraphBuilder = getattr(graph_builder_module, 'HeterogeneousGraphBuilder', None) if graph_builder_module else None
     from config import FeatureDimensions, EncodingMaps
     from graph_builder import HeterogeneousGraphBuilder
 

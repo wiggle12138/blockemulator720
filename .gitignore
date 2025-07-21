@@ -1,1 +1,50 @@
+<<<<<<< HEAD
 *.exe
+=======
+*.ldb
+*.exe
+
+# Database files
+expTest/database/
+expTest/database/chainDB/*
+
+# Test files and temporary outputs
+test_*.json
+*test*.json
+test_go_interface_*
+test_output_*
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.venv/
+
+# Temporary directories  
+integrated_test_outputs/
+step1_outputs/
+local_logs/
+outputs/
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+>>>>>>> 03c71e6b7a7819d06982b9f0732eac71c59d7c87

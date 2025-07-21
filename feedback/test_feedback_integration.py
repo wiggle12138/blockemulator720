@@ -144,7 +144,7 @@ def test_simple_feedback_integration():
         
         # 计算新分片大小
         new_hard_assignment = torch.argmax(enhanced_assignment, dim=1)
-        new_shard_sizes = torch.bincount(new_hard_assignment, minlength=actual_k)
+        new_shard_sizes = torch.bincount(new_hard_assignment, minlength=int(actual_k))
         
         print(f"   原始分片大小: {torch.sum(result_assignment, dim=0).tolist()}")
         print(f"   反馈后分片大小: {new_shard_sizes.tolist()}")
@@ -210,7 +210,7 @@ def test_edge_cases():
         
         # 检查是否有空分片
         hard_assignment = torch.argmax(result, dim=1)
-        shard_sizes = torch.bincount(hard_assignment, minlength=actual_k)
+        shard_sizes = torch.bincount(hard_assignment, minlength=int(actual_k))
         empty_shards = torch.sum(shard_sizes == 0).item()
         
         print(f"   [SUCCESS] 空分片处理: {empty_shards} 个空分片, 最终 {actual_k} 个分片")
