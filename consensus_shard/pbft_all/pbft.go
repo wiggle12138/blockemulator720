@@ -230,8 +230,6 @@ func (p *PbftConsensusNode) handleMessage(msg []byte) {
 	case message.CRequestNodeState:
 		// 处理节点状态请求
 		go p.handleRequestNodeState(content)
-	case message.CStopAndCollect:
-		go p.handleStopAndCollect()
 
 	case message.CStop:
 		p.WaitToStop()
@@ -297,122 +295,74 @@ func (p *PbftConsensusNode) closePbft() {
 	p.CurChain.CloseBlockChain()
 }
 
-// 处理节点状态请求 - 修复：使用同步发送确保可靠性
-func (p *PbftConsensusNode) handleRequestNodeState(_ []byte) {
-	p.pl.Plog.Printf("EvolveGCN S%dN%d: received node state collection request", p.ShardID, p.NodeID)
+// 处理节点状态请求 - 修复：使用GetCurrentNodeState获取当前状态数据
+func (p *PbftConsensusNode) handleRequestNodeState(content []byte) {
+	p.pl.Plog.Printf("分片%d节点%d: 收到节点状态请求", p.ShardID, p.NodeID)
+
+	// 解析请求消息获取RequestID
+	var request message.RequestNodeStateMsg
+	err := json.Unmarshal(content, &request)
+	if err != nil {
+		p.pl.Plog.Printf("分片%d节点%d: 解析请求消息失败: %v", p.ShardID, p.NodeID, err)
+		return
+	}
 
 	// 触发数据收集
 	p.nodeFeatureCollector.HandleRequestNodeState()
 
-	// 等待一小段时间确保收集完成
+	// 等待收集完成
 	time.Sleep(100 * time.Millisecond)
 
-	// 获取收集到的状态数据
-	collectedStates := p.nodeFeatureCollector.GetCollectedStates()
+	// 修复：使用GetCurrentNodeState获取当前节点状态，而不是历史快照列表
+	currentNodeState := p.nodeFeatureCollector.GetCurrentNodeState()
 
-	p.pl.Plog.Printf("EvolveGCN S%dN%d: collected %d state snapshots for feature collection",
-		p.ShardID, p.NodeID, len(collectedStates))
-
-	// 发送批量上报消息到Supervisor
-	if len(collectedStates) > 0 {
-		batch := message.BatchReplyNodeStateMsg{
-			ShardID: p.ShardID,
-			NodeID:  p.NodeID,
-			States:  collectedStates,
-		}
-		data, err := json.Marshal(batch)
-		if err != nil {
-			p.pl.Plog.Printf("EvolveGCN S%dN%d: error marshaling batch message: %v", p.ShardID, p.NodeID, err)
-			return
-		}
-
-		msg := message.MergeMessage(message.CBatchReplyNodeState, data)
-
-		// 修复：改为同步发送，确保supervisor收到响应
-		var wg sync.WaitGroup
-		wg.Add(1)
-
-		go networks.TcpDialAndWait(msg, params.SupervisorAddr, &wg)
-
-		// 等待发送完成，最多等待3秒
-		done := make(chan struct{})
-		go func() {
-			wg.Wait()
-			close(done)
-		}()
-
-		select {
-		case <-done:
-			p.pl.Plog.Printf("EvolveGCN S%dN%d: feature data sent to supervisor successfully", p.ShardID, p.NodeID)
-		case <-time.After(3 * time.Second):
-			p.pl.Plog.Printf("EvolveGCN S%dN%d: timeout sending feature data to supervisor", p.ShardID, p.NodeID)
-		}
-	} else {
-		p.pl.Plog.Printf("EvolveGCN S%dN%d: no state data collected for features", p.ShardID, p.NodeID)
-	}
-}
-
-func (p *PbftConsensusNode) handleStopAndCollect() {
-	p.pl.Plog.Printf("S%dN%d : handling stop and collect message", p.ShardID, p.NodeID)
-
-	// 移除重复的数据收集，因为Supervisor已经通过CRequestNodeState触发过了
-	// p.nodeFeatureCollector.HandleRequestNodeState() // 删除这行
-
-	// 等待一小段时间确保之前的采集完成
-	time.Sleep(100 * time.Millisecond)
-
-	// 停止收集器
-	p.nodeFeatureCollector.StopCollector()
-
-	// 获取所有收集到的状态数据
-	collectedStates := p.nodeFeatureCollector.GetCollectedStates()
-
-	p.pl.Plog.Printf("S%dN%d : collected %d state snapshots, preparing to send batch",
-		p.ShardID, p.NodeID, len(collectedStates))
-
-	// 如果有收集到的数据，则发送批量上报消息
-	if len(collectedStates) > 0 {
-		batch := message.BatchReplyNodeStateMsg{
-			ShardID: p.ShardID,
-			NodeID:  p.NodeID,
-			States:  collectedStates,
-		}
-		data, err := json.Marshal(batch)
-		if err != nil {
-			p.pl.Plog.Printf("S%dN%d : error marshaling batch message: %v", p.ShardID, p.NodeID, err)
-		} else {
-			msg := message.MergeMessage(message.CBatchReplyNodeState, data)
-
-			// 同步发送数据，确保发送完成后再关闭节点
-			var wg sync.WaitGroup
-			wg.Add(1)
-
-			// 发送数据到supervisor
-			go networks.TcpDialAndWait(msg, params.SupervisorAddr, &wg)
-
-			// 等待发送完成，最多等待5秒
-			done := make(chan struct{})
-			go func() {
-				wg.Wait()
-				close(done)
-			}()
-
-			select {
-			case <-done:
-				p.pl.Plog.Printf("S%dN%d : batch data sent successfully", p.ShardID, p.NodeID)
-			case <-time.After(5 * time.Second):
-				p.pl.Plog.Printf("S%dN%d : timeout waiting for batch data to be sent", p.ShardID, p.NodeID)
-			}
-		}
-	} else {
-		p.pl.Plog.Printf("S%dN%d : no state data collected", p.ShardID, p.NodeID)
+	// 构造回复消息
+	reply := message.ReplyNodeStateMsg{
+		ShardID:   p.ShardID,
+		NodeID:    p.NodeID,
+		Epoch:     p.nodeFeatureCollector.GetCurrentEpoch(),
+		RequestID: request.RequestID,
+		NodeState: currentNodeState, // ✅ 现在类型匹配了！
 	}
 
-	// 最后停止节点
-	p.WaitToStop()
+	// 序列化并发送
+	data, err := json.Marshal(reply)
+	if err != nil {
+		p.pl.Plog.Printf("分片%d节点%d: 序列化回复消息失败: %v", p.ShardID, p.NodeID, err)
+		return
+	}
+
+	msg := message.MergeMessage(message.CReplyNodeState, data)
+
+	// 同步发送确保可靠性
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	go networks.TcpDialAndWait(msg, params.SupervisorAddr, &wg)
+
+	// 等待发送完成
+	done := make(chan struct{})
+	go func() {
+		wg.Wait()
+		close(done)
+	}()
+
+	select {
+	case <-done:
+		p.pl.Plog.Printf("分片%d节点%d: 节点状态数据发送成功", p.ShardID, p.NodeID)
+	case <-time.After(3 * time.Second):
+		p.pl.Plog.Printf("分片%d节点%d: 发送节点状态数据超时", p.ShardID, p.NodeID)
+	}
 }
 
 // 在区块提交时记录区块时间戳和统计交易
 func (p *PbftConsensusNode) recordBlockCommit(block *core.Block) {
 	p.nodeFeatureCollector.RecordBlockCommit(block)
+}
+
+// 新增：更新节点收集器的epoch信息
+func (p *PbftConsensusNode) updateNodeFeatureCollectorEpoch(epoch int) {
+	if p.nodeFeatureCollector != nil {
+		p.nodeFeatureCollector.UpdateEpoch(epoch)
+	}
 }

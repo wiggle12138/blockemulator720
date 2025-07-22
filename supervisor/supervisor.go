@@ -76,6 +76,10 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 		// 新增：设置节点状态收集器引用到EvolveGCN模块
 		if evolveGCNMod, ok := d.comMod.(*committee.EvolveGCNCommitteeModule); ok {
 			evolveGCNMod.SetNodeStateCollector(d)
+			// 新增：设置节点特征模块引用，让EvolveGCN能访问真实收集的节点数据
+			// 修复：使用接口类型转换而不是直接传递结构体
+			evolveGCNMod.SetNodeFeaturesModule(d.nodeFeaturesMod)
+			d.sl.Slog.Println("EvolveGCN: Successfully configured with real node feature data access")
 		}
 	case "Broker":
 		d.comMod = committee.NewBrokerCommitteeMod(d.Ip_nodeTable, d.Ss, d.sl, params.DatasetFile, params.TotalDataSize, params.TxBatchSize)
@@ -238,7 +242,7 @@ func (d *Supervisor) waitAllNodeReports() {
 
 // 触发节点状态收集 - 使用确认机制，替代固定等待时间
 func (d *Supervisor) TriggerNodeStateCollection() {
-	d.sl.Slog.Println("Triggering node state collection with confirmation mechanism...")
+	d.sl.Slog.Println("开始触发节点状态收集（使用确认机制）...")
 
 	// 重置确认状态
 	d.reportReceivedLock.Lock()
@@ -254,12 +258,12 @@ func (d *Supervisor) TriggerNodeStateCollection() {
 	// 等待所有节点确认完成
 	d.waitForCollectionConfirmation()
 
-	d.sl.Slog.Println("All nodes confirmed state collection completed")
+	d.sl.Slog.Println("所有节点已确认状态收集完成")
 }
 
 // 等待收集确认 - 替代固定等待时间
 func (d *Supervisor) waitForCollectionConfirmation() {
-	d.sl.Slog.Println("Waiting for collection confirmation from all nodes...")
+	d.sl.Slog.Println("等待所有节点确认收集完成...")
 
 	timeout := time.After(time.Duration(d.allReportTimeout) * time.Second)
 	ch := make(chan struct{})
@@ -271,9 +275,9 @@ func (d *Supervisor) waitForCollectionConfirmation() {
 
 	select {
 	case <-ch:
-		d.sl.Slog.Println("All nodes confirmed collection completion")
+		d.sl.Slog.Println("所有节点已确认收集完成")
 	case <-timeout:
-		d.sl.Slog.Printf("Collection confirmation timeout after %d seconds", d.allReportTimeout)
+		d.sl.Slog.Printf("收集确认超时（%d秒后）", d.allReportTimeout)
 		// 打印已确认和未确认的节点
 		d.reportReceivedLock.Lock()
 		var confirmed, missing []string
@@ -287,8 +291,8 @@ func (d *Supervisor) waitForCollectionConfirmation() {
 				}
 			}
 		}
-		d.sl.Slog.Printf("Confirmed nodes: %v", confirmed)
-		d.sl.Slog.Printf("Missing confirmations: %v", missing)
+		d.sl.Slog.Printf("已确认节点: %v", confirmed)
+		d.sl.Slog.Printf("缺失确认节点: %v", missing)
 		d.reportReceivedLock.Unlock()
 	}
 }
@@ -303,7 +307,7 @@ func (d *Supervisor) sendStateRequestsToAllNodes() {
 
 	requestBytes, err := json.Marshal(requestMsg)
 	if err != nil {
-		d.sl.Slog.Printf("Error marshaling request message: %v\n", err)
+		d.sl.Slog.Printf("序列化请求消息失败: %v\n", err)
 		return
 	}
 
@@ -320,7 +324,7 @@ func (d *Supervisor) sendStateRequestsToAllNodes() {
 		}
 	}
 
-	d.sl.Slog.Printf("Sent node state requests to %d/%d nodes", sentCount, totalNodes)
+	d.sl.Slog.Printf("已向 %d/%d 个节点发送状态请求", sentCount, totalNodes)
 }
 
 // 内部工具函数：等待节点响应
@@ -336,23 +340,46 @@ func (d *Supervisor) handleMessage(msg []byte) {
 	case message.CBlockInfo:
 		d.handleBlockInfos(content)
 	case message.CReplyNodeState:
-		// 处理节点状态回复
-		d.nodeFeaturesMod.HandleExtraMessage(msg)
-	case message.CBatchReplyNodeState:
-		// 处理批量节点状态回复
-		d.nodeFeaturesMod.HandleExtraMessage(msg)
-		// 新增：确认节点上报
-		var batch message.BatchReplyNodeStateMsg
-		if err := json.Unmarshal(content, &batch); err == nil {
-			key := fmt.Sprintf("%d-%d", batch.ShardID, batch.NodeID)
-			d.reportReceivedLock.Lock()
-			if !d.reportReceived[key] {
-				d.reportReceived[key] = true
-				d.sl.Slog.Printf("Received node report from %s", key)
-				d.reportWg.Done()
-			}
-			d.reportReceivedLock.Unlock()
+		// 解析消息内容进行基本验证
+		var reply message.ReplyNodeStateMsg
+		if err := json.Unmarshal(content, &reply); err != nil {
+			d.sl.Slog.Printf("[DEBUG] Supervisor: 解析节点状态消息失败: %v\n", err)
+			return
 		}
+
+		d.sl.Slog.Printf("[DEBUG] Supervisor: 收到节点S%dN%d状态数据，开始传递给NodeFeaturesModule\n",
+			reply.ShardID, reply.NodeID)
+
+		// 检查nodeFeaturesMod是否为nil
+		if d.nodeFeaturesMod == nil {
+			d.sl.Slog.Printf("[ERROR] Supervisor: nodeFeaturesMod为nil，无法处理节点状态数据\n")
+			return
+		}
+
+		d.sl.Slog.Printf("[DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage\n")
+
+		// 处理节点状态回复 - 统一使用ReplyNodeStateMsg
+		d.nodeFeaturesMod.HandleExtraMessage(msg)
+
+		// d.sl.Slog.Printf("[DEBUG] Supervisor: 节点S%dN%d数据已传递给NodeFeaturesModule处理完成\n",
+		// 	reply.ShardID, reply.NodeID)
+
+		// // 打印当前存储状态
+		// collectedCount, _, _ := d.nodeFeaturesMod.GetCollectionStats()
+		// d.sl.Slog.Printf("[DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: %d\n", collectedCount)
+
+		// var reply message.ReplyNodeStateMsg
+		// if err := json.Unmarshal(content, &reply); err == nil {
+		// 解析消息获取节点ID并确认
+		key := fmt.Sprintf("%d-%d", reply.ShardID, reply.NodeID)
+		d.reportReceivedLock.Lock()
+		if !d.reportReceived[key] {
+			d.reportReceived[key] = true
+			d.sl.Slog.Printf("收到节点%s状态上报 (轮次%d)", key, reply.Epoch)
+			d.reportWg.Done()
+		}
+		d.reportReceivedLock.Unlock()
+		//}
 	default:
 		d.comMod.HandleOtherMessage(msg)
 		for _, mm := range d.testMeasureMods {

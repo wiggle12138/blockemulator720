@@ -25,6 +25,10 @@ type NodeFeatureCollector struct {
 	nodeNums  uint64
 	shardNums uint64
 
+	// 当前epoch信息
+	currentEpoch int
+	epochLock    sync.RWMutex
+
 	// 状态锁
 	stateLock sync.RWMutex
 
@@ -779,8 +783,6 @@ func (nfc *NodeFeatureCollector) HandleRequestNodeState() {
 
 // 内部工具函数：完整的节点状态收集
 func (nfc *NodeFeatureCollector) collectCompleteNodeState() message.ReplyNodeStateMsg {
-	now := time.Now()
-
 	// 调用内部细小工具函数
 	staticFeatures := nfc.collectStaticFeatures()
 	dynamicFeatures := nfc.collectDynamicFeatures()
@@ -788,8 +790,8 @@ func (nfc *NodeFeatureCollector) collectCompleteNodeState() message.ReplyNodeSta
 	snap := message.ReplyNodeStateMsg{
 		ShardID:   nfc.shardID,
 		NodeID:    nfc.nodeID,
-		Timestamp: now.UnixMilli(),
-		RequestID: fmt.Sprintf("req_%d", now.UnixNano()),
+		Epoch:     nfc.GetCurrentEpoch(), // 修改：使用epoch而非timestamp
+		RequestID: fmt.Sprintf("req_%d", time.Now().UnixNano()),
 		NodeState: message.NodeState{
 			Static:  staticFeatures,
 			Dynamic: dynamicFeatures,
@@ -797,7 +799,7 @@ func (nfc *NodeFeatureCollector) collectCompleteNodeState() message.ReplyNodeSta
 	}
 
 	// 重置窗口计数器
-	nfc.resetWindowCounters(now)
+	nfc.resetWindowCounters(time.Now())
 	return snap
 }
 
@@ -842,13 +844,12 @@ func (nfc *NodeFeatureCollector) runStateCollector() {
 // 快速采集节点状态快照
 func (nfc *NodeFeatureCollector) fastCollectNodeState() message.ReplyNodeStateMsg {
 	nfc.stateLock.RLock()
-	now := time.Now()
 	dyn := nfc.collectDynamicFeatures()
 	snap := message.ReplyNodeStateMsg{
 		ShardID:   nfc.shardID,
 		NodeID:    nfc.nodeID,
-		Timestamp: now.UnixMilli(),
-		RequestID: fmt.Sprintf("batch_%d", now.UnixNano()),
+		Epoch:     nfc.GetCurrentEpoch(), // 修改：使用epoch而非timestamp
+		RequestID: fmt.Sprintf("batch_%d", time.Now().UnixNano()),
 		NodeState: message.NodeState{
 			Static:  nfc.staticData.Static,
 			Dynamic: dyn,
@@ -861,7 +862,7 @@ func (nfc *NodeFeatureCollector) fastCollectNodeState() message.ReplyNodeStateMs
 	nfc.windowPrepareCount = 0
 	nfc.windowCommitCount = 0
 	nfc.windowBlockCount = 0
-	nfc.windowStartTime = now
+	nfc.windowStartTime = time.Now()
 	nfc.stateLock.Unlock()
 	return snap
 }
@@ -1505,4 +1506,30 @@ func (nfc *NodeFeatureCollector) GetCollectedStates() []message.ReplyNodeStateMs
 	nfc.stateLock.RLock()
 	defer nfc.stateLock.RUnlock()
 	return nfc.collectedStates
+}
+
+// 新增：获取当前节点状态的公开方法
+func (nfc *NodeFeatureCollector) GetCurrentNodeState() message.NodeState {
+	// 直接调用内部的完整状态收集方法
+	staticFeatures := nfc.collectStaticFeatures()
+	dynamicFeatures := nfc.collectDynamicFeatures()
+
+	return message.NodeState{
+		Static:  staticFeatures,
+		Dynamic: dynamicFeatures,
+	}
+}
+
+// 更新当前epoch
+func (nfc *NodeFeatureCollector) UpdateEpoch(epoch int) {
+	nfc.epochLock.Lock()
+	defer nfc.epochLock.Unlock()
+	nfc.currentEpoch = epoch
+}
+
+// 获取当前epoch
+func (nfc *NodeFeatureCollector) GetCurrentEpoch() int {
+	nfc.epochLock.RLock()
+	defer nfc.epochLock.RUnlock()
+	return nfc.currentEpoch
 }

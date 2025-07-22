@@ -71,42 +71,71 @@ func (nfm *NodeFeaturesModule) UpdateMeasureRecord(b *message.BlockInfoMsg) {
 
 // 统一的数据接收处理
 func (nfm *NodeFeaturesModule) HandleExtraMessage(msg []byte) {
+	fmt.Printf("[DEBUG] HandleExtraMessage: 收到消息，长度: %d bytes\n", len(msg))
+
 	msgType, content := message.SplitMessage(msg)
-	timestamp := time.Now().UnixMilli()
+	fmt.Printf("[DEBUG] HandleExtraMessage: 消息类型: %s, 内容长度: %d bytes\n", msgType, len(content))
 
 	switch msgType {
 	case message.CReplyNodeState:
+		fmt.Printf("[DEBUG] HandleExtraMessage: 确认收到节点状态回复消息\n")
+
 		var replyMsg message.ReplyNodeStateMsg
 		if err := json.Unmarshal(content, &replyMsg); err == nil {
-			nfm.storeNodeData(timestamp, replyMsg)
+			fmt.Printf("[DEBUG] HandleExtraMessage: 解析节点状态消息失败: %v\n", err)
+			return
 		}
-	case message.CBatchReplyNodeState:
-		var batch message.BatchReplyNodeStateMsg
-		if err := json.Unmarshal(content, &batch); err == nil {
-			nfm.storeNodeDataBatch(timestamp, batch.States)
-		}
+
+		fmt.Printf("[DEBUG] HandleExtraMessage: 成功解析节点S%dN%d状态数据，Epoch: %d\n",
+			replyMsg.ShardID, replyMsg.NodeID, replyMsg.Epoch)
+
+		// 使用消息中的Epoch字段作为索引
+		fmt.Printf("[DEBUG] HandleExtraMessage: 开始存储节点S%dN%d数据到epoch %d\n",
+			replyMsg.ShardID, replyMsg.NodeID, replyMsg.Epoch)
+
+		nfm.storeNodeData(replyMsg.Epoch, replyMsg)
+
+		fmt.Printf("[DEBUG] HandleExtraMessage: 节点S%dN%d数据存储完成\n",
+			replyMsg.ShardID, replyMsg.NodeID)
+	default:
+		fmt.Printf("[DEBUG] HandleExtraMessage: 未知消息类型: %d，忽略处理\n", msgType)
 	}
 }
 
 // 内部统一存储方法
-func (nfm *NodeFeaturesModule) storeNodeData(timestamp int64, data message.ReplyNodeStateMsg) {
+func (nfm *NodeFeaturesModule) storeNodeData(epoch int, data message.ReplyNodeStateMsg) {
+	fmt.Printf("[DEBUG] storeNodeData: 开始存储节点S%dN%d数据到epoch %d\n",
+		data.ShardID, data.NodeID, epoch)
+
 	nfm.mu.Lock()
 	defer nfm.mu.Unlock()
 
+	// 同时按epoch和timestamp存储，保持兼容性
+	timestamp := int64(epoch)
+
+	fmt.Printf("[DEBUG] storeNodeData: 使用timestamp=%d进行存储\n", timestamp)
+
+	// 按epoch存储
+	if nfm.epochData[epoch] == nil {
+		nfm.epochData[epoch] = make([]message.ReplyNodeStateMsg, 0)
+		fmt.Printf("[DEBUG] storeNodeData: 为epoch %d创建新的数据切片\n", epoch)
+	}
+	nfm.epochData[epoch] = append(nfm.epochData[epoch], data)
+	fmt.Printf("[DEBUG] storeNodeData: 已添加到epochData[%d]，当前长度=%d\n",
+		epoch, len(nfm.epochData[epoch]))
+
+	// 按timestamp存储（保持兼容性）
 	if nfm.collectedData[timestamp] == nil {
 		nfm.collectedData[timestamp] = make([]message.ReplyNodeStateMsg, 0)
+		fmt.Printf("[DEBUG] storeNodeData: 为timestamp %d创建新的数据切片\n", timestamp)
 	}
 	nfm.collectedData[timestamp] = append(nfm.collectedData[timestamp], data)
-}
+	fmt.Printf("[DEBUG] storeNodeData: 已添加到collectedData[%d]，当前长度=%d\n",
+		timestamp, len(nfm.collectedData[timestamp]))
 
-func (nfm *NodeFeaturesModule) storeNodeDataBatch(timestamp int64, data []message.ReplyNodeStateMsg) {
-	nfm.mu.Lock()
-	defer nfm.mu.Unlock()
-
-	if nfm.collectedData[timestamp] == nil {
-		nfm.collectedData[timestamp] = make([]message.ReplyNodeStateMsg, 0)
-	}
-	nfm.collectedData[timestamp] = append(nfm.collectedData[timestamp], data...)
+	// 打印存储后的总体统计
+	fmt.Printf("[DEBUG] storeNodeData: 存储完成，总共有%d个epoch数据，%d个timestamp数据\n",
+		len(nfm.epochData), len(nfm.collectedData))
 }
 
 // 统一的输出方法 - 根据模式决定文件名
@@ -386,11 +415,23 @@ func (nfm *NodeFeaturesModule) calculateAverageFeatures(data []message.ReplyNode
 	}
 }
 
-// 获取收集统计信息
+// 获取收集统计信息 - 修复：返回实际节点数量而不是map键数量
 func (nfm *NodeFeaturesModule) GetCollectionStats() (int, int, time.Time) {
 	nfm.mu.RLock()
 	defer nfm.mu.RUnlock()
-	return len(nfm.collectedData), 0, time.Now() // 删除 blockInfoCounter, collectInterval 字段和相关逻辑
+
+	//return len(nfm.collectedData), 0, time.Now() // 删除 blockInfoCounter, collectInterval 字段和相关逻辑
+
+	// 计算实际存储的节点总数
+	totalNodes := 0
+	for _, dataList := range nfm.collectedData {
+		totalNodes += len(dataList)
+	}
+
+	fmt.Printf("[DEBUG] GetCollectionStats: collectedData有%d个时间戳，总共%d个节点\n",
+		len(nfm.collectedData), totalNodes)
+
+	return totalNodes, 0, time.Now()
 }
 
 // 清空收集的数据（用于重置）
@@ -531,4 +572,116 @@ func (nfm *NodeFeaturesModule) buildRowFromState(state message.ReplyNodeStateMsg
 func (nfm *NodeFeaturesModule) GetCurrentData() ([]float64, float64) {
 	// NodeFeaturesModule不需要返回数值数据，返回默认值
 	return []float64{}, 0.0
+}
+
+// === 新增：获取当前epoch的节点信息（优化版本，避免死锁） ===
+func (nfm *NodeFeaturesModule) GetLatestNodeStates() map[string]interface{} {
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 方法开始执行\n")
+
+	// 关键修复：检查接收者是否为nil
+	if nfm == nil {
+		fmt.Printf("[DEBUG] GetLatestNodeStates: CRITICAL - 接收者nfm为nil\n")
+		return make(map[string]interface{})
+	}
+
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 接收者nfm不为nil，继续执行\n")
+
+	// 检查各个字段是否已初始化
+	if nfm.collectedData == nil {
+		fmt.Printf("[DEBUG] GetLatestNodeStates: collectedData为nil，初始化中\n")
+		nfm.collectedData = make(map[int64][]message.ReplyNodeStateMsg)
+	}
+
+	if nfm.epochData == nil {
+		fmt.Printf("[DEBUG] GetLatestNodeStates: epochData为nil，初始化中\n")
+		nfm.epochData = make(map[int][]message.ReplyNodeStateMsg)
+	}
+
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 准备获取读锁\n")
+
+	// 减少锁持有时间，避免死锁
+	var latestData []message.ReplyNodeStateMsg
+	var latestTimestamp int64
+	var maxEpoch int = -1
+	var epochData []message.ReplyNodeStateMsg
+
+	// 第一次快速读取，复制数据后立即释放锁
+	nfm.mu.RLock()
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 已获取读锁，collectedData数量=%d, epochData数量=%d\n",
+		len(nfm.collectedData), len(nfm.epochData))
+
+	// 快速复制数据，减少锁持有时间
+	for timestamp, data := range nfm.collectedData {
+		if timestamp > latestTimestamp && len(data) > 0 {
+			latestTimestamp = timestamp
+			latestData = make([]message.ReplyNodeStateMsg, len(data))
+			copy(latestData, data)
+		}
+	}
+
+	// 如果没有timestamp数据，尝试epoch数据
+	if len(latestData) == 0 {
+		for epoch, data := range nfm.epochData {
+			if epoch > maxEpoch && len(data) > 0 {
+				maxEpoch = epoch
+				epochData = make([]message.ReplyNodeStateMsg, len(data))
+				copy(epochData, data)
+			}
+		}
+	}
+
+	nfm.mu.RUnlock() // 快速释放锁
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 已释放读锁\n")
+
+	// 在锁外进行数据处理，避免长时间占用锁
+	result := make(map[string]interface{})
+
+	// 使用复制的数据进行处理
+	if len(latestData) > 0 {
+		fmt.Printf("[DEBUG] GetLatestNodeStates: 处理latestData，数量=%d\n", len(latestData))
+		for _, state := range latestData {
+			nodeKey := fmt.Sprintf("S%dN%d", state.ShardID, state.NodeID)
+			result[nodeKey] = state
+		}
+		fmt.Printf("[DEBUG] GetLatestNodeStates: 返回latestData结果，节点数=%d\n", len(result))
+		return result
+	}
+
+	if len(epochData) > 0 {
+		fmt.Printf("[DEBUG] GetLatestNodeStates: 处理epochData，数量=%d\n", len(epochData))
+		for _, state := range epochData {
+			nodeKey := fmt.Sprintf("S%dN%d", state.ShardID, state.NodeID)
+			result[nodeKey] = state
+		}
+		fmt.Printf("[DEBUG] GetLatestNodeStates: 返回epochData结果，节点数=%d\n", len(result))
+		return result
+	}
+
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 没有找到数据，进行第二次读取\n")
+	// 如果以上都没有数据，进行第二次读取
+	nfm.mu.RLock()
+	latestNodeStates := make(map[string]message.ReplyNodeStateMsg)
+
+	for _, dataList := range nfm.collectedData {
+		for _, state := range dataList {
+			nodeKey := fmt.Sprintf("S%dN%d", state.ShardID, state.NodeID)
+			if existing, exists := latestNodeStates[nodeKey]; !exists || state.Epoch > existing.Epoch {
+				latestNodeStates[nodeKey] = state
+			}
+		}
+	}
+	nfm.mu.RUnlock()
+
+	// 转换为接口格式
+	for nodeKey, state := range latestNodeStates {
+		result[nodeKey] = state
+	}
+
+	fmt.Printf("[DEBUG] GetLatestNodeStates: 最终返回结果，节点数=%d\n", len(result))
+	return result
+}
+
+// === 新增：实现接口兼容的GetAllCollectedData ===
+func (nfm *NodeFeaturesModule) GetAllCollectedData() interface{} {
+	return nfm.getAllCollectedData()
 }

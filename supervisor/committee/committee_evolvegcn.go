@@ -19,6 +19,8 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"runtime/debug"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -27,6 +29,12 @@ import (
 // 定义接口以避免循环引用
 type NodeStateCollector interface {
 	TriggerNodeStateCollection()
+}
+
+// 新增：NodeFeaturesModule接口，用于获取真实收集的节点数据
+type NodeFeaturesModule interface {
+	GetLatestNodeStates() map[string]interface{}
+	GetEpochData(epoch int) ([]message.ReplyNodeStateMsg, bool)
 }
 
 // EvolveGCN committee operations
@@ -53,6 +61,9 @@ type EvolveGCNCommitteeModule struct {
 
 	// 新增：节点状态收集器接口引用
 	nodeStateCollector NodeStateCollector
+
+	// 新增：节点特征模块接口引用
+	nodeFeatureModule NodeFeaturesModule
 }
 
 func NewEvolveGCNCommitteeModule(Ip_nodeTable map[uint64]map[uint64]string, Ss *signal.StopSignal, sl *supervisor_log.SupervisorLog, csvFilePath string, dataNum, batchNum, evolvegcnFrequency int) *EvolveGCNCommitteeModule {
@@ -72,6 +83,7 @@ func NewEvolveGCNCommitteeModule(Ip_nodeTable map[uint64]map[uint64]string, Ss *
 		sl:                       sl,
 		curEpoch:                 0,
 		nodeStateCollector:       nil, // 将在supervisor中设置
+		nodeFeatureModule:        nil, // 将在supervisor中设置
 	}
 
 	// 异步启动Python预热
@@ -83,6 +95,11 @@ func NewEvolveGCNCommitteeModule(Ip_nodeTable map[uint64]map[uint64]string, Ss *
 // 新增：设置节点状态收集器的方法
 func (egcm *EvolveGCNCommitteeModule) SetNodeStateCollector(collector NodeStateCollector) {
 	egcm.nodeStateCollector = collector
+}
+
+// 新增：设置节点特征模块的方法
+func (egcm *EvolveGCNCommitteeModule) SetNodeFeaturesModule(module NodeFeaturesModule) {
+	egcm.nodeFeatureModule = module
 }
 
 func (egcm *EvolveGCNCommitteeModule) HandleOtherMessage([]byte) {}
@@ -315,7 +332,7 @@ func (egcm *EvolveGCNCommitteeModule) runEvolveGCNPartition() (map[string]uint64
 	}
 
 	// 第一步：特征提取
-	egcm.sl.Slog.Println("EvolveGCN Step 1: Feature extraction...")
+	egcm.sl.Slog.Println("EvolveGCN Step 1: 特征提取...")
 	nodeFeatures, err := egcm.extractNodeFeatures()
 	if err != nil {
 		egcm.sl.Slog.Printf("EvolveGCN: CRITICAL ERROR - Feature extraction failed: %v", err)
@@ -333,7 +350,7 @@ func (egcm *EvolveGCNCommitteeModule) runEvolveGCNPartition() (map[string]uint64
 	}
 
 	egcm.sl.Slog.Printf("EvolveGCN: Pipeline completed successfully. Cross-shard edges: %d", crossShardEdges)
-	egcm.sl.Slog.Println("EvolveGCN: ✅ Real EvolveGCN algorithm active (CLPA placeholder replaced)")
+	egcm.sl.Slog.Println("EvolveGCN:  Real EvolveGCN algorithm active (CLPA placeholder replaced)")
 	return partitionMap, crossShardEdges
 }
 
@@ -410,7 +427,7 @@ func (egcm *EvolveGCNCommitteeModule) HandleBlockInfo(b *message.BlockInfoMsg) {
 			egcm.sl.Slog.Printf("EPOCH UPDATED from 老的%d to 接收到的%d (PARTITION CONFIRMED by shard %d)",
 				currentEpoch, b.Epoch, b.SenderShardID)
 		} else {
-			egcm.sl.Slog.Printf("EvolveGCN: epoch not updated, received %d but current is %d", b.Epoch, currentEpoch)
+			egcm.sl.Slog.Printf("epoch received %d and current is %d 无需更新", b.Epoch, currentEpoch)
 		}
 		egcm.evolvegcnLock.Unlock()
 	} else {
@@ -455,12 +472,97 @@ type ShardingResult struct {
 	Embeddings         []float64 `json:"embeddings"`
 }
 
-// 第一步：特征提取
+// 第一步：特征提取 - 修改为使用真实收集的节点数据
 func (egcm *EvolveGCNCommitteeModule) extractNodeFeatures() ([]NodeFeatureData, error) {
-	egcm.sl.Slog.Println("EvolveGCN Step 1: Extracting node features...")
+	egcm.sl.Slog.Println("EvolveGCN Step 1: 提取真实特征开始...")
 
-	// 构建节点特征数据
 	var nodeFeatures []NodeFeatureData
+
+	// 优先尝试从NodeFeaturesModule获取真实收集的数据
+	if egcm.nodeFeatureModule != nil {
+		egcm.sl.Slog.Println("真实特征存在 NodeFeaturesModule")
+
+		// 获取最新收集的节点状态数据
+		egcm.sl.Slog.Println("尝试执行GetLatestNodeStates")
+
+		// 添加完整的错误捕获和调试逻辑
+		var latestNodeStates map[string]interface{}
+		var getStatesError error
+
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					getStatesError = fmt.Errorf("GetLatestNodeStates panic: %v", r)
+					egcm.sl.Slog.Printf("[PANIC捕获] GetLatestNodeStates发生panic: %v", r)
+					egcm.sl.Slog.Printf("[PANIC捕获] 调用栈信息: %s", debug.Stack())
+				}
+			}()
+
+			egcm.sl.Slog.Println("[调试] 开始调用GetLatestNodeStates方法")
+
+			// 检查nodeFeatureModule是否为nil
+			if egcm.nodeFeatureModule == nil {
+				getStatesError = fmt.Errorf("nodeFeatureModule is nil")
+				egcm.sl.Slog.Println("[错误] nodeFeatureModule为nil")
+				return
+			}
+
+			egcm.sl.Slog.Println("[调试] nodeFeatureModule不为nil，开始调用GetLatestNodeStates")
+
+			// 调用GetLatestNodeStates方法
+			latestNodeStates = egcm.nodeFeatureModule.GetLatestNodeStates()
+
+			egcm.sl.Slog.Printf("[调试] GetLatestNodeStates调用成功，返回数据量: %d", len(latestNodeStates))
+		}()
+
+		// 检查是否发生了错误
+		if getStatesError != nil {
+			egcm.sl.Slog.Printf("[错误处理] GetLatestNodeStates调用失败: %v", getStatesError)
+			egcm.sl.Slog.Println("[错误处理] 跳过真实数据处理，准备使用模拟数据")
+		} else {
+			egcm.sl.Slog.Printf("GetLatestNodeStates执行成功，返回%d个节点数据", len(latestNodeStates))
+		}
+
+		if len(latestNodeStates) > 0 {
+			egcm.sl.Slog.Printf("找到 %d 个真实节点 NodeFeaturesModule", len(latestNodeStates))
+
+			// 转换真实节点状态数据为EvolveGCN需要的格式
+			for nodeKey, stateInterface := range latestNodeStates {
+				if nodeState, ok := stateInterface.(message.ReplyNodeStateMsg); ok {
+					// 从真实数据中提取静态特征
+					staticFeatures := egcm.extractRealStaticFeatures(nodeState)
+
+					// 从真实数据中提取动态特征
+					dynamicFeatures := egcm.extractRealDynamicFeatures(nodeState)
+
+					nodeFeatures = append(nodeFeatures, NodeFeatureData{
+						NodeID:          nodeKey, // 使用节点键值 "S0N0" 格式
+						ShardID:         nodeState.ShardID,
+						StaticFeatures:  staticFeatures,
+						DynamicFeatures: dynamicFeatures,
+					})
+				}
+			}
+
+			if len(nodeFeatures) > 0 {
+				egcm.sl.Slog.Printf("成功提取节点特征 for %d nodes", len(nodeFeatures))
+
+				// 保存真实特征数据到文件供Python处理
+				if err := egcm.saveNodeFeaturesToCSV(nodeFeatures); err != nil {
+					return nil, fmt.Errorf("failed to save real node features: %v", err)
+				}
+
+				return nodeFeatures, nil
+			}
+		}
+
+		egcm.sl.Slog.Println("没有真实node states found, 回退到模拟数据提取")
+	} else {
+		egcm.sl.Slog.Println("NodeFeaturesModule 是nil，回退到模拟数据提取")
+	}
+
+	// 备用方案：使用模拟数据（保持原有逻辑作为fallback）
+	egcm.sl.Slog.Println("回退到模拟数据...")
 
 	// 检查evolvegcnGraph是否已初始化
 	if egcm.evolvegcnGraph == nil || egcm.evolvegcnGraph.PartitionMap == nil {
@@ -468,8 +570,8 @@ func (egcm *EvolveGCNCommitteeModule) extractNodeFeatures() ([]NodeFeatureData, 
 
 		// 使用IP节点表作为备用方案
 		for shardID, nodeMap := range egcm.IpNodeTable {
-			for nodeID, address := range nodeMap {
-				nodeIDStr := fmt.Sprintf("%s_%d", address, nodeID)
+			for nodeID := range nodeMap {
+				nodeIDStr := fmt.Sprintf("S%dN%d", shardID, nodeID)
 
 				// 计算节点的静态特征
 				staticFeatures := egcm.calculateStaticFeatures(nodeIDStr)
@@ -511,7 +613,7 @@ func (egcm *EvolveGCNCommitteeModule) extractNodeFeatures() ([]NodeFeatureData, 
 		return nil, fmt.Errorf("failed to save node features: %v", err)
 	}
 
-	egcm.sl.Slog.Printf("EvolveGCN Step 1: Extracted features for %d nodes", len(nodeFeatures))
+	egcm.sl.Slog.Printf("EvolveGCN Step 1: Extracted simulated features for %d nodes", len(nodeFeatures))
 	return nodeFeatures, nil
 }
 
@@ -1502,4 +1604,245 @@ func (egcm *EvolveGCNCommitteeModule) collectNodeFeaturesWithTimeout() error {
 		// 超时时继续处理，但记录警告
 		return fmt.Errorf("node feature collection timeout")
 	}
+}
+
+// ========== 改进：从真实节点状态提取静态特征 ==========
+func (egcm *EvolveGCNCommitteeModule) extractRealStaticFeatures(nodeState message.ReplyNodeStateMsg) map[string]float64 {
+	features := make(map[string]float64)
+
+	// 从真实收集的静态数据中提取硬件特征
+	static := nodeState.NodeState.Static
+
+	// CPU特征
+	features["cpu_cores"] = float64(static.ResourceCapacity.Hardware.CPU.CoreCount)
+	features["cpu_architecture"] = egcm.encodeArchitecture(static.ResourceCapacity.Hardware.CPU.Architecture)
+
+	// 内存特征
+	features["memory_gb"] = float64(static.ResourceCapacity.Hardware.Memory.TotalCapacity)
+	features["memory_bandwidth"] = static.ResourceCapacity.Hardware.Memory.Bandwidth
+	features["memory_type"] = egcm.encodeMemoryType(static.ResourceCapacity.Hardware.Memory.Type)
+
+	// 存储特征
+	features["storage_gb"] = float64(static.ResourceCapacity.Hardware.Storage.Capacity)
+	features["storage_type"] = egcm.encodeStorageType(static.ResourceCapacity.Hardware.Storage.Type)
+	features["storage_rw_speed"] = static.ResourceCapacity.Hardware.Storage.ReadWriteSpeed
+
+	// 网络特征
+	features["network_upstream"] = static.ResourceCapacity.Hardware.Network.UpstreamBW
+	features["network_downstream"] = static.ResourceCapacity.Hardware.Network.DownstreamBW
+	features["network_latency"] = egcm.parseLatency(static.ResourceCapacity.Hardware.Network.Latency)
+
+	// 网络拓扑特征
+	features["intra_shard_conn"] = float64(static.NetworkTopology.Connections.IntraShardConn)
+	features["inter_shard_conn"] = float64(static.NetworkTopology.Connections.InterShardConn)
+	features["weighted_degree"] = static.NetworkTopology.Connections.WeightedDegree
+	features["active_conn"] = float64(static.NetworkTopology.Connections.ActiveConn)
+	features["adaptability"] = static.NetworkTopology.ShardAllocation.Adaptability
+
+	// 异构类型特征
+	features["node_type"] = egcm.encodeNodeType(static.HeterogeneousType.NodeType)
+	// 注释掉不存在的字段，使用默认值
+	// features["core_eligibility"] = egcm.encodeBool(static.ResourceCapacity.OperationalStatus.CoreEligibility)
+	features["core_eligibility"] = 1.0 // 默认符合条件
+
+	egcm.sl.Slog.Printf("EvolveGCN: Extracted %d real static features for node %d", len(features), nodeState.NodeID)
+
+	return features
+}
+
+// ========== 改进：从真实节点状态提取动态特征 ==========
+func (egcm *EvolveGCNCommitteeModule) extractRealDynamicFeatures(nodeState message.ReplyNodeStateMsg) map[string]float64 {
+	features := make(map[string]float64)
+
+	// 从真实收集的动态数据中提取运行时特征
+	dynamic := nodeState.NodeState.Dynamic
+
+	// 交易处理能力特征
+	features["avg_tps"] = dynamic.OnChainBehavior.TransactionCapability.AvgTPS
+	features["confirmation_delay"] = egcm.parseDelay(dynamic.OnChainBehavior.TransactionCapability.ConfirmationDelay)
+
+	// 跨分片交易特征
+	features["inter_shard_volume"] = egcm.parseVolumeString(dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterShardVolume)
+	features["inter_node_volume"] = egcm.parseVolumeString(dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterNodeVolume)
+
+	// 区块生成特征
+	features["avg_block_interval"] = egcm.parseInterval(dynamic.OnChainBehavior.BlockGeneration.AvgInterval)
+	features["block_interval_stddev"] = egcm.parseInterval(dynamic.OnChainBehavior.BlockGeneration.IntervalStdDev)
+
+	// 交易类型特征
+	features["normal_tx_ratio"] = dynamic.OnChainBehavior.TransactionTypes.NormalTxRatio
+	features["contract_tx_ratio"] = dynamic.OnChainBehavior.TransactionTypes.ContractTxRatio
+
+	// 共识参与特征
+	features["participation_rate"] = dynamic.OnChainBehavior.Consensus.ParticipationRate
+	features["total_reward"] = dynamic.OnChainBehavior.Consensus.TotalReward
+	features["success_rate"] = dynamic.OnChainBehavior.Consensus.SuccessRate
+
+	// 资源使用率特征
+	features["cpu_usage"] = dynamic.DynamicAttributes.Compute.CPUUsage
+	features["memory_usage"] = dynamic.DynamicAttributes.Compute.MemUsage
+	features["resource_flux"] = dynamic.DynamicAttributes.Compute.ResourceFlux
+
+	// 网络动态特征
+	features["latency_flux"] = dynamic.DynamicAttributes.Network.LatencyFlux
+	features["avg_latency"] = egcm.parseLatency(dynamic.DynamicAttributes.Network.AvgLatency)
+	features["bandwidth_usage"] = dynamic.DynamicAttributes.Network.BandwidthUsage
+
+	// 交易处理特征
+	features["tx_frequency"] = float64(dynamic.DynamicAttributes.Transactions.Frequency)
+	features["processing_delay"] = egcm.parseDelay(dynamic.DynamicAttributes.Transactions.ProcessingDelay)
+
+	// 应用状态特征
+	features["application_state"] = egcm.encodeApplicationState(nodeState.NodeState.Static.HeterogeneousType.Application.CurrentState)
+	features["tx_frequency_metric"] = float64(nodeState.NodeState.Static.HeterogeneousType.Application.LoadMetrics.TxFrequency)
+	features["storage_ops"] = float64(nodeState.NodeState.Static.HeterogeneousType.Application.LoadMetrics.StorageOps)
+
+	egcm.sl.Slog.Printf("EvolveGCN: Extracted %d real dynamic features for node %d", len(features), nodeState.NodeID)
+
+	return features
+}
+
+// ========== 辅助编码方法 ==========
+
+// 编码CPU架构
+func (egcm *EvolveGCNCommitteeModule) encodeArchitecture(arch string) float64 {
+	switch arch {
+	case "x86_64", "amd64":
+		return 1.0
+	case "arm64", "aarch64":
+		return 2.0
+	case "x86", "i386":
+		return 3.0
+	default:
+		return 0.0
+	}
+}
+
+// 编码内存类型
+func (egcm *EvolveGCNCommitteeModule) encodeMemoryType(memType string) float64 {
+	switch memType {
+	case "DDR4":
+		return 4.0
+	case "DDR5":
+		return 5.0
+	case "DDR3":
+		return 3.0
+	default:
+		return 4.0 // 默认DDR4
+	}
+}
+
+// 编码存储类型
+func (egcm *EvolveGCNCommitteeModule) encodeStorageType(storageType string) float64 {
+	switch storageType {
+	case "SSD":
+		return 2.0
+	case "NVMe":
+		return 3.0
+	case "HDD":
+		return 1.0
+	default:
+		return 2.0 // 默认SSD
+
+	}
+}
+
+// 编码节点类型
+func (egcm *EvolveGCNCommitteeModule) encodeNodeType(nodeType string) float64 {
+	switch nodeType {
+	case "full_node":
+		return 4.0
+	case "miner_node":
+		return 3.0
+	case "storage_node":
+		return 2.0
+	case "validate_node":
+		return 1.5
+	case "light_node":
+		return 1.0
+	default:
+		return 2.0 // 默认值
+	}
+}
+
+// 编码应用状态
+func (egcm *EvolveGCNCommitteeModule) encodeApplicationState(state string) float64 {
+	switch state {
+	case "active":
+		return 3.0
+	case "high_load":
+		return 4.0
+	case "idle":
+		return 1.0
+	default:
+		return 2.0 // 默认值
+	}
+}
+
+// 编码布尔值
+func (egcm *EvolveGCNCommitteeModule) encodeBool(b bool) float64 {
+	if b {
+		return 1.0
+	}
+	return 0.0
+}
+
+// 解析延迟字符串 (如 "50ms")
+func (egcm *EvolveGCNCommitteeModule) parseLatency(latencyStr string) float64 {
+	if latencyStr == "" {
+		return 50.0 // 默认50ms
+	}
+
+	// 简单解析，去掉"ms"后缀
+	if len(latencyStr) > 2 && latencyStr[len(latencyStr)-2:] == "ms" {
+		if val, err := fmt.Sscanf(latencyStr[:len(latencyStr)-2], "%f"); err == nil && val > 0 {
+			return float64(val)
+		}
+	}
+
+	return 50.0 // 解析失败时的默认值
+}
+
+// 解析延迟字符串 (如 "200ms")
+func (egcm *EvolveGCNCommitteeModule) parseDelay(delayStr string) float64 {
+	return egcm.parseLatency(delayStr) // 复用延迟解析逻辑
+}
+
+// 解析时间间隔字符串 (如 "5.0s")
+func (egcm *EvolveGCNCommitteeModule) parseInterval(intervalStr string) float64 {
+	if intervalStr == "" {
+		return 5.0 // 默认5秒
+	}
+
+	// 简单解析，去掉"s"后缀
+	if len(intervalStr) > 1 && intervalStr[len(intervalStr)-1:] == "s" {
+		if val, err := fmt.Sscanf(intervalStr[:len(intervalStr)-1], "%f"); err == nil && val > 0 {
+			return float64(val)
+		}
+	}
+
+	return 5.0 // 解析失败时的默认值
+}
+
+// 解析交易量字符串 (如 "shard0:1000;shard1:2000")
+func (egcm *EvolveGCNCommitteeModule) parseVolumeString(volumeStr string) float64 {
+	if volumeStr == "" {
+		return 0.0
+	}
+
+	// 简单统计：计算总交易量
+	var total float64 = 0.0
+
+	// 按分号分割
+	parts := strings.Split(volumeStr, ";")
+	for _, part := range parts {
+		// 按冒号分割
+		if kvPair := strings.Split(part, ":"); len(kvPair) == 2 {
+			if val, err := fmt.Sscanf(kvPair[1], "%f"); err == nil && val > 0 {
+				total += float64(val)
+			}
+		}
+	}
+
+	return total
 }

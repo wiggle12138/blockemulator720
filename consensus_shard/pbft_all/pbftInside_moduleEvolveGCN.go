@@ -135,6 +135,10 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 	// 记录区块提交时间戳和统计交易
 	eihm.pbftNode.recordBlockCommit(block)
 
+	// 新增：更新节点收集器的epoch信息
+	currentEpoch := int(eihm.cdm.AccountTransferRound)
+	eihm.pbftNode.updateNodeFeatureCollectorEpoch(currentEpoch)
+
 	eihm.pbftNode.pl.Plog.Printf("S%dN%d : added the block %d... \n", eihm.pbftNode.ShardID, eihm.pbftNode.NodeID, block.Header.Number)
 	eihm.pbftNode.CurChain.PrintBlockChain()
 
@@ -431,15 +435,19 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) accountTransfer_do(atm *message.A
 	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: %d accountstates to add\n", len(atm.AccountState))
 	eihm.pbftNode.CurChain.AddAccounts(atm.Addrs, atm.AccountState, eihm.pbftNode.view.Load())
 
-	// 关键修复：确保正确更新AccountTransferRound
+	// 关键修复：先更新AccountTransferRound，然后更新节点收集器的epoch
 	previousRound := eihm.cdm.AccountTransferRound
 	if uint64(len(eihm.cdm.ModifiedMap)) != atm.ATid {
 		eihm.cdm.ModifiedMap = append(eihm.cdm.ModifiedMap, atm.ModifiedMap)
 	}
 	eihm.cdm.AccountTransferRound = atm.ATid
 
-	eihm.pbftNode.pl.Plog.Printf("AccountTransferRound成功updated from %d to %d",
-		previousRound, eihm.cdm.AccountTransferRound)
+	// 立即更新节点收集器的epoch，确保后续状态收集使用正确的epoch
+	newEpoch := int(eihm.cdm.AccountTransferRound)
+	eihm.pbftNode.updateNodeFeatureCollectorEpoch(newEpoch)
+
+	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: AccountTransferRound updated from %d to %d, node collector epoch updated to %d",
+		previousRound, eihm.cdm.AccountTransferRound, newEpoch)
 
 	eihm.cdm.AccountStateTx = make(map[uint64]*message.AccountStateAndTx)
 	eihm.cdm.ReceivedNewAccountState = make(map[string]*core.AccountState)

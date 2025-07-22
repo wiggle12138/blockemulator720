@@ -34,12 +34,6 @@ func (erom *EvolveGCNRelayOutsideModule) HandleMessageOutsidePBFT(msgType messag
 	case message.CPartitionReady:
 		erom.handlePartitionReady(content)
 
-	// ========== 修复：处理节点状态收集请求 ==========
-	case message.CRequestNodeState:
-		erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d: received node state collection request", erom.pbftNode.ShardID, erom.pbftNode.NodeID)
-		// 异步处理避免阻塞其他消息
-		go erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
-
 	default:
 	}
 	return true

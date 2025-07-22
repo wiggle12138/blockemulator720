@@ -12,14 +12,12 @@ type MessageType string
 type RequestType string
 
 const (
-	CPrePrepare          MessageType = "preprepare"
-	CPrepare             MessageType = "prepare"
-	CCommit              MessageType = "commit"
-	CRequestOldrequest   MessageType = "requestOldrequest"
-	CSendOldrequest      MessageType = "sendOldrequest"
-	CStop                MessageType = "stop"
-	CStopAndCollect      MessageType = "StopAndCollect"
-	CBatchReplyNodeState MessageType = "BatchReplyNodeState"
+	CPrePrepare        MessageType = "preprepare"
+	CPrepare           MessageType = "prepare"
+	CCommit            MessageType = "commit"
+	CRequestOldrequest MessageType = "requestOldrequest"
+	CSendOldrequest    MessageType = "sendOldrequest"
+	CStop              MessageType = "stop"
 
 	CRelay          MessageType = "relay"
 	CRelayWithProof MessageType = "CRelay&Proof"
@@ -27,7 +25,7 @@ const (
 
 	CBlockInfo MessageType = "BlockInfo"
 	CSeqIDinfo MessageType = "SequenceID"
-	// 新增消息类型
+	// 节点状态收集消息类型
 	CRequestNodeState MessageType = "RequestNodeState"
 	CReplyNodeState   MessageType = "ReplyNodeState"
 )
@@ -125,17 +123,9 @@ type RequestNodeStateMsg struct {
 type ReplyNodeStateMsg struct {
 	ShardID   uint64
 	NodeID    uint64
-	Timestamp int64
+	Epoch     int // 修改：从Timestamp改为Epoch
 	RequestID string
 	NodeState NodeState
-}
-
-// 批量节点状态上报消息
-// 用于节点实验结束时一次性上报所有快照
-type BatchReplyNodeStateMsg struct {
-	ShardID uint64
-	NodeID  uint64
-	States  []ReplyNodeStateMsg
 }
 
 // 静态特征结构体
