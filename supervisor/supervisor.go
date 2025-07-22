@@ -66,6 +66,16 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 
 	d.Ss = signal.NewStopSignal(3 * int(pcc.ShardNums))
 
+	// 修复：提前初始化NodeFeaturesModule，确保在设置到EvolveGCN前已初始化
+	d.nodeFeaturesMod = measure.NewNodeFeaturesModule()
+	d.collectionCounter = 0
+	d.collectionInterval = 10
+	d.reportReceived = make(map[string]bool)
+	d.allReportTimeout = 30
+	totalNodes := int(pcc.ShardNums * pcc.Nodes_perShard)
+	d.reportWg = sync.WaitGroup{}
+	d.reportWg.Add(totalNodes)
+
 	switch committeeMethod {
 	case "CLPA_Broker":
 		d.comMod = committee.NewCLPACommitteeMod_Broker(d.Ip_nodeTable, d.Ss, d.sl, params.DatasetFile, params.TotalDataSize, params.TxBatchSize, params.ReconfigTimeGap)
@@ -73,11 +83,9 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 		d.comMod = committee.NewCLPACommitteeModule(d.Ip_nodeTable, d.Ss, d.sl, params.DatasetFile, params.TotalDataSize, params.TxBatchSize, params.ReconfigTimeGap)
 	case "EvolveGCN":
 		d.comMod = committee.NewEvolveGCNCommitteeModule(d.Ip_nodeTable, d.Ss, d.sl, params.DatasetFile, params.TotalDataSize, params.TxBatchSize, params.ReconfigTimeGap)
-		// 新增：设置节点状态收集器引用到EvolveGCN模块
+		// 修复：现在d.nodeFeaturesMod已经初始化，可以安全设置
 		if evolveGCNMod, ok := d.comMod.(*committee.EvolveGCNCommitteeModule); ok {
 			evolveGCNMod.SetNodeStateCollector(d)
-			// 新增：设置节点特征模块引用，让EvolveGCN能访问真实收集的节点数据
-			// 修复：使用接口类型转换而不是直接传递结构体
 			evolveGCNMod.SetNodeFeaturesModule(d.nodeFeaturesMod)
 			d.sl.Slog.Println("EvolveGCN: Successfully configured with real node feature data access")
 		}
@@ -87,8 +95,7 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 		d.comMod = committee.NewRelayCommitteeModule(d.Ip_nodeTable, d.Ss, d.sl, params.DatasetFile, params.TotalDataSize, params.TxBatchSize)
 	}
 
-	// 只创建一个NodeFeaturesModule实例
-	d.nodeFeaturesMod = measure.NewNodeFeaturesModule()
+	// 初始化测量模块列表
 	d.testMeasureMods = make([]measure.MeasureModule, 0)
 	for _, mModName := range measureModNames {
 		switch mModName {
@@ -97,7 +104,6 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 		case "TPS_Broker":
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestModule_avgTPS_Broker())
 		case "TPS_EvolveGCN":
-			// 新增：EvolveGCN使用标准TPS测量模块
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestModule_avgTPS_EvolveGCN())
 		case "TCL_Relay":
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestModule_TCL_Relay())
@@ -108,7 +114,6 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 		case "CrossTxRate_Broker":
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestCrossTxRate_Broker())
 		case "CrossTxRate_EvolveGCN":
-			// 新增：EvolveGCN使用标准跨分片交易率测量模块
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestCrossTxRate_EvolveGCN())
 		case "TxNumberCount_Relay":
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestTxNumCount_Relay())
@@ -117,22 +122,11 @@ func (d *Supervisor) NewSupervisor(ip string, pcc *params.ChainConfig, committee
 		case "Tx_Details":
 			d.testMeasureMods = append(d.testMeasureMods, measure.NewTestTxDetail())
 		case "Node_Features":
-			// 只将唯一实例加入testMeasureMods
+			// 将已初始化的nodeFeaturesMod加入testMeasureMods
 			d.testMeasureMods = append(d.testMeasureMods, d.nodeFeaturesMod)
 		default:
 		}
 	}
-
-	// 删除多余的 d.nodeFeaturesMod = measure.NewNodeFeaturesModule()
-
-	d.collectionCounter = 0
-	d.collectionInterval = 10
-
-	d.reportReceived = make(map[string]bool)
-	d.allReportTimeout = 30
-	totalNodes := int(pcc.ShardNums * pcc.Nodes_perShard)
-	d.reportWg = sync.WaitGroup{}
-	d.reportWg.Add(totalNodes)
 }
 
 // Supervisor received the block information from the leaders, and handle these
@@ -364,9 +358,9 @@ func (d *Supervisor) handleMessage(msg []byte) {
 		// d.sl.Slog.Printf("[DEBUG] Supervisor: 节点S%dN%d数据已传递给NodeFeaturesModule处理完成\n",
 		// 	reply.ShardID, reply.NodeID)
 
-		// // 打印当前存储状态
-		// collectedCount, _, _ := d.nodeFeaturesMod.GetCollectionStats()
-		// d.sl.Slog.Printf("[DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: %d\n", collectedCount)
+		// 打印当前存储状态
+		collectedCount, _, _ := d.nodeFeaturesMod.GetCollectionStats()
+		d.sl.Slog.Printf("[DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: %d\n", collectedCount)
 
 		// var reply message.ReplyNodeStateMsg
 		// if err := json.Unmarshal(content, &reply); err == nil {

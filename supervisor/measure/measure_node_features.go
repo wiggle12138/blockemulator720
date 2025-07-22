@@ -81,7 +81,7 @@ func (nfm *NodeFeaturesModule) HandleExtraMessage(msg []byte) {
 		fmt.Printf("[DEBUG] HandleExtraMessage: 确认收到节点状态回复消息\n")
 
 		var replyMsg message.ReplyNodeStateMsg
-		if err := json.Unmarshal(content, &replyMsg); err == nil {
+		if err := json.Unmarshal(content, &replyMsg); err != nil {
 			fmt.Printf("[DEBUG] HandleExtraMessage: 解析节点状态消息失败: %v\n", err)
 			return
 		}
@@ -98,7 +98,7 @@ func (nfm *NodeFeaturesModule) HandleExtraMessage(msg []byte) {
 		fmt.Printf("[DEBUG] HandleExtraMessage: 节点S%dN%d数据存储完成\n",
 			replyMsg.ShardID, replyMsg.NodeID)
 	default:
-		fmt.Printf("[DEBUG] HandleExtraMessage: 未知消息类型: %d，忽略处理\n", msgType)
+		fmt.Printf("[DEBUG] HandleExtraMessage: 未知消息类型: %s，忽略处理\n", msgType)
 	}
 }
 
