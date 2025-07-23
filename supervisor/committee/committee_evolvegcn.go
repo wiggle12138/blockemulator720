@@ -203,6 +203,46 @@ func (egcm *EvolveGCNCommitteeModule) MsgSendingControl() {
 			mmap, crossTxNum := egcm.runEvolveGCNPartition()
 			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  分片算法完成，跨分片边数: %d", evolvegcnCnt, crossTxNum)
 
+			// ========== 新增：打印mmap重映射内容 ==========
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: ========== MMAP重映射详细内容 ==========", evolvegcnCnt)
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: mmap总数量: %d", evolvegcnCnt, len(mmap))
+
+			if len(mmap) > 0 {
+				count := 0
+				for key, value := range mmap {
+					egcm.sl.Slog.Printf("EvolveGCN Epoch %d: mmap[%d] - 键: '%s', 值: %d", evolvegcnCnt, count, key, value)
+					count++
+					if count >= 8 { // 只打印前8条
+						egcm.sl.Slog.Printf("EvolveGCN Epoch %d: ... (还有%d条记录)", evolvegcnCnt, len(mmap)-8)
+						break
+					}
+				}
+
+				// 检查键的格式
+				egcm.sl.Slog.Printf("EvolveGCN Epoch %d: ========== 键格式分析 ==========", evolvegcnCnt)
+				for key := range mmap {
+					if strings.HasPrefix(key, "S") && strings.Contains(key, "N") {
+						egcm.sl.Slog.Printf("EvolveGCN Epoch %d: 检测到节点格式键: %s", evolvegcnCnt, key)
+					} else if strings.HasPrefix(key, "0x") {
+						egcm.sl.Slog.Printf("EvolveGCN Epoch %d: 检测到地址格式键: %s", evolvegcnCnt, key)
+					} else {
+						egcm.sl.Slog.Printf("EvolveGCN Epoch %d: 未知格式键: %s", evolvegcnCnt, key)
+					}
+					break // 只检查第一个键的格式
+				}
+			} else {
+				egcm.sl.Slog.Printf("EvolveGCN Epoch %d: ⚠️ WARNING: mmap为空！", evolvegcnCnt)
+			}
+
+			// 临时示例mmap
+			mmap1 := make(map[string]uint64)
+
+			// 示例1：添加一些账户地址映射
+			mmap1["0x1234567890abcdef1234567890abcdef12345678"] = 0 // 示例账户 -> 分片0
+			mmap1["0xfedcba0987654321fedcba0987654321fedcba09"] = 1 // 示例账户 -> 分片1
+			mmap1["0xabcdef1234567890abcdef1234567890abcdef12"] = 0 // 示例账户 -> 分片0
+			mmap1["0x567890abcdef1234567890abcdef1234567890ab"] = 1 // 示例账户 -> 分片1
+
 			postReconfigCTXRatio := egcm.estimatePostReconfigCrossShardRatio(mmap, crossTxNum)
 			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  重分片后预期跨分片率: %.4f (%.2f%%) [改善: %.2f%%]",
 				evolvegcnCnt, postReconfigCTXRatio, postReconfigCTXRatio*100,
@@ -212,14 +252,17 @@ func (egcm *EvolveGCNCommitteeModule) MsgSendingControl() {
 
 			// 发送分区消息 - 参考CLPA的日志格式
 			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  发送分区映射消息到所有分片...", evolvegcnCnt)
-			egcm.evolvegcnMapSend(mmap)
+			egcm.evolvegcnMapSend(mmap1)
 			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  所有分区映射消息已发送完成", evolvegcnCnt)
 
 			// 更新本地分区映射
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  更新本地分区映射开始", evolvegcnCnt)
 			for key, val := range mmap {
 				egcm.modifiedMap[key] = val
 			}
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  更新本地分区映射完成", evolvegcnCnt)
 			egcm.evolvegcnReset()
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  evolvegcnReset执行完成", evolvegcnCnt)
 			egcm.evolvegcnLock.Unlock()
 
 			// 等待epoch确认 - 参考CLPA的确认机制
@@ -396,7 +439,7 @@ func (egcm *EvolveGCNCommitteeModule) evolvegcnMapSend(m map[string]uint64) {
 		go networks.TcpDial(send_msg, egcm.IpNodeTable[i][0])
 	}
 
-	egcm.sl.Slog.Printf("EvolveGCN Supervisor: partition map with epoch %d 广播到0号节点",
+	egcm.sl.Slog.Printf("EvolveGCNMapSend函数发送CPartitionMsg完毕 %d 广播到0号节点",
 		atomic.LoadInt32(&egcm.curEpoch))
 }
 
@@ -936,7 +979,7 @@ func (egcm *EvolveGCNCommitteeModule) generateSimplifiedEmbeddings(nodeFeatures 
 
 // 调用Python四步完整流水线
 func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []NodeFeatureData) (map[string]uint64, int, error) {
-	egcm.sl.Slog.Println("EvolveGCN: Preparing input for Python four-step pipeline...")
+	egcm.sl.Slog.Println("EvolveGCN: 准备输入 for Python four-step pipeline...")
 
 	// 准备输入数据
 	inputData := egcm.preparePipelineInput(nodeFeatures)
@@ -978,12 +1021,12 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	}
 
 	// 检查Python脚本是否存在
-	if _, err := os.Stat("evolvegcn_go_interface.py"); err != nil {
+	if _, err := os.Stat("complete_sharding_go_interface.py"); err != nil {
 		egcm.sl.Slog.Printf("EvolveGCN ERROR: Python interface script not found: %v", err)
 		return nil, 0, fmt.Errorf("Python interface script not found: %v", err)
 	}
 
-	cmd := exec.Command(pythonPath, "evolvegcn_go_interface.py", "--input", inputFile, "--output", outputFile)
+	cmd := exec.Command(pythonPath, "complete_sharding_go_interface.py", "--input", inputFile, "--output", outputFile)
 
 	// 设置工作目录为当前目录
 	if wd, err := os.Getwd(); err == nil {
@@ -1015,7 +1058,7 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	defer cancel()
 
 	// 选择Python脚本优先级：安全预加载服务 > 预加载服务 > 优化版完整流水线 > 原始完整版 > 快速测试版
-	scriptName := "evolvegcn_go_interface.py" // 默认原始版本
+	scriptName := "complete_sharding_go_interface.py" // 723优化版本
 
 	if _, err := os.Stat("evolvegcn_preload_service_safe.py"); err == nil {
 		scriptName = "evolvegcn_preload_service_safe.py"
@@ -1048,7 +1091,7 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	err = cmdWithTimeout.Run()
 
 	// 详细记录执行结果
-	egcm.sl.Slog.Printf("EvolveGCN: Python pipeline execution completed")
+	egcm.sl.Slog.Printf("EvolveGCN: Python pipeline 执行结束")
 	egcm.sl.Slog.Printf("EvolveGCN: STDOUT: %s", stdout.String())
 	if stderr.Len() > 0 {
 		egcm.sl.Slog.Printf("EvolveGCN: STDERR: %s", stderr.String())

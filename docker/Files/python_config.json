@@ -1,8 +1,8 @@
 {
   "enable_evolve_gcn": true,
   "enable_feedback": true,
-  "python_path": "E:\\Codefield\\BlockEmulator\\.venv\\Scripts\\python.exe",
-  "module_path": "./",
+  "python_path": "D:\\Environment\\pytorch2.2.2\\python.exe",
+  "module_path": "./app/python_modules",
   "max_iterations": 10,
   "epochs_per_iteration": 8,
   "data_exchange_dir": "./data_exchange",

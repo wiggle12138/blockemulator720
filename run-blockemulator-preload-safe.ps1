@@ -17,7 +17,7 @@ $ExePath = if (Test-Path ".\blockEmulator_Windows_UTF8.exe") {
 }
 
 # 使用用户指定的Python环境路径
-$PythonExePath = "D:\Environment\Anaconda_envs\envs\blockemulator_torch\python.exe"
+$PythonExePath = "D:\Environment\pytorch2.2.2\python.exe"
 
 function Start-PythonWarmup {
     Write-Host "[WARMUP] 启动Python EvolveGCN预热..." -ForegroundColor Yellow

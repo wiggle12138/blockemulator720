@@ -20,18 +20,22 @@ type EvolveGCNPbftInsideExtraHandleMod struct {
 }
 
 func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinPropose() (bool, *message.Request) {
-	eihm.pbftNode.pl.Plog.Println("EvolveGCN: HandleinPropose")
+	eihm.pbftNode.pl.Plog.Println("进入HandleinPropose函数")
 	if eihm.cdm.PartitionOn {
 		// EvolveGCN 分区重配置逻辑（基于 CLPA）
-		eihm.pbftNode.pl.Plog.Println("EvolveGCN: ready to partition")
+		eihm.pbftNode.pl.Plog.Println("是ON状态，可以重新映射")
 
 		// 继续原有的分区逻辑
 		eihm.sendPartitionReady()
+		eihm.pbftNode.pl.Plog.Println("第一步sendPartitionReady执行完成")
 		for !eihm.getPartitionReady() {
+			eihm.pbftNode.pl.Plog.Println("进入getPartitionReady循环")
 			time.Sleep(time.Second)
 		}
+		eihm.pbftNode.pl.Plog.Println("getPartitionReady执行完成")
 		// send accounts and txs
 		eihm.sendAccounts_and_Txs()
+		eihm.pbftNode.pl.Plog.Println("第二步sendAccounts_and_Txs执行完成")
 		// propose a partition
 		for !eihm.getCollectOver() {
 			time.Sleep(time.Second)
@@ -306,7 +310,16 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) getPartitionReady() bool {
 
 func (eihm *EvolveGCNPbftInsideExtraHandleMod) sendAccounts_and_Txs() {
 	// generate accout transfer and txs message
+	eihm.pbftNode.pl.Plog.Printf("进入sendAccounts_and_Txs()\n")
 	accountToFetch := make([]string, 0)
+
+	// 检查ModifiedMap状态
+	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: ModifiedMap长度: %d", len(eihm.cdm.ModifiedMap))
+	if len(eihm.cdm.ModifiedMap) == 0 {
+		eihm.pbftNode.pl.Plog.Printf("EvolveGCN: 错误 - ModifiedMap为空")
+		return
+	}
+
 	lastMapid := len(eihm.cdm.ModifiedMap) - 1
 	for key, val := range eihm.cdm.ModifiedMap[lastMapid] {
 		if val != eihm.pbftNode.ShardID && eihm.pbftNode.CurChain.Get_PartitionMap(key) == eihm.pbftNode.ShardID {

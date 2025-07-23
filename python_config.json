@@ -1,7 +1,7 @@
 ﻿{
   "enable_evolve_gcn": true,
   "enable_feedback": true,
-  "python_path": "D:\\Environment\\Anaconda_envs\\envs\\blockemulator_torch",
+  "python_path": "D:\\Environment\\pytorch2.2.2\\python.exe",
   "module_path": "./",
   "max_iterations": 10,
   "epochs_per_iteration": 8,

@@ -26,8 +26,8 @@ func (erom *EvolveGCNRelayOutsideModule) HandleMessageOutsidePBFT(msgType messag
 	// messages about CLPA/EvolveGCN
 	case message.CPartitionMsg:
 		// ========== 关键增强：接收分区消息时触发数据收集 ==========
-		erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message, triggering node feature collection")
-		erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
+		//erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message, triggering node feature collection")
+		//erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
 		erom.handlePartitionMsg(content)
 	case message.AccountState_and_TX:
 		erom.handleAccountStateAndTxMsg(content)
@@ -93,7 +93,7 @@ func (erom *EvolveGCNRelayOutsideModule) handleInjectTx(content []byte) {
 
 // 处理分区消息（修复消息结构体不匹配问题）
 func (erom *EvolveGCNRelayOutsideModule) handlePartitionMsg(content []byte) {
-	erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message from supervisor")
+	erom.pbftNode.pl.Plog.Println("worker节点收到重配置消息，开始重新映射分片")
 
 	// 修复：先尝试新版本结构体，如果失败则使用旧版本
 	pmWithEpoch := new(message.PartitionModifiedMapWithEpoch)
@@ -116,6 +116,7 @@ func (erom *EvolveGCNRelayOutsideModule) handlePartitionMsg(content []byte) {
 	}
 
 	erom.cdm.PartitionOn = true
+	erom.pbftNode.pl.Plog.Println("PartitionOn参数设置为true，开始处理分片重配置")
 }
 
 // wait for other shards' last rounds are over
