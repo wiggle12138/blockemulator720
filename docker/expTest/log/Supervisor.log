@@ -1,1282 +1,331 @@
-Supervisor: 2025/07/19 01:26:45 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:26:45 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:26:46 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:26:50 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:26:50 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:26:51 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:26:55 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:26:55 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:26:56 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:00 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:00 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:01 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:05 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:05 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:06 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:10 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:10 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:11 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:15 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:15 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:16 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:20 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:20 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:21 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:25 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:25 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:26 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:30 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:30 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 01:27:31 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 01:27:33 committee_evolvegcn.go:168: EvolveGCN Epoch 1: Triggering comprehensive node feature collection...
-Supervisor: 2025/07/19 01:27:33 supervisor.go:269: Triggering node state collection...
-Supervisor: 2025/07/19 01:27:33 supervisor.go:305: Sent node state requests to 16/16 nodes
-Supervisor: 2025/07/19 01:27:33 supervisor.go:310: Waiting for nodes to process state collection requests...
-Supervisor: 2025/07/19 01:27:35 committee_evolvegcn.go:373: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:177: EvolveGCN Epoch 1: Pre-reconfiguration CTX ratio: 0.4113
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:180: EvolveGCN Epoch 1: Running EvolveGCN partition algorithm...
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:283: EvolveGCN: Starting four-step partition pipeline...
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:1144: EvolveGCN: Auto-configuring Python virtual environment...
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:1154: EvolveGCN: Python environment configuration failed: exec: "python": executable file not found in $PATH
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:1155: EvolveGCN: Error output: 
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:287: EvolveGCN: CRITICAL ERROR - Failed to configure Python environment: failed to configure Python environment: exec: "python": executable file not found in $PATH
-Supervisor: 2025/07/19 01:27:43 committee_evolvegcn.go:288: EvolveGCN: SYSTEM FAILURE - Cannot run without EvolveGCN
-lvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:39:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:39:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:39:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:39:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:39:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:07 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:12 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:17 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:22 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:27 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:32 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:37 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:42 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:52 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:40:57 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:40:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:40:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:02 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:07 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:12 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:17 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:22 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:27 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:32 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:37 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:42 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:52 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:41:57 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:41:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:41:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:02 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:07 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:12 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:17 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:22 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:27 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:32 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:37 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:42 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:52 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:42:57 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:42:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:42:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:02 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:07 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:12 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:17 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:22 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:27 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:32 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:37 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:42 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:52 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:43:57 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:43:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:43:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:02 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:07 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:12 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:13 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:17 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:18 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:22 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:23 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:27 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:28 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:32 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:33 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:37 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:38 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:42 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:43 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:47 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:48 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:52 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:53 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:44:57 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:44:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:44:58 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:45:02 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:45:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:45:03 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:45:07 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:45:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:45:08 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:56:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:56:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:56:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:56:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:56:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:56:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:57:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:57:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:57:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:58:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:58:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:58:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/18 23:59:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/18 23:59:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/18 23:59:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:00:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:00:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:00:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:01:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:01:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:01:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:02:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:02:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:02:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:03:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:03:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:03:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:04:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:04:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:04:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:05:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:05:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:05:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:06:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:06:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:06:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:07:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:07:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:07:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:08:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:08:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:08:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:09:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:09:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:09:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:10:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:10:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:10:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:11:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:11:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:11:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:12:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:12:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:12:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:13:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:13:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:13:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:14:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:14:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:14:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:15:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:15:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:15:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:16:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:16:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:16:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:17:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:17:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:17:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:18:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:18:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:18:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:19:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:19:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:19:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:00 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:20:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:20:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:20:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:21:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:21:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:21:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:22:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:22:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:22:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:05 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:10 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:35 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:40 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:45 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:50 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:23:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:23:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:23:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:00 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:05 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:10 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:15 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:25 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:30 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:35 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:40 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:45 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:50 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:24:55 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:24:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:24:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:00 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:05 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:09 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:10 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:14 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:15 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:19 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:20 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:24 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:25 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:29 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:30 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:34 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:35 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:39 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:40 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:44 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:45 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:49 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:50 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:54 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:25:55 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:25:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
-Supervisor: 2025/07/19 00:25:59 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 3 in epoch 0.
-Supervisor: 2025/07/19 00:26:00 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 2 in epoch 0.
-Supervisor: 2025/07/19 00:26:04 committee_evolvegcn.go:336: EvolveGCN Supervisor: received from shard 1 in epoch 0.
+Supervisor: 2025/07/26 01:40:54 supervisor.go:90: EvolveGCN: Successfully configured with real node feature data access
+Supervisor: 2025/07/26 01:40:54 committee_evolvegcn.go:1518: EvolveGCN: Starting Python service warmup...
+Supervisor: 2025/07/26 01:40:56 committee_evolvegcn.go:893: EvolveGCN: Using system Python as fallback
+Supervisor: 2025/07/26 01:40:58 committee_evolvegcn.go:1565: EvolveGCN: Python service warmup completed in 2.29 seconds
+Supervisor: 2025/07/26 01:40:58 committee_evolvegcn.go:1566: EvolveGCN: Warmup output: [PRELOAD] EvolveGCN预加载服务启动中...
+[PRELOAD] 正在加载PyTorch...
+[PRELOAD] 预热模型组件...
+[PRELOAD] [SUCCESS] 模型预加载完成，设备: cpu
+[WARMUP] 预热完成，服务就绪
+Supervisor: 2025/07/26 01:41:04 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:05 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:09 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:10 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:14 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:15 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:19 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:20 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:24 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:25 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:29 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:30 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:34 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:35 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:39 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:40 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:44 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:45 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:49 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 0
+Supervisor: 2025/07/26 01:41:50 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 0
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:187: ===============================================
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:188:  EvolveGCN Epoch 1 开始执行重分片算法
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:189: ===============================================
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:192: EvolveGCN Epoch 1: Step 1 - 触发节点特征收集...
+Supervisor: 2025/07/26 01:41:51 supervisor.go:239: 开始触发节点状态收集（使用确认机制）...
+Supervisor: 2025/07/26 01:41:51 supervisor.go:321: 已向 4/4 个节点发送状态请求
+Supervisor: 2025/07/26 01:41:51 supervisor.go:260: 等待所有节点确认收集完成...
+Supervisor: 2025/07/26 01:41:51 supervisor.go:344: [DEBUG] Supervisor: 收到节点S1N0状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:41:51 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:41:51 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 1
+Supervisor: 2025/07/26 01:41:51 supervisor.go:372: 收到节点1-0状态上报 (轮次0)
+Supervisor: 2025/07/26 01:41:51 supervisor.go:344: [DEBUG] Supervisor: 收到节点S0N0状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:41:51 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:41:51 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 2
+Supervisor: 2025/07/26 01:41:51 supervisor.go:372: 收到节点0-0状态上报 (轮次0)
+Supervisor: 2025/07/26 01:41:51 supervisor.go:344: [DEBUG] Supervisor: 收到节点S1N1状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:41:51 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:41:51 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 3
+Supervisor: 2025/07/26 01:41:51 supervisor.go:372: 收到节点1-1状态上报 (轮次0)
+Supervisor: 2025/07/26 01:41:51 supervisor.go:344: [DEBUG] Supervisor: 收到节点S0N1状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:41:51 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:41:51 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 4
+Supervisor: 2025/07/26 01:41:51 supervisor.go:372: 收到节点0-1状态上报 (轮次0)
+Supervisor: 2025/07/26 01:41:51 supervisor.go:272: 所有节点已确认收集完成
+Supervisor: 2025/07/26 01:41:51 supervisor.go:255: 所有节点已确认状态收集完成
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:195: EvolveGCN Epoch 1:  节点特征收集完成
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:199: EvolveGCN Epoch 1:  重分片前跨分片交易率: 0.2785 (27.85%)
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:202: EvolveGCN Epoch 1: Step 3 -  执行EvolveGCN分片算法...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:358: EvolveGCN: Starting four-step partition pipeline...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:361: EvolveGCN: Using pre-configured Python environment from config file...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:893: EvolveGCN: Using system Python as fallback
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:378: EvolveGCN Step 1: 特征提取...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:520: EvolveGCN Step 1: 提取真实特征开始...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:526: 真实特征存在 NodeFeaturesModule
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:529: 尝试执行GetLatestNodeStates
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:544: [调试] 开始调用GetLatestNodeStates方法
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:553: [调试] nodeFeatureModule不为nil，开始调用GetLatestNodeStates
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:558: [调试] GetLatestNodeStates调用成功，返回数据量: 4
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:566: GetLatestNodeStates执行成功，返回4个节点数据
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:570: 找到 4 个真实节点 NodeFeaturesModule
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 0
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 0
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 0
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 0
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 1
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 1
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 1
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 1
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:591: 成功提取节点特征 for 4 nodes
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:387: EvolveGCN: Calling Python four-step pipeline...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:982: EvolveGCN: 准备输入 for Python four-step pipeline...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:997: EvolveGCN: Input JSON size: 7204566 bytes, contains 4 nodes
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1006: EvolveGCN: Successfully wrote input file: evolvegcn_input.json
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:893: EvolveGCN: Using system Python as fallback
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1012: EvolveGCN: Executing Python four-step pipeline with: python
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1013: EvolveGCN: Input file: evolvegcn_input.json, Output file: evolvegcn_output.json
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1020: EvolveGCN: Input file size: 7204566 bytes
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1034: EvolveGCN: Setting working directory to: /app
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1045: EvolveGCN: Starting Python pipeline execution...
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1046: EvolveGCN: Command: python [python complete_sharding_go_interface.py --input evolvegcn_input.json --output evolvegcn_output.json]
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1049: EvolveGCN: Environment variables: [REGION=Central PYTHON_SHA256=ae665bc678abd9ab6a6e1573d2481625a53719bc517e9a634ed2b9fefae3817f PYTHONUNBUFFERED=1 HOSTNAME=5034cd63479e PYTHON_VERSION=3.10.18 MEM_LIMIT=4 NETWORK_DOWNSTREAM_BW=200 PWD=/app STORAGE_READ_WRITE_SPEED=400 CONDA_PREFIX=/opt/conda STORAGE_CAPACITY=2048 TZ=Asia/Shanghai HOME=/home/appuser LANG=C.UTF-8 GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D TIMEZONE=UTC+8 MEMORY_BANDWIDTH=3600 PYTHONPATH=/app SHLVL=0 NETWORK_UPSTREAM_BW=200 CONDA_DEFAULT_ENV=base DATACENTER=MainDC CPU_LIMIT=2.0 PATH=/opt/conda/Scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBIAN_FRONTEND=noninteractive APPLICATION_LOAD_METRIC1=500 APPLICATION_LOAD_METRIC2=400 _=./blockEmulator_linux_Precompile PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 PYTHONUTF8=1]
+Supervisor: 2025/07/26 01:41:51 committee_evolvegcn.go:1065: EvolveGCN: Using encoding-safe preloaded service (fastest)
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1094: EvolveGCN: Python pipeline 执行结束
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1095: EvolveGCN: STDOUT: [INIT] EvolveGCN Preload Service starting
+[INIT] Input file: evolvegcn_input.json
+[INIT] Output file: evolvegcn_output.json
+[PRELOAD] EvolveGCN Preload Service starting...
+[PRELOAD] Loading PyTorch...
+[PRELOAD] Warming up model components...
+[PRELOAD] [SUCCESS] Model preloading completed, device: cpu
+[PROCESS] Processing request with 4 nodes
+[PROCESS] [SUCCESS] Processing completed, time: 0.01s
+[SUCCESS] EvolveGCN four-step pipeline completed
+[RESULT] Processed nodes: 4.0
+[RESULT] Cross-shard edges: 0
+[RESULT] Performance score: 1.000
+[OUTPUT] Results saved to: evolvegcn_output.json
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1097: EvolveGCN: STDERR: 
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "/app/evolvegcn_preload_service_safe.py", line 251, in <module>
+    sys.exit(main())
+  File "/app/evolvegcn_preload_service_safe.py", line 200, in main
+    service = EvolveGCNPreloadService()
+  File "/app/evolvegcn_preload_service_safe.py", line 30, in __init__
+    self._preload_models()
+  File "/app/evolvegcn_preload_service_safe.py", line 36, in _preload_models
+    import torch
+  File "/usr/local/lib/python3.10/site-packages/torch/__init__.py", line 1477, in <module>
+    from .functional import *  # noqa: F403
+  File "/usr/local/lib/python3.10/site-packages/torch/functional.py", line 9, in <module>
+    import torch.nn.functional as F
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/__init__.py", line 1, in <module>
+    from .modules import *  # noqa: F403
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/__init__.py", line 35, in <module>
+    from .transformer import TransformerEncoder, TransformerDecoder, \
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/transformer.py", line 20, in <module>
+    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device('cpu'),
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1110: EvolveGCN: Output file created successfully, size: 606 bytes
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1114: EvolveGCN: Parsing pipeline output from: evolvegcn_output.json
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1121: EvolveGCN: Successfully parsed output, partition map size: 4
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1124: EvolveGCN: Cleaning up temporary files...
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:1128: EvolveGCN: Python pipeline completed, processed 4 nodes with 0 cross-shard edges
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:395: EvolveGCN: Pipeline completed successfully. Cross-shard edges: 0
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:396: EvolveGCN:  Real EvolveGCN algorithm active (CLPA placeholder replaced)
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:204: EvolveGCN Epoch 1:  分片算法完成，跨分片边数: 0
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:207: EvolveGCN Epoch 1: ========== MMAP重映射详细内容 ==========
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:208: EvolveGCN Epoch 1: mmap总数量: 4
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:213: EvolveGCN Epoch 1: mmap[0] - 键: 'S1N0', 值: 0
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:213: EvolveGCN Epoch 1: mmap[1] - 键: 'S0N0', 值: 1
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:213: EvolveGCN Epoch 1: mmap[2] - 键: 'S1N1', 值: 0
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:213: EvolveGCN Epoch 1: mmap[3] - 键: 'S0N1', 值: 1
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:222: EvolveGCN Epoch 1: ========== 键格式分析 ==========
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:225: EvolveGCN Epoch 1: 检测到节点格式键: S1N0
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:247: EvolveGCN Epoch 1:  重分片后预期跨分片率: 0.0000 (0.00%) [改善: 27.85%]
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:419: EvolveGCN Metrics: Epoch 1 - CTX ratio change: 0.2785 -> 0.0000 (reduction: 0.2785)
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:254: EvolveGCN Epoch 1:  发送分区映射消息到所有分片...
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:442: EvolveGCNMapSend函数发送CPartitionMsg完毕 0 广播到0号节点
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:256: EvolveGCN Epoch 1:  所有分区映射消息已发送完成
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:259: EvolveGCN Epoch 1:  更新本地分区映射开始
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:263: EvolveGCN Epoch 1:  更新本地分区映射完成
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:265: EvolveGCN Epoch 1:  evolvegcnReset执行完成
+Supervisor: 2025/07/26 01:41:53 committee_evolvegcn.go:269: EvolveGCN Epoch 1:  等待所有分片确认epoch更新...
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:462: 收到0长度区块 from shard 1 epoch 1
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:470: EPOCH UPDATED from 老的0 to 接收到的1 (PARTITION CONFIRMED by shard 1)
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:462: 收到0长度区块 from shard 1 epoch 1
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:281: ===============================================
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:282:  EvolveGCN Epoch 1 重分片完成! 下一轮开始准备...
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:283: ===============================================
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:41:55 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:41:59 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:00 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:04 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:05 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:09 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:10 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:14 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:15 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:19 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:19 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:19 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:42:24 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:24 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:24 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:42:29 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:29 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:29 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:42:34 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:34 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:34 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:42:39 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:40 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:44 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:45 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:45 committee_evolvegcn.go:298: EvolveGCN Final Epoch 2: Executing final reconfiguration...
+Supervisor: 2025/07/26 01:42:45 supervisor.go:239: 开始触发节点状态收集（使用确认机制）...
+Supervisor: 2025/07/26 01:42:45 supervisor.go:321: 已向 4/4 个节点发送状态请求
+Supervisor: 2025/07/26 01:42:45 supervisor.go:260: 等待所有节点确认收集完成...
+Supervisor: 2025/07/26 01:42:45 supervisor.go:344: [DEBUG] Supervisor: 收到节点S1N0状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:42:45 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:42:45 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 5
+Supervisor: 2025/07/26 01:42:45 supervisor.go:372: 收到节点1-0状态上报 (轮次1)
+Supervisor: 2025/07/26 01:42:45 supervisor.go:344: [DEBUG] Supervisor: 收到节点S0N0状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:42:45 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:42:45 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 6
+Supervisor: 2025/07/26 01:42:45 supervisor.go:372: 收到节点0-0状态上报 (轮次1)
+Supervisor: 2025/07/26 01:42:45 supervisor.go:344: [DEBUG] Supervisor: 收到节点S0N1状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:42:45 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:42:45 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 7
+Supervisor: 2025/07/26 01:42:45 supervisor.go:372: 收到节点0-1状态上报 (轮次1)
+Supervisor: 2025/07/26 01:42:45 supervisor.go:344: [DEBUG] Supervisor: 收到节点S1N1状态数据，开始传递给NodeFeaturesModule
+Supervisor: 2025/07/26 01:42:45 supervisor.go:353: [DEBUG] Supervisor: nodeFeaturesMod不为nil，开始调用HandleExtraMessage
+Supervisor: 2025/07/26 01:42:45 supervisor.go:363: [DEBUG] Supervisor: 当前NodeFeaturesModule中存储的数据量: 8
+Supervisor: 2025/07/26 01:42:45 supervisor.go:372: 收到节点1-1状态上报 (轮次1)
+Supervisor: 2025/07/26 01:42:45 supervisor.go:272: 所有节点已确认收集完成
+Supervisor: 2025/07/26 01:42:45 supervisor.go:255: 所有节点已确认状态收集完成
+Supervisor: 2025/07/26 01:42:49 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 1 epoch 1
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:358: EvolveGCN: Starting four-step partition pipeline...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:361: EvolveGCN: Using pre-configured Python environment from config file...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:893: EvolveGCN: Using system Python as fallback
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:378: EvolveGCN Step 1: 特征提取...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:520: EvolveGCN Step 1: 提取真实特征开始...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:526: 真实特征存在 NodeFeaturesModule
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:529: 尝试执行GetLatestNodeStates
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:544: [调试] 开始调用GetLatestNodeStates方法
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:553: [调试] nodeFeatureModule不为nil，开始调用GetLatestNodeStates
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:558: [调试] GetLatestNodeStates调用成功，返回数据量: 4
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:566: GetLatestNodeStates执行成功，返回4个节点数据
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:570: 找到 4 个真实节点 NodeFeaturesModule
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 0
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 0
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 0
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 0
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 1
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 1
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1691: EvolveGCN: Extracted 18 real static features for node 1
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1743: EvolveGCN: Extracted 22 real dynamic features for node 1
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:591: 成功提取节点特征 for 4 nodes
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:387: EvolveGCN: Calling Python four-step pipeline...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:982: EvolveGCN: 准备输入 for Python four-step pipeline...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:997: EvolveGCN: Input JSON size: 5764638 bytes, contains 4 nodes
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1006: EvolveGCN: Successfully wrote input file: evolvegcn_input.json
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:893: EvolveGCN: Using system Python as fallback
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1012: EvolveGCN: Executing Python four-step pipeline with: python
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1013: EvolveGCN: Input file: evolvegcn_input.json, Output file: evolvegcn_output.json
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1020: EvolveGCN: Input file size: 5764638 bytes
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1034: EvolveGCN: Setting working directory to: /app
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1045: EvolveGCN: Starting Python pipeline execution...
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1046: EvolveGCN: Command: python [python complete_sharding_go_interface.py --input evolvegcn_input.json --output evolvegcn_output.json]
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1049: EvolveGCN: Environment variables: [REGION=Central PYTHON_SHA256=ae665bc678abd9ab6a6e1573d2481625a53719bc517e9a634ed2b9fefae3817f PYTHONUNBUFFERED=1 HOSTNAME=5034cd63479e PYTHON_VERSION=3.10.18 MEM_LIMIT=4 NETWORK_DOWNSTREAM_BW=200 PWD=/app STORAGE_READ_WRITE_SPEED=400 CONDA_PREFIX=/opt/conda STORAGE_CAPACITY=2048 TZ=Asia/Shanghai HOME=/home/appuser LANG=C.UTF-8 GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D TIMEZONE=UTC+8 MEMORY_BANDWIDTH=3600 PYTHONPATH=/app SHLVL=0 NETWORK_UPSTREAM_BW=200 CONDA_DEFAULT_ENV=base DATACENTER=MainDC CPU_LIMIT=2.0 PATH=/opt/conda/Scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBIAN_FRONTEND=noninteractive APPLICATION_LOAD_METRIC1=500 APPLICATION_LOAD_METRIC2=400 _=./blockEmulator_linux_Precompile PYTHONIOENCODING=utf-8 LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 PYTHONUTF8=1]
+Supervisor: 2025/07/26 01:42:50 committee_evolvegcn.go:1065: EvolveGCN: Using encoding-safe preloaded service (fastest)
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1094: EvolveGCN: Python pipeline 执行结束
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1095: EvolveGCN: STDOUT: [INIT] EvolveGCN Preload Service starting
+[INIT] Input file: evolvegcn_input.json
+[INIT] Output file: evolvegcn_output.json
+[PRELOAD] EvolveGCN Preload Service starting...
+[PRELOAD] Loading PyTorch...
+[PRELOAD] Warming up model components...
+[PRELOAD] [SUCCESS] Model preloading completed, device: cpu
+[PROCESS] Processing request with 4 nodes
+[PROCESS] [SUCCESS] Processing completed, time: 0.00s
+[SUCCESS] EvolveGCN four-step pipeline completed
+[RESULT] Processed nodes: 4.0
+[RESULT] Cross-shard edges: 0
+[RESULT] Performance score: 1.000
+[OUTPUT] Results saved to: evolvegcn_output.json
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1097: EvolveGCN: STDERR: 
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "/app/evolvegcn_preload_service_safe.py", line 251, in <module>
+    sys.exit(main())
+  File "/app/evolvegcn_preload_service_safe.py", line 200, in main
+    service = EvolveGCNPreloadService()
+  File "/app/evolvegcn_preload_service_safe.py", line 30, in __init__
+    self._preload_models()
+  File "/app/evolvegcn_preload_service_safe.py", line 36, in _preload_models
+    import torch
+  File "/usr/local/lib/python3.10/site-packages/torch/__init__.py", line 1477, in <module>
+    from .functional import *  # noqa: F403
+  File "/usr/local/lib/python3.10/site-packages/torch/functional.py", line 9, in <module>
+    import torch.nn.functional as F
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/__init__.py", line 1, in <module>
+    from .modules import *  # noqa: F403
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/__init__.py", line 35, in <module>
+    from .transformer import TransformerEncoder, TransformerDecoder, \
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/transformer.py", line 20, in <module>
+    device: torch.device = torch.device(torch._C._get_default_device()),  # torch.device('cpu'),
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1110: EvolveGCN: Output file created successfully, size: 608 bytes
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1114: EvolveGCN: Parsing pipeline output from: evolvegcn_output.json
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1121: EvolveGCN: Successfully parsed output, partition map size: 4
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1124: EvolveGCN: Cleaning up temporary files...
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:1128: EvolveGCN: Python pipeline completed, processed 4 nodes with 0 cross-shard edges
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:395: EvolveGCN: Pipeline completed successfully. Cross-shard edges: 0
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:396: EvolveGCN:  Real EvolveGCN algorithm active (CLPA placeholder replaced)
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:419: EvolveGCN Metrics: Epoch 2 - CTX ratio change: 0.2898 -> 0.0000 (reduction: 0.2898)
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:442: EvolveGCNMapSend函数发送CPartitionMsg完毕 1 广播到0号节点
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:323: EvolveGCN Final Epoch 2: Completed
+Supervisor: 2025/07/26 01:42:52 committee_evolvegcn.go:478: 收到普通区块信息 with 2000 transactions from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:59 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:42:59 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:04 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:43:04 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:09 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:43:09 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:14 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:43:14 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:19 committee_evolvegcn.go:462: 收到0长度区块 from shard 0 epoch 1
+Supervisor: 2025/07/26 01:43:19 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:22 committee_evolvegcn.go:462: 收到0长度区块 from shard 1 epoch 1
+Supervisor: 2025/07/26 01:43:22 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:23 supervisor.go:176: Supervisor: now sending cstop message to all nodes
+Supervisor: 2025/07/26 01:43:29 committee_evolvegcn.go:462: 收到0长度区块 from shard 1 epoch 1
+Supervisor: 2025/07/26 01:43:29 committee_evolvegcn.go:473: epoch received 1 and current is 1 无需更新
+Supervisor: 2025/07/26 01:43:40 supervisor.go:192: Supervisor: now Closing
+Supervisor: 2025/07/26 01:43:40 supervisor.go:422: Closing...
+Supervisor: 2025/07/26 01:43:40 supervisor.go:426: Average_TPS: [625.2748261164091 504.1933927950086], Total: 514.6784834034319
+Supervisor: 2025/07/26 01:43:40 supervisor.go:426: Transaction_Confirm_Latency: [17.644365744113674 52.49162242906185], Total: 34.066320597310984
+Supervisor: 2025/07/26 01:43:40 supervisor.go:426: CrossTransaction_ratio: [0.38595336266934616 0.39952571628503675 54584 21416], Total: 0.3923494064194636
+Supervisor: 2025/07/26 01:43:40 supervisor.go:426: Tx_number: [28861 25723], Total: 54584
+Supervisor: 2025/07/26 01:43:40 supervisor.go:426: Tx_Details: [], Total: 0
+Supervisor: 2025/07/26 01:43:40 supervisor.go:426: Node_Features: [0 45 42.4375], Total: 8
+Supervisor: 2025/07/26 01:43:40 supervisor.go:430: Outputting node features data...
+Supervisor: 2025/07/26 01:43:40 supervisor.go:431: Node_Features
+Supervisor: 2025/07/26 01:43:40 supervisor.go:432: [0 45 42.4375] 8

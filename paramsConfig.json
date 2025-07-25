@@ -8,19 +8,19 @@
 
   "Block_Interval": 5000,
 
-  "BlockSize": 4000,
+  "BlockSize": 2000,
   "BlocksizeInBytes": 200000,
   "UseBlocksizeInBytes": 0,
 
   "InjectSpeed": 2000,
-  "TotalDataSize": 200000,
+  "TotalDataSize": 100000,
   "TxBatchSize": 10000,
 
   "BrokerNum": 10,
   "RelayWithMerkleProof": 0,
   
   "DatasetFile": "./selectedTxs_300K.csv",
-  "ReconfigTimeGap": 50,
+  "ReconfigTimeGap": 30,
 
   "Delay": -1,
   "JitterRange": -1,
