@@ -108,7 +108,7 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 		currentEpoch := int(eihm.cdm.AccountTransferRound)
 
 		bim := message.BlockInfoMsg{
-			BlockBodyLength: 0, // 分区请求没有普通交易
+			BlockBodyLength: -1, // 分区请求，特殊长度确认消息
 			InnerShardTxs:   make([]*core.Transaction, 0),
 			Epoch:           currentEpoch, // 使用正确的epoch
 			Relay1Txs:       make([]*core.Transaction, 0),

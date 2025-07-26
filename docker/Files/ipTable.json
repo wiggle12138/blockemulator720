@@ -1,11 +1,33 @@
 {
     "0": {
         "0": "shard0-node0:32217",
-        "1": "shard0-node1:32227"
+        "1": "shard0-node1:32227",
+        "2": "shard0-node2:32237",
+        "3": "shard0-node3:32247"
     },
     "1": {
         "0": "shard1-node0:32317",
-        "1": "shard1-node1:32327"
+        "1": "shard1-node1:32327",
+        "2": "shard1-node2:32337",
+        "3": "shard1-node3:32347"
+    },
+    "2": {
+        "0": "shard2-node0:32417",
+        "1": "shard2-node1:32427",
+        "2": "shard2-node2:32437",
+        "3": "shard2-node3:32447"
+    },
+    "3": {
+        "0": "shard3-node0:32517",
+        "1": "shard3-node1:32527",
+        "2": "shard3-node2:32537",
+        "3": "shard3-node3:32547"
+    },
+    "4": {
+        "0": "shard4-node0:32617",
+        "1": "shard4-node1:32627",
+        "2": "shard4-node2:32637",
+        "3": "shard4-node3:32647"
     },
     "2147483647": {
         "0": "supervisor:38800"

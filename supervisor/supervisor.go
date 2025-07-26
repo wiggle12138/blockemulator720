@@ -166,6 +166,7 @@ func (d *Supervisor) handleBlockInfos(content []byte) {
 // the Supervisor will do re-partition and send partitionMSG and txs to leaders.
 func (d *Supervisor) SupervisorTxHandling() {
 	d.comMod.MsgSendingControl()
+	d.sl.Slog.Println("MsgSendingControl运行结束")
 	// TxHandling is end
 	for !d.Ss.GapEnough() { // wait all txs to be handled
 		time.Sleep(time.Second)
@@ -173,7 +174,7 @@ func (d *Supervisor) SupervisorTxHandling() {
 
 	// send stop message
 	stopmsg := message.MergeMessage(message.CStop, []byte("stop"))
-	d.sl.Slog.Println("Supervisor: now sending cstop message to all nodes")
+	d.sl.Slog.Println("Supervisor: 开始发送CStop关闭系统")
 	for sid := uint64(0); sid < d.ChainConfig.ShardNums; sid++ {
 		for nid := uint64(0); nid < d.ChainConfig.Nodes_perShard; nid++ {
 			networks.TcpDial(stopmsg, d.Ip_nodeTable[sid][nid])
@@ -189,7 +190,7 @@ func (d *Supervisor) SupervisorTxHandling() {
 		finalResults = append(finalResults, fmt.Sprintf("%s: %v, Total: %v", name, perEpochData, totalData))
 	}
 
-	d.sl.Slog.Println("Supervisor: now Closing")
+	d.sl.Slog.Println("Supervisor: 要关了哦")
 	d.listenStop = true
 	d.CloseSupervisor(finalResults)
 }

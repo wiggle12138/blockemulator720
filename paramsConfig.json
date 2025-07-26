@@ -1,6 +1,5 @@
 {
-  "ConsensusMethod": 4
-  ,
+  "ConsensusMethod": 4,
   
   "PbftViewChangeTimeOut":20000,
 
@@ -9,11 +8,11 @@
   "Block_Interval": 5000,
 
   "BlockSize": 2000,
-  "BlocksizeInBytes": 200000,
+  "BlocksizeInBytes": 100000,
   "UseBlocksizeInBytes": 0,
 
   "InjectSpeed": 2000,
-  "TotalDataSize": 100000,
+  "TotalDataSize": 50000,
   "TxBatchSize": 10000,
 
   "BrokerNum": 10,

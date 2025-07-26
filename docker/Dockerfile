@@ -36,9 +36,9 @@ RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && 
     pip config set global.timeout 300 && \
     pip config set global.retries 5
 
-# 安装基础科学计算库
+# 安装基础科学计算库,numpy单独适配Evolvegcn的1.x版本
 RUN pip install --no-cache-dir \
-    numpy \
+    numpy==1.26.4 \
     scipy \
     pandas \
     matplotlib \
@@ -76,8 +76,6 @@ RUN pip install --no-cache-dir \
 
 # 复制项目文件 - 按依赖关系从稳定到变化排序
 COPY Files/blockEmulator_linux_Precompile ./blockEmulator_linux_Precompile
-COPY Files/paramsConfig.json ./paramsConfig.json
-COPY Files/ipTable.json ./ipTable.json
 
 COPY partition/ ./partition/
 COPY muti_scale/ ./muti_scale/
@@ -88,11 +86,6 @@ COPY complete_sharding_go_interface.py ./
 COPY complete_integrated_sharding_system.py ./
 COPY evolvegcn_preload_service.py ./
 COPY evolvegcn_preload_service_safe.py ./
-
-# # 创建非root用户并设置权限
-# RUN useradd -m -d /app appuser && \
-#     chown -R appuser:appuser /app && \
-#     chmod +x /app/blockEmulator_linux_Precompile
 
 # 创建非root用户
 RUN groupadd -g 1001 appgroup && \

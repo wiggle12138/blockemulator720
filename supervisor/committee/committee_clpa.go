@@ -128,6 +128,7 @@ func (ccm *CLPACommitteeModule) MsgSendingControl() {
 
 		// batch sending condition
 		if len(txlist) == int(ccm.batchDataNum) || ccm.nowDataNum == ccm.dataTotalNum {
+			ccm.sl.Slog.Printf("到了batchDataNum或dataTotalNum, 开始发送交易")
 			// set the algorithm timer begins
 			if ccm.clpaLastRunningTime.IsZero() {
 				ccm.clpaLastRunningTime = time.Now()
@@ -159,6 +160,7 @@ func (ccm *CLPACommitteeModule) MsgSendingControl() {
 		}
 
 		if ccm.nowDataNum == ccm.dataTotalNum {
+			ccm.sl.Slog.Printf("交易数量达到dataTotalNum，结束MsgSendingControl")
 			break
 		}
 	}
@@ -167,6 +169,7 @@ func (ccm *CLPACommitteeModule) MsgSendingControl() {
 	for !ccm.Ss.GapEnough() { // wait all txs to be handled
 		time.Sleep(time.Second)
 		if params.ShardNum > 1 && time.Since(ccm.clpaLastRunningTime) >= time.Duration(ccm.clpaFreq)*time.Second {
+			ccm.sl.Slog.Printf("到GapEnough中了,且触发重分片")
 			ccm.clpaLock.Lock()
 			clpaCnt++
 			mmap, _ := ccm.clpaGraph.CLPA_Partition()
@@ -184,6 +187,8 @@ func (ccm *CLPACommitteeModule) MsgSendingControl() {
 			ccm.clpaLastRunningTime = time.Now()
 		}
 	}
+
+	ccm.sl.Slog.Printf("从MsgSendingControl出去了")
 }
 
 func (ccm *CLPACommitteeModule) clpaMapSend(m map[string]uint64) {

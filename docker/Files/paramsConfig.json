@@ -1,5 +1,5 @@
 {
-  "ConsensusMethod": 4,
+  "ConsensusMethod": 1,
   
   "PbftViewChangeTimeOut":20000,
 
@@ -18,8 +18,8 @@
   "BrokerNum": 10,
   "RelayWithMerkleProof": 0,
   
-  "DatasetFile": "./selectedTxs_300K.csv",
-  "ReconfigTimeGap": 50,
+  "DatasetFile": "./selectedTxs_100K.csv",
+  "ReconfigTimeGap": 30,
 
   "Delay": -1,
   "JitterRange": -1,

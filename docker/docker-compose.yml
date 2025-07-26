@@ -8,34 +8,17 @@ services:
     command: >
       bash -c "
         # 运行程序
-        ./blockEmulator_linux_Precompile -c -N 2 -S 2
+        ./blockEmulator_linux_Precompile -c -N 4 -S 4
       "
     volumes:
       - ./Files/broker:/app/broker/broker
       - ./expTest:/app/expTest  # 保留：supervisor 需要挂载 expTest
       - ./Files/selectedTxs_300K.csv:/app/selectedTxs_300K.csv
-      # 挂载本地Conda环境
-      - d:/Environment/pytorch2.2.2:/opt/conda
-      
+      - ./Files/selectedTxs_100K.csv:/app/selectedTxs_100K.csv
       # 挂载项目代码
-      - ./partition:/app/partition
-      - ./muti_scale:/app/muti_scale
-      - ./evolve_GCN:/app/evolve_GCN
-      - ./feedback:/app/feedback
-      - ./evolvegcn_preload_service_safe.py:/app/evolvegcn_preload_service_safe.py
-      - ./complete_sharding_go_interface.py:/app/complete_sharding_go_interface.py
-      - ./complete_integrated_sharding_system.py:/app/complete_integrated_sharding_system.py
-      - ./python_config.json:/app/python_config.json
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
-      - ./data_exchange:/app/data_exchange
-      - ./outputs:/app/outputs
-      - ./step1_outputs:/app/step1_outputs
-      - ./complete_integrated_output:/app/complete_integrated_output
-      - ./logs:/app/logs
       
-      # Windows路径到Linux路径的映射
-      - /d/Environment/pytorch2.2.2:/opt/conda
     networks:
       - blockchain_net
     cpus: '2.0'
@@ -59,30 +42,30 @@ services:
       # 应用负载指标
       - APPLICATION_LOAD_METRIC1=500
       - APPLICATION_LOAD_METRIC2=400
-    # depends_on:
-    #   - shard0-node0
-    #   - shard0-node1
-    #   - shard0-node2
-    #   - shard0-node3
-    #   - shard1-node0
-    #   - shard1-node1
-    #   - shard1-node2
-    #   - shard1-node3
-    #   - shard2-node0
-    #   - shard2-node1
-    #   - shard2-node2
-    #   - shard2-node3
-    #   - shard3-node0
-    #   - shard3-node1
-    #   - shard3-node2
-    #   - shard3-node3
+    depends_on:
+      - shard0-node0
+      - shard0-node1
+      - shard0-node2
+      - shard0-node3
+      - shard1-node0
+      - shard1-node1
+      - shard1-node2
+      - shard1-node3
+      - shard2-node0
+      - shard2-node1
+      - shard2-node2
+      - shard2-node3
+      - shard3-node0
+      - shard3-node1
+      - shard3-node2
+      - shard3-node3
 
   # === 分片0 (性能洼地 - 最低性能) ===
   shard0-node0:
     image: block-emulator:latest
     container_name: shard0-node0
     command: >
-      ./blockEmulator_linux_Precompile -n 0 -N 2 -s 0 -S 2
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 0 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -107,7 +90,7 @@ services:
     image: block-emulator:latest
     container_name: shard0-node1
     command: >
-      ./blockEmulator_linux_Precompile -n 1 -N 2 -s 0 -S 2
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 0 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -128,58 +111,60 @@ services:
       - APPLICATION_LOAD_METRIC1=100
       - APPLICATION_LOAD_METRIC2=100
 
-  # shard0-node2:
-  #   image: block-emulator:latest
-  #   container_name: shard0-node2
-  #   command: ["-n", "2", "-N", "4", "-s", "0", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '0.5'
-  #   mem_limit: 512m
-  #   environment:
-  #     - CPU_LIMIT=0.5
-  #     - MEM_LIMIT=0.5
-  #     - MEMORY_BANDWIDTH=1200
-  #     - STORAGE_CAPACITY=512
-  #     - STORAGE_READ_WRITE_SPEED=100
-  #     - NETWORK_UPSTREAM_BW=50
-  #     - NETWORK_DOWNSTREAM_BW=50
-  #     - APPLICATION_LOAD_METRIC1=100
-  #     - APPLICATION_LOAD_METRIC2=100
+  shard0-node2:
+    image: block-emulator:latest
+    container_name: shard0-node2
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 0 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '0.5'
+    mem_limit: 512m
+    environment:
+      - CPU_LIMIT=0.5
+      - MEM_LIMIT=0.5
+      - MEMORY_BANDWIDTH=1200
+      - STORAGE_CAPACITY=512
+      - STORAGE_READ_WRITE_SPEED=100
+      - NETWORK_UPSTREAM_BW=50
+      - NETWORK_DOWNSTREAM_BW=50
+      - APPLICATION_LOAD_METRIC1=100
+      - APPLICATION_LOAD_METRIC2=100
 
-  # shard0-node3:
-  #   image: block-emulator:latest
-  #   container_name: shard0-node3
-  #   command: ["-n", "3", "-N", "4", "-s", "0", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '0.5'
-  #   mem_limit: 512m
-  #   environment:
-  #     - CPU_LIMIT=0.5
-  #     - MEM_LIMIT=0.5
-  #     - MEMORY_BANDWIDTH=1200
-  #     - STORAGE_CAPACITY=512
-  #     - STORAGE_READ_WRITE_SPEED=100
-  #     - NETWORK_UPSTREAM_BW=50
-  #     - NETWORK_DOWNSTREAM_BW=50
-  #     - APPLICATION_LOAD_METRIC1=100
-  #     - APPLICATION_LOAD_METRIC2=100
+  shard0-node3:
+    image: block-emulator:latest
+    container_name: shard0-node3
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 0 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '0.5'
+    mem_limit: 512m
+    environment:
+      - CPU_LIMIT=0.5
+      - MEM_LIMIT=0.5
+      - MEMORY_BANDWIDTH=1200
+      - STORAGE_CAPACITY=512
+      - STORAGE_READ_WRITE_SPEED=100
+      - NETWORK_UPSTREAM_BW=50
+      - NETWORK_DOWNSTREAM_BW=50
+      - APPLICATION_LOAD_METRIC1=100
+      - APPLICATION_LOAD_METRIC2=100
 
   # === 分片1 (中低性能) ===
   shard1-node0:
     image: block-emulator:latest
     container_name: shard1-node0
     command: >
-      ./blockEmulator_linux_Precompile -n 0 -N 2 -s 1 -S 2
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 1 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -203,7 +188,7 @@ services:
     image: block-emulator:latest
     container_name: shard1-node1
     command: >
-      ./blockEmulator_linux_Precompile -n 1 -N 2 -s 1 -S 2
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 1 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -223,237 +208,247 @@ services:
       - APPLICATION_LOAD_METRIC1=200
       - APPLICATION_LOAD_METRIC2=200
 
-  # shard1-node2:
-  #   image: block-emulator:latest
-  #   container_name: shard1-node2
-  #   command: ["-n", "2", "-N", "4", "-s", "1", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '1.0'
-  #   mem_limit: 1g
-  #   environment:
-  #     - CPU_LIMIT=1.0
-  #     - MEM_LIMIT=1
-  #     - MEMORY_BANDWIDTH=2400
-  #     - STORAGE_CAPACITY=1024
-  #     - STORAGE_READ_WRITE_SPEED=200
-  #     - NETWORK_UPSTREAM_BW=100
-  #     - NETWORK_DOWNSTREAM_BW=100
-  #     - APPLICATION_LOAD_METRIC1=200
-  #     - APPLICATION_LOAD_METRIC2=200
+  shard1-node2:
+    image: block-emulator:latest
+    container_name: shard1-node2
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 1 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '1.0'
+    mem_limit: 1g
+    environment:
+      - CPU_LIMIT=1.0
+      - MEM_LIMIT=1
+      - MEMORY_BANDWIDTH=2400
+      - STORAGE_CAPACITY=1024
+      - STORAGE_READ_WRITE_SPEED=200
+      - NETWORK_UPSTREAM_BW=100
+      - NETWORK_DOWNSTREAM_BW=100
+      - APPLICATION_LOAD_METRIC1=200
+      - APPLICATION_LOAD_METRIC2=200
 
-  # shard1-node3:
-  #   image: block-emulator:latest
-  #   container_name: shard1-node3
-  #   command: ["-n", "3", "-N", "4", "-s", "1", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '1.0'
-  #   mem_limit: 1g
-  #   environment:
-  #     - CPU_LIMIT=1.0
-  #     - MEM_LIMIT=1
-  #     - MEMORY_BANDWIDTH=2400
-  #     - STORAGE_CAPACITY=1024
-  #     - STORAGE_READ_WRITE_SPEED=200
-  #     - NETWORK_UPSTREAM_BW=100
-  #     - NETWORK_DOWNSTREAM_BW=100
-  #     - APPLICATION_LOAD_METRIC1=200
-  #     - APPLICATION_LOAD_METRIC2=200
+  shard1-node3:
+    image: block-emulator:latest
+    container_name: shard1-node3
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 1 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '1.0'
+    mem_limit: 1g
+    environment:
+      - CPU_LIMIT=1.0
+      - MEM_LIMIT=1
+      - MEMORY_BANDWIDTH=2400
+      - STORAGE_CAPACITY=1024
+      - STORAGE_READ_WRITE_SPEED=200
+      - NETWORK_UPSTREAM_BW=100
+      - NETWORK_DOWNSTREAM_BW=100
+      - APPLICATION_LOAD_METRIC1=200
+      - APPLICATION_LOAD_METRIC2=200
 
-  # # === 分片2 (中高性能) ===
-  # shard2-node0:
-  #   image: block-emulator:latest
-  #   container_name: shard2-node0
-  #   command: ["-n", "0", "-N", "4", "-s", "2", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '1.5'
-  #   mem_limit: 2g
-  #   environment:
-  #     - CPU_LIMIT=1.5
-  #     - MEM_LIMIT=2
-  #     - MEMORY_BANDWIDTH=3600
-  #     - STORAGE_CAPACITY=2048
-  #     - STORAGE_READ_WRITE_SPEED=300
-  #     - NETWORK_UPSTREAM_BW=150
-  #     - NETWORK_DOWNSTREAM_BW=150
-  #     - APPLICATION_LOAD_METRIC1=300
-  #     - APPLICATION_LOAD_METRIC2=300
+  # === 分片2 (中高性能) ===
+  shard2-node0:
+    image: block-emulator:latest
+    container_name: shard2-node0
+    command: >
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 2 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '1.5'
+    mem_limit: 2g
+    environment:
+      - CPU_LIMIT=1.5
+      - MEM_LIMIT=2
+      - MEMORY_BANDWIDTH=3600
+      - STORAGE_CAPACITY=2048
+      - STORAGE_READ_WRITE_SPEED=300
+      - NETWORK_UPSTREAM_BW=150
+      - NETWORK_DOWNSTREAM_BW=150
+      - APPLICATION_LOAD_METRIC1=300
+      - APPLICATION_LOAD_METRIC2=300
 
-  # shard2-node1:
-  #   image: block-emulator:latest
-  #   container_name: shard2-node1
-  #   command: ["-n", "1", "-N", "4", "-s", "2", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '1.5'
-  #   mem_limit: 2g
-  #   environment:
-  #     - CPU_LIMIT=1.5
-  #     - MEM_LIMIT=2
-  #     - MEMORY_BANDWIDTH=3600
-  #     - STORAGE_CAPACITY=2048
-  #     - STORAGE_READ_WRITE_SPEED=300
-  #     - NETWORK_UPSTREAM_BW=150
-  #     - NETWORK_DOWNSTREAM_BW=150
-  #     - APPLICATION_LOAD_METRIC1=300
-  #     - APPLICATION_LOAD_METRIC2=300
+  shard2-node1:
+    image: block-emulator:latest
+    container_name: shard2-node1
+    command: >
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 2 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '1.5'
+    mem_limit: 2g
+    environment:
+      - CPU_LIMIT=1.5
+      - MEM_LIMIT=2
+      - MEMORY_BANDWIDTH=3600
+      - STORAGE_CAPACITY=2048
+      - STORAGE_READ_WRITE_SPEED=300
+      - NETWORK_UPSTREAM_BW=150
+      - NETWORK_DOWNSTREAM_BW=150
+      - APPLICATION_LOAD_METRIC1=300
+      - APPLICATION_LOAD_METRIC2=300
 
-  # shard2-node2:
-  #   image: block-emulator:latest
-  #   container_name: shard2-node2
-  #   command: ["-n", "2", "-N", "4", "-s", "2", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '1.5'
-  #   mem_limit: 2g
-  #   environment:
-  #     - CPU_LIMIT=1.5
-  #     - MEM_LIMIT=2
-  #     - MEMORY_BANDWIDTH=3600
-  #     - STORAGE_CAPACITY=2048
-  #     - STORAGE_READ_WRITE_SPEED=300
-  #     - NETWORK_UPSTREAM_BW=150
-  #     - NETWORK_DOWNSTREAM_BW=150
-  #     - APPLICATION_LOAD_METRIC1=300
-  #     - APPLICATION_LOAD_METRIC2=300
+  shard2-node2:
+    image: block-emulator:latest
+    container_name: shard2-node2
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 2 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '1.5'
+    mem_limit: 2g
+    environment:
+      - CPU_LIMIT=1.5
+      - MEM_LIMIT=2
+      - MEMORY_BANDWIDTH=3600
+      - STORAGE_CAPACITY=2048
+      - STORAGE_READ_WRITE_SPEED=300
+      - NETWORK_UPSTREAM_BW=150
+      - NETWORK_DOWNSTREAM_BW=150
+      - APPLICATION_LOAD_METRIC1=300
+      - APPLICATION_LOAD_METRIC2=300
 
-  # shard2-node3:
-  #   image: block-emulator:latest
-  #   container_name: shard2-node3
-  #   command: ["-n", "3", "-N", "4", "-s", "2", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '1.5'
-  #   mem_limit: 2g
-  #   environment:
-  #     - CPU_LIMIT=1.5
-  #     - MEM_LIMIT=2
-  #     - MEMORY_BANDWIDTH=3600
-  #     - STORAGE_CAPACITY=2048
-  #     - STORAGE_READ_WRITE_SPEED=300
-  #     - NETWORK_UPSTREAM_BW=150
-  #     - NETWORK_DOWNSTREAM_BW=150
-  #     - APPLICATION_LOAD_METRIC1=300
-  #     - APPLICATION_LOAD_METRIC2=300
+  shard2-node3:
+    image: block-emulator:latest
+    container_name: shard2-node3
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 2 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '1.5'
+    mem_limit: 2g
+    environment:
+      - CPU_LIMIT=1.5
+      - MEM_LIMIT=2
+      - MEMORY_BANDWIDTH=3600
+      - STORAGE_CAPACITY=2048
+      - STORAGE_READ_WRITE_SPEED=300
+      - NETWORK_UPSTREAM_BW=150
+      - NETWORK_DOWNSTREAM_BW=150
+      - APPLICATION_LOAD_METRIC1=300
+      - APPLICATION_LOAD_METRIC2=300
 
-  # # === 分片3 (高性能) ===
-  # shard3-node0:
-  #   image: block-emulator:latest
-  #   container_name: shard3-node0
-  #   command: ["-n", "0", "-N", "4", "-s", "3", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '2.0'
-  #   mem_limit: 4g
-  #   environment:
-  #     - CPU_LIMIT=2.0
-  #     - MEM_LIMIT=4
-  #     - MEMORY_BANDWIDTH=4800
-  #     - STORAGE_CAPACITY=4096
-  #     - STORAGE_READ_WRITE_SPEED=400
-  #     - NETWORK_UPSTREAM_BW=200
-  #     - NETWORK_DOWNSTREAM_BW=200
-  #     - APPLICATION_LOAD_METRIC1=400
-  #     - APPLICATION_LOAD_METRIC2=400
+  # === 分片3 (高性能) ===
+  shard3-node0:
+    image: block-emulator:latest
+    container_name: shard3-node0
+    command: >
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 3 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '2.0'
+    mem_limit: 4g
+    environment:
+      - CPU_LIMIT=2.0
+      - MEM_LIMIT=4
+      - MEMORY_BANDWIDTH=4800
+      - STORAGE_CAPACITY=4096
+      - STORAGE_READ_WRITE_SPEED=400
+      - NETWORK_UPSTREAM_BW=200
+      - NETWORK_DOWNSTREAM_BW=200
+      - APPLICATION_LOAD_METRIC1=400
+      - APPLICATION_LOAD_METRIC2=400
 
-  # shard3-node1:
-  #   image: block-emulator:latest
-  #   container_name: shard3-node1
-  #   command: ["-n", "1", "-N", "4", "-s", "3", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '2.0'
-  #   mem_limit: 4g
-  #   environment:
-  #     - CPU_LIMIT=2.0
-  #     - MEM_LIMIT=4
-  #     - MEMORY_BANDWIDTH=4800
-  #     - STORAGE_CAPACITY=4096
-  #     - STORAGE_READ_WRITE_SPEED=400
-  #     - NETWORK_UPSTREAM_BW=200
-  #     - NETWORK_DOWNSTREAM_BW=200
-  #     - APPLICATION_LOAD_METRIC1=400
-  #     - APPLICATION_LOAD_METRIC2=400
+  shard3-node1:
+    image: block-emulator:latest
+    container_name: shard3-node1
+    command: >
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 3 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '2.0'
+    mem_limit: 4g
+    environment:
+      - CPU_LIMIT=2.0
+      - MEM_LIMIT=4
+      - MEMORY_BANDWIDTH=4800
+      - STORAGE_CAPACITY=4096
+      - STORAGE_READ_WRITE_SPEED=400
+      - NETWORK_UPSTREAM_BW=200
+      - NETWORK_DOWNSTREAM_BW=200
+      - APPLICATION_LOAD_METRIC1=400
+      - APPLICATION_LOAD_METRIC2=400
 
-  # shard3-node2:
-  #   image: block-emulator:latest
-  #   container_name: shard3-node2
-  #   command: ["-n", "2", "-N", "4", "-s", "3", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '2.0'
-  #   mem_limit: 4g
-  #   environment:
-  #     - CPU_LIMIT=2.0
-  #     - MEM_LIMIT=4
-  #     - MEMORY_BANDWIDTH=4800
-  #     - STORAGE_CAPACITY=4096
-  #     - STORAGE_READ_WRITE_SPEED=400
-  #     - NETWORK_UPSTREAM_BW=200
-  #     - NETWORK_DOWNSTREAM_BW=200
-  #     - APPLICATION_LOAD_METRIC1=400
-  #     - APPLICATION_LOAD_METRIC2=400
+  shard3-node2:
+    image: block-emulator:latest
+    container_name: shard3-node2
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 3 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '2.0'
+    mem_limit: 4g
+    environment:
+      - CPU_LIMIT=2.0
+      - MEM_LIMIT=4
+      - MEMORY_BANDWIDTH=4800
+      - STORAGE_CAPACITY=4096
+      - STORAGE_READ_WRITE_SPEED=400
+      - NETWORK_UPSTREAM_BW=200
+      - NETWORK_DOWNSTREAM_BW=200
+      - APPLICATION_LOAD_METRIC1=400
+      - APPLICATION_LOAD_METRIC2=400
 
-  # shard3-node3:
-  #   image: block-emulator:latest
-  #   container_name: shard3-node3
-  #   command: ["-n", "3", "-N", "4", "-s", "3", "-S", "4"]
-  #   volumes:
-  #     - ./Files/paramsConfig.json:/app/paramsConfig.json
-  #     - ./Files/ipTable.json:/app/ipTable.json
-  #     - ./Files/broker:/app/broker/broker
-  #   networks:
-  #     - blockchain_net
-  #   cpus: '2.0'
-  #   mem_limit: 4g
-  #   environment:
-  #     - CPU_LIMIT=2.0
-  #     - MEM_LIMIT=4
-  #     - MEMORY_BANDWIDTH=4800
-  #     - STORAGE_CAPACITY=4096
-  #     - STORAGE_READ_WRITE_SPEED=400
-  #     - NETWORK_UPSTREAM_BW=200
-  #     - NETWORK_DOWNSTREAM_BW=200
-  #     - APPLICATION_LOAD_METRIC1=400
-  #     - APPLICATION_LOAD_METRIC2=400
+  shard3-node3:
+    image: block-emulator:latest
+    container_name: shard3-node3
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 3 -S 4
+    volumes:
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      - ./Files/broker:/app/broker/broker
+    networks:
+      - blockchain_net
+    cpus: '2.0'
+    mem_limit: 4g
+    environment:
+      - CPU_LIMIT=2.0
+      - MEM_LIMIT=4
+      - MEMORY_BANDWIDTH=4800
+      - STORAGE_CAPACITY=4096
+      - STORAGE_READ_WRITE_SPEED=400
+      - NETWORK_UPSTREAM_BW=200
+      - NETWORK_DOWNSTREAM_BW=200
+      - APPLICATION_LOAD_METRIC1=400
+      - APPLICATION_LOAD_METRIC2=400
 
 networks:
   blockchain_net:
