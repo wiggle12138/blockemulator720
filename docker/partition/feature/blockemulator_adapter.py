@@ -110,7 +110,7 @@ class BlockEmulatorAdapter:
         }
         
         # BlockEmulator特征字段映射 (基于message.go中的StaticNodeFeatures和DynamicNodeFeatures)
-        # 总计48个特征字段：26个静态特征 + 22个动态特征
+        # 总计55个特征字段：26个静态特征 + 29个动态特征
         self.be_field_mapping = {
             # === 静态特征 (26个字段) ===
             # 硬件资源 (11个字段)

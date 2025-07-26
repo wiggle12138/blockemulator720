@@ -85,84 +85,67 @@ class ComprehensiveFeatureExtractor:
         """提取单个节点的全面特征"""
         features = []
 
-        # 1. 硬件规格特征 (17维)
+        # 1. 硬件规格特征 (11维) - CPU(2) + Memory(3) + Storage(3) + Network(3)
         features.extend(self._extract_hardware_features(node))
 
-        # 2. 链上行为特征 (17维)
-        features.extend(self._extract_onchain_behavior_features(node))
-
-        # 3. 网络拓扑特征 (20维)
+        # 2. 网络拓扑特征 (8维) - GeoLocation(1) + Connections(4) + ShardAllocation(3)
         features.extend(self._extract_network_topology_features(node))
 
-        # 4. 动态属性特征 (13维)
-        features.extend(self._extract_dynamic_attributes_features(node))
-
-        # 5. 异构类型特征 (17维)
+        # 3. 异构类型特征 (7维) - NodeType(1) + FunctionTags(1) + SupportedFuncs(2) + Application(3)
         features.extend(self._extract_heterogeneous_type_features(node))
 
-        # 6. 分类特征 (15维)
-        features.extend(self._extract_categorical_features(node))
+        # 4. 链上行为特征 (16维) - TransactionCapability(7) + BlockGeneration(2) + EconomicContribution(1) + SmartContractUsage(1) + TransactionTypes(2) + Consensus(3)
+        features.extend(self._extract_onchain_behavior_features(node))
+
+        # 5. 动态属性特征 (13维) - Compute(3) + Storage(2) + Network(3) + Transactions(3) + Reputation(2)
+        features.extend(self._extract_dynamic_attributes_features(node))
 
         # print(f"单节点全面特征维度: {len(features)}")
-        return features  # 总计约99维
+        return features  # 总计55维
 
     def _extract_hardware_features(self, node: Node) -> List[float]:
-        """提取硬件相关特征 (17维)"""
+        """提取硬件相关特征 (11维)"""
         features = []
 
         try:
             hw = node.ResourceCapacity.Hardware
-            os_status = node.ResourceCapacity.OperationalStatus
 
-            # CPU特征 (4维)
-            cpu_arch = getattr(hw.CPU, 'Architecture', 'unknown')
+            # CPU特征 (2维)
             features.extend([
                 float(getattr(hw.CPU, 'CoreCount', 0)),
-                float(getattr(hw.CPU, 'ClockFrequency', 0)),
-                float(getattr(hw.CPU, 'CacheSize', 0)),
-                self.encodings.CPU_ARCHITECTURE.get(cpu_arch, 0.0),
+                self.encodings.CPU_ARCHITECTURE.get(getattr(hw.CPU, 'Architecture', 'unknown'), 0.0),
             ])
 
             # 内存特征 (3维)
-            mem_type = getattr(hw.Memory, 'Type', 'unknown')
             features.extend([
                 float(getattr(hw.Memory, 'TotalCapacity', 0)),
                 float(getattr(hw.Memory, 'Bandwidth', 0)),
-                self.encodings.MEMORY_TYPE.get(mem_type, 0.0),
+                self.encodings.MEMORY_TYPE.get(getattr(hw.Memory, 'Type', 'unknown'), 0.0),
             ])
 
             # 存储特征 (3维)
-            storage_type = getattr(hw.Storage, 'Type', 'unknown')
             features.extend([
                 float(getattr(hw.Storage, 'Capacity', 0)),
                 float(getattr(hw.Storage, 'ReadWriteSpeed', 0)),
-                self.encodings.STORAGE_TYPE.get(storage_type, 0.0),
+                self.encodings.STORAGE_TYPE.get(getattr(hw.Storage, 'Type', 'unknown'), 0.0),
             ])
 
             # 网络特征 (3维)
             features.extend([
                 float(getattr(hw.Network, 'UpstreamBW', 0)),
                 float(getattr(hw.Network, 'DownstreamBW', 0)),
-                float(getattr(hw.Network, 'Latency', 0)),
-            ])
-
-            # 运营状态特征 (4维)
-            features.extend([
-                float(getattr(os_status, 'Uptime24h', 0)),
-                1.0 if getattr(os_status, 'CoreEligibility', False) else 0.0,
-                float(getattr(os_status.ResourceUsage, 'CPUUtilization', 0)),
-                float(getattr(os_status.ResourceUsage, 'MemUtilization', 0)),
+                self._parse_latency_to_float(getattr(hw.Network, 'Latency', '0ms')),
             ])
 
         except Exception as e:
             print(f"Warning: Error extracting hardware features: {e}")
-            features = [0.0] * 17
+            features = [0.0] * 11
 
         # 确保维度正确
-        while len(features) < 17:
+        while len(features) < 11:
             features.append(0.0)
 
-        return features[:17]
+        return features[:11]
 
     def _extract_onchain_behavior_features(self, node: Node) -> List[float]:
         """提取链上行为特征 (17维)"""
@@ -297,46 +280,43 @@ class ComprehensiveFeatureExtractor:
         return features[:20]
 
     def _extract_dynamic_attributes_features(self, node: Node) -> List[float]:
-        """提取动态属性特征 (13维)"""
+        """提取动态属性特征 (7维) - 基于committee_evolvegcn.go"""
         features = []
 
         try:
             da = node.DynamicAttributes
+            ht = node.HeterogeneousType
 
-            # 计算指标 (3维)
-            features.extend([
-                float(getattr(da.Compute, 'CPUUsage', 0)),
-                float(getattr(da.Compute, 'MemUsage', 0)),
-                float(getattr(da.Compute, 'ResourceFlux', 0)),
-            ])
-
-            # 存储指标 (2维)
-            features.extend([
-                float(getattr(da.Storage, 'Available', 0)),
-                float(getattr(da.Storage, 'Utilization', 0)),
-            ])
-
-            # 网络指标 (3维)
-            features.extend([
-                float(getattr(da.Network, 'LatencyFlux', 0)),
-                float(getattr(da.Network, 'AvgLatency', 0)),
-                float(getattr(da.Network, 'BandwidthUsage', 0)),
-            ])
-
-            # 交易指标 (3维)
+            # 交易处理特征 (2维) - tx_frequency, processing_delay
             features.extend([
                 float(getattr(da.Transactions, 'Frequency', 0)),
                 float(getattr(da.Transactions, 'ProcessingDelay', 0)),
-                float(getattr(da.Transactions, 'StakeChangeRate', 0)),
             ])
 
-            # 声誉指标 (2维)
+            # 应用状态特征 (3维) - application_state, tx_frequency_metric, storage_ops  
+            app_state = getattr(ht.Application, 'CurrentState', 'unknown')
+            app_state_value = self.encodings.APPLICATION_STATE.get(app_state, 0.0)
+            
             features.extend([
-                float(getattr(da.Reputation, 'Uptime24h', 0)),
-                float(getattr(da.Reputation, 'ReputationScore', 0)),
+                app_state_value,
+                float(getattr(ht.Application.LoadMetrics, 'TxFrequency', 0)),
+                float(getattr(ht.Application.LoadMetrics, 'StorageOps', 0)),
+            ])
+
+            # 其他动态特征 (2维) - 填充到7维
+            features.extend([
+                float(getattr(da.Compute, 'CPUUsage', 0)),
+                float(getattr(da.Storage, 'Utilization', 0)),
             ])
 
         except Exception as e:
+            print(f"Warning: Error extracting dynamic attributes features: {e}")
+            features = [0.0] * 7
+
+        while len(features) < 7:
+            features.append(0.0)
+
+        return features[:7]
             print(f"Warning: Error extracting dynamic attributes features: {e}")
             features = [0.0] * 13
 
@@ -526,11 +506,11 @@ class ComprehensiveFeatureExtractor:
 
         # 特征层映射 (与adaptive_feature_extractor.py中保持一致)
         layer_slices = {
-            'hardware': slice(0, 17),
-            'onchain_behavior': slice(17, 34),
-            'network_topology': slice(34, 54),
-            'dynamic_attributes': slice(54, 67),
-            'heterogeneous_type': slice(67, 84),
+            'hardware': slice(0, 11),
+            'network_topology': slice(11, 16),  
+            'heterogeneous_type': slice(16, 18),
+            'onchain_behavior': slice(18, 33),
+            'dynamic_attributes': slice(33, 40),
             'categorical': slice(84, 99)
         }
 

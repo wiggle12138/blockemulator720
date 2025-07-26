@@ -1,57 +1,34 @@
 """
-特征提取配置文件
+特征提取配置文件 - 基于committee_evolvegcn.go的40维真实特征结构
 """
 
 class FeatureDimensions:
-    # === 全面数值特征配置 ===
-    # 硬件规格特征
-    HARDWARE_CPU_DIM = 4          # CPU: 核心数、频率、缓存、架构
+    # === 基于committee_evolvegcn.go的40维真实特征结构 ===
+    
+    # 硬件特征 (11维) - Static Features
+    HARDWARE_CPU_DIM = 2          # CPU: 核心数、频率
     HARDWARE_MEMORY_DIM = 3       # 内存: 容量、带宽、类型编码
     HARDWARE_STORAGE_DIM = 3      # 存储: 容量、读写速度、类型编码
     HARDWARE_NETWORK_DIM = 3      # 网络: 上游/下游带宽、延迟
-    OPERATIONAL_STATUS_DIM = 4    # 运营: 在线时间、资格、CPU/内存使用率
+    HARDWARE_DIM = HARDWARE_CPU_DIM + HARDWARE_MEMORY_DIM + HARDWARE_STORAGE_DIM + HARDWARE_NETWORK_DIM  # 11维
 
-    # 链上行为特征
-    TRANSACTION_CAPABILITY_DIM = 6  # 交易能力: TPS、延迟、资源消耗等
-    CROSS_SHARD_DIM = 2            # 跨分片: 节点间/分片间交易量
-    BLOCK_GENERATION_DIM = 2       # 区块生成: 间隔、标准差
-    ECONOMIC_DIM = 1               # 经济: 费用贡献率
-    SMART_CONTRACT_DIM = 1         # 智能合约: 调用频率
-    TRANSACTION_TYPES_DIM = 2      # 交易类型: 普通/合约交易比例
-    CONSENSUS_DIM = 3              # 共识: 参与率、奖励、成功率
+    # 网络拓扑特征 (5维) - Static Features
+    NETWORK_TOPOLOGY_DIM = 5      # 网络拓扑: 层次、连接等
 
-    # 网络拓扑特征
-    GEO_LOCATION_DIM = 3          # 地理: 区域、时区、数据中心编码
-    CONNECTIONS_DIM = 4           # 连接: 分片内外连接、权重度、活跃连接
-    HIERARCHY_DIM = 2             # 层次: 深度、连接密度
-    CENTRALITY_DIM = 4            # 中心性: 特征向量、接近、介数、影响力
-    SHARD_ALLOCATION_DIM = 7      # 分片分配: 优先级、适应性、偏好统计
+    # 异构类型特征 (2维) - Static Features  
+    HETEROGENEOUS_TYPE_DIM = 2    # 异构类型: 节点类型、应用状态
 
-    # 动态属性特征
-    COMPUTE_DIM = 3               # 计算: CPU/内存使用、资源波动
-    STORAGE_DYNAMIC_DIM = 2       # 存储: 可用空间、利用率
-    NETWORK_DYNAMIC_DIM = 3       # 网络: 延迟波动、平均延迟、带宽使用
-    TRANSACTIONS_DYNAMIC_DIM = 3  # 交易: 频率、处理延迟、质押变化
-    REPUTATION_DIM = 2            # 声誉: 在线时间、声誉分数
+    # 链上行为特征 (15维) - Static Features
+    ONCHAIN_BEHAVIOR_DIM = 15     # 链上行为: 交易能力、跨分片、区块生成、交易类型、共识
 
-    # 异构类型特征
-    NODE_TYPE_DIM = 5             # 节点类型: one-hot编码
-    FUNCTION_TAGS_DIM = 5         # 功能标签: 数量及类型分布
-    SUPPORTED_FUNCS_DIM = 3       # 支持功能: 数量、优先级统计
-    APPLICATION_DIM = 4           # 应用: 状态、负载指标
+    # 动态属性特征 (7维) - Dynamic Features
+    DYNAMIC_ATTRIBUTES_DIM = 7    # 动态属性: 交易处理、应用状态、其他动态特征
 
-    # 计算总维度
-    NUMERIC_DIM = (HARDWARE_CPU_DIM + HARDWARE_MEMORY_DIM + HARDWARE_STORAGE_DIM +
-                   HARDWARE_NETWORK_DIM + OPERATIONAL_STATUS_DIM +
-                   TRANSACTION_CAPABILITY_DIM + CROSS_SHARD_DIM + BLOCK_GENERATION_DIM +
-                   ECONOMIC_DIM + SMART_CONTRACT_DIM + TRANSACTION_TYPES_DIM + CONSENSUS_DIM +
-                   GEO_LOCATION_DIM + CONNECTIONS_DIM + HIERARCHY_DIM + CENTRALITY_DIM +
-                   SHARD_ALLOCATION_DIM +
-                   COMPUTE_DIM + STORAGE_DYNAMIC_DIM + NETWORK_DYNAMIC_DIM +
-                   TRANSACTIONS_DYNAMIC_DIM + REPUTATION_DIM +
-                   NODE_TYPE_DIM + FUNCTION_TAGS_DIM + SUPPORTED_FUNCS_DIM + APPLICATION_DIM)
+    # === 40维总计算 ===
+    REAL_FEATURE_DIM = (HARDWARE_DIM + NETWORK_TOPOLOGY_DIM + HETEROGENEOUS_TYPE_DIM + 
+                        ONCHAIN_BEHAVIOR_DIM + DYNAMIC_ATTRIBUTES_DIM)  # 11+5+2+15+7=40维
 
-    # === 其他特征配置 (保持不变) ===
+    # === 其他兼容性配置 (保持不变) ===
     CATEGORICAL_DIM = 15          # 分类特征维度 (减少，因为很多已包含在数值特征中)
 
     # 序列和图特征配置
@@ -61,13 +38,25 @@ class FeatureDimensions:
     NEIGHBOR_FEATURE_DIM = 10
     GRAPH_FEATURE_DIM = 10
 
-    # 总的经典特征维度
-    CLASSIC_RAW_DIM = NUMERIC_DIM + CATEGORICAL_DIM + SEQUENCE_FEATURE_DIM + GRAPH_FEATURE_DIM  # 约141维
+    # 总的经典特征维度 - 使用真实40维
+    CLASSIC_RAW_DIM = REAL_FEATURE_DIM + CATEGORICAL_DIM + SEQUENCE_FEATURE_DIM + GRAPH_FEATURE_DIM  # 40+15+32+10=97维
     CLASSIC_DIM = 128  # 投影后维度 (增加以容纳更多信息)
 
     # 图特征和融合特征维度
     GRAPH_OUTPUT_DIM = 96   # 稍微增加
     FUSED_DIM = 256         # 增加融合特征维度
+
+    # === 维度映射字典 (用于complete_integrated_sharding_system.py) ===
+    @classmethod
+    def get_real_feature_dims(cls):
+        """返回真实特征维度映射"""
+        return {
+            'hardware': cls.HARDWARE_DIM,                    # 11
+            'network_topology': cls.NETWORK_TOPOLOGY_DIM,   # 5  
+            'heterogeneous_type': cls.HETEROGENEOUS_TYPE_DIM, # 2
+            'onchain_behavior': cls.ONCHAIN_BEHAVIOR_DIM,    # 15
+            'dynamic_attributes': cls.DYNAMIC_ATTRIBUTES_DIM  # 7
+        }
 
 # 编码映射配置
 class EncodingMaps:
