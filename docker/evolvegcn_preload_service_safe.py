@@ -117,7 +117,8 @@ class EvolveGCNPreloadService:
         # Step 2: Multi-scale contrastive learning
         adj_matrix = {}
         for i in range(node_count):
-            node_id = node_features[i].get("node_id", f"node_{i}")
+            # 直接使用Go提供的原始node_id (格式：S0N0, S1N1等)
+            node_id = node_features[i].get("node_id")
             adj_matrix[node_id] = []
         
         for edge in edges:

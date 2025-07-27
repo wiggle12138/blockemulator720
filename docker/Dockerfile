@@ -83,6 +83,7 @@ COPY evolve_GCN/ ./evolve_GCN/
 COPY feedback/ ./feedback/
 
 COPY complete_sharding_go_interface.py ./
+COPY evolvegcn_go_interface.py ./
 COPY complete_integrated_sharding_system.py ./
 COPY evolvegcn_preload_service.py ./
 COPY evolvegcn_preload_service_safe.py ./

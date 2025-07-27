@@ -388,7 +388,7 @@ func (egcm *EvolveGCNCommitteeModule) runEvolveGCNPartition() (map[string]uint64
 
 			if len(accountMapping) > 0 {
 				egcm.sl.Slog.Printf("EvolveGCN: 成功转换为账户映射，数量: %d", len(accountMapping))
-				egcm.sl.Slog.Printf("EvolveGCN:  节点级重分片转换完成")
+				egcm.sl.Slog.Printf("EvolveGCN: ✅ 节点级重分片转换完成")
 				return accountMapping, crossShardEdges
 			} else {
 				egcm.sl.Slog.Println("EvolveGCN: 转换结果为空，使用空映射")

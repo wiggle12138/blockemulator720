@@ -261,6 +261,9 @@ class CompleteIntegratedShardingSystem:
                     
                     logger.info(f"解析得到 {len(processed_nodes)} 个节点")
                     
+                    # 提取原始节点映射信息
+                    original_node_mapping = self._extract_original_node_mapping(processed_nodes)
+                    
                     # 使用真实特征提取器处理
                     features_dict = self._extract_using_real_extractor(processed_nodes)
                     
@@ -278,7 +281,8 @@ class CompleteIntegratedShardingSystem:
                         'metadata': {
                             'use_real_data': node_data is not None,
                             'extractor_type': 'docker_based_real',
-                            'feature_categories': list(self.feature_dims.keys())
+                            'feature_categories': list(self.feature_dims.keys()),
+                            'node_info': original_node_mapping
                         }
                     }
                     
@@ -335,6 +339,73 @@ class CompleteIntegratedShardingSystem:
                     logger.error(f"数据解析失败: {e}")
                     # 返回基本测试数据
                     return self._create_basic_test_data()
+            
+            def _extract_original_node_mapping(self, processed_nodes):
+                """提取原始节点映射信息，保存真实的S{ShardID}N{NodeID}格式NodeID"""
+                try:
+                    node_info = {
+                        'node_ids': [],  # 保存真实的S{ShardID}N{NodeID}格式
+                        'shard_ids': [],
+                        'original_node_keys': [],  # 保存原始的节点键
+                        'timestamps': []
+                    }
+                    
+                    for i, node in enumerate(processed_nodes):
+                        original_node_key = None
+                        shard_id = None
+                        node_id = None
+                        
+                        if hasattr(node, 'ShardID') and hasattr(node, 'NodeID'):
+                            shard_id = node.ShardID
+                            node_id = node.NodeID
+                            # 从Go系统传递的NodeID字段可能已经是S{ShardID}N{NodeID}格式
+                            if isinstance(node.NodeID, str) and node.NodeID.startswith('S') and 'N' in node.NodeID:
+                                original_node_key = node.NodeID
+                            else:
+                                original_node_key = f"S{shard_id}N{node_id}"
+                        elif isinstance(node, dict):
+                            shard_id = node.get('ShardID', node.get('shard_id', i % 4))
+                            node_id_raw = node.get('NodeID', node.get('node_id', i))
+                            
+                            # 检查node_id是否已经是S{ShardID}N{NodeID}格式
+                            if isinstance(node_id_raw, str) and node_id_raw.startswith('S') and 'N' in node_id_raw:
+                                original_node_key = node_id_raw
+                                # 从S{ShardID}N{NodeID}格式中提取实际的node_id
+                                try:
+                                    if 'N' in node_id_raw:
+                                        node_id = int(node_id_raw.split('N')[1])
+                                    else:
+                                        node_id = i
+                                except:
+                                    node_id = i
+                            else:
+                                node_id = int(node_id_raw) if isinstance(node_id_raw, (int, str)) else i
+                                original_node_key = f"S{shard_id}N{node_id}"
+                        else:
+                            # 默认值
+                            shard_id = i % 4
+                            node_id = i
+                            original_node_key = f"S{shard_id}N{node_id}"
+                        
+                        node_info['shard_ids'].append(shard_id)
+                        node_info['node_ids'].append(node_id)
+                        node_info['original_node_keys'].append(original_node_key)
+                        node_info['timestamps'].append(int(time.time()) + i)
+                    
+                    logger.info(f"提取到原始节点映射信息：{len(node_info['shard_ids'])}个节点")
+                    logger.info(f"前3个节点的映射: {node_info['original_node_keys'][:3]}")
+                    return node_info
+                    
+                except Exception as e:
+                    logger.error(f"提取原始节点映射失败: {e}")
+                    # 返回默认映射
+                    num_nodes = len(processed_nodes) if processed_nodes else 10
+                    return {
+                        'node_ids': [i for i in range(num_nodes)],
+                        'shard_ids': [i % 4 for i in range(num_nodes)],
+                        'original_node_keys': [f"S{i % 4}N{i}" for i in range(num_nodes)],
+                        'timestamps': [int(time.time()) + i for i in range(num_nodes)]
+                    }
             
             def _convert_go_node_to_real_format(self, go_node_info):
                 """将Go接口的节点信息转换为真实特征提取器可用的格式"""
@@ -1580,7 +1651,11 @@ class CompleteIntegratedShardingSystem:
                     'real_44_fields': True,
                     'authentic_multiscale': True,
                     'authentic_evolvegcn': True,
-                    'unified_feedback': True
+                    'unified_feedback': True,
+                    # 重要：传递原始节点映射信息
+                    'node_info': step1_result.get('metadata', {}).get('node_info', {}),
+                    'original_node_mapping': step1_result.get('metadata', {}).get('original_node_mapping', {}),
+                    'cross_shard_edges': step3_result.get('cross_shard_edges', 0)
                 }
             }
             
