@@ -1287,7 +1287,7 @@ if __name__ == "__main__":
         print(f" 结果保存到: {stable_path}")
         print(f" 第三步反馈文件: {step3_feedback_path}")
         print(f" 最终反馈信号: {[f'{x:.3f}' for x in feedback_signal.tolist()]}")
-        print(f"🔗 第三步可使用的性能向量维度: {len(performance_feedback_for_step3['temporal_performance']['performance_vector']) + len(performance_feedback_for_step3['temporal_performance']['feature_qualities']) + 1}")  # 4+6+1=11维
+        print(f" 第三步可使用的性能向量维度: {len(performance_feedback_for_step3['temporal_performance']['performance_vector']) + len(performance_feedback_for_step3['temporal_performance']['feature_qualities']) + 1}")  # 4+6+1=11维
 
         # 8.  问题诊断总结
         print(f"\n问题诊断:")

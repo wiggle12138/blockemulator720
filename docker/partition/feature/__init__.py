@@ -16,15 +16,15 @@ if str(current_dir) not in sys.path:
 # 预加载核心模块，避免循环导入
 try:
     # 重要：先加载基础配置模块
-    from . import config
-    from . import nodeInitialize
+    import config
+    import nodeInitialize
     
     # 再加载依赖这些基础模块的高级模块
-    from . import data_processor
-    from . import graph_builder
-    from . import feature_extractor
-    from . import blockemulator_adapter
-    from . import system_integration_pipeline
+    import data_processor
+    import graph_builder
+    import feature_extractor
+    import blockemulator_adapter
+    import system_integration_pipeline
     
     print("[Partition.Feature] 包加载成功")
     

@@ -381,7 +381,7 @@ def main():
     )
     
     if result.get('success', True):  # 没有error字段表示成功
-        print(f"\n🎉 第四步反馈处理成功完成!")
+        print(f"\n 第四步反馈处理成功完成!")
         
         # 检查是否有重要建议需要立即关注
         if 'smart_suggestions' in result:

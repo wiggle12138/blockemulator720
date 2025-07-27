@@ -12,29 +12,19 @@ from typing import List, Dict, Any, Tuple, Optional
 from datetime import datetime
 import time
 
-# 导入适配器
+# 导入适配器 - 使用绝对导入
+import sys
+from pathlib import Path
+
+# 添加当前目录到系统路径
+current_dir = Path(__file__).parent
+if str(current_dir) not in sys.path:
+    sys.path.insert(0, str(current_dir))
+
 try:
-    from .blockemulator_adapter import BlockEmulatorAdapter
-except ImportError:
-    try:
-        from blockemulator_adapter import BlockEmulatorAdapter
-    except ImportError:
-        import sys
-        import importlib.util
-        from pathlib import Path
-        
-        # 使用绝对路径导入适配器
-        adapter_path = Path(__file__).parent / "blockemulator_adapter.py"
-        if adapter_path.exists():
-            spec = importlib.util.spec_from_file_location("blockemulator_adapter", adapter_path)
-            if spec and spec.loader:
-                adapter_module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(adapter_module)
-                BlockEmulatorAdapter = getattr(adapter_module, 'BlockEmulatorAdapter', None)
-            else:
-                raise ImportError("无法加载BlockEmulatorAdapter")
-        else:
-            raise ImportError(f"适配器文件不存在: {adapter_path}")
+    from blockemulator_adapter import BlockEmulatorAdapter
+except ImportError as e:
+    raise ImportError(f"blockemulator_adapter导入失败: {e}")
 
 class BlockEmulatorStep1Pipeline:
     """BlockEmulator系统第一步特征提取流水线"""

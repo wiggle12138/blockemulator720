@@ -28,23 +28,23 @@ class FeatureDimensions:
     REAL_FEATURE_DIM = (HARDWARE_DIM + NETWORK_TOPOLOGY_DIM + HETEROGENEOUS_TYPE_DIM + 
                         ONCHAIN_BEHAVIOR_DIM + DYNAMIC_ATTRIBUTES_DIM)  # 11+5+2+15+7=40维
 
-    # === 其他兼容性配置 (保持不变) ===
-    CATEGORICAL_DIM = 15          # 分类特征维度 (减少，因为很多已包含在数值特征中)
+    # === 其他兼容性配置 - 调整为仅支持40维真实特征 ===
+    CATEGORICAL_DIM = 0           # 分类特征已包含在40维中，不再额外添加
 
-    # 序列和图特征配置
+    # 序列和图特征配置 - 调整为40维适配
     MAX_SEQUENCE_LENGTH = 50
-    SEQUENCE_FEATURE_DIM = 32
+    SEQUENCE_FEATURE_DIM = 0      # 时序特征直接从40维提取，不再额外生成
     MAX_NEIGHBORS = 20
-    NEIGHBOR_FEATURE_DIM = 10
-    GRAPH_FEATURE_DIM = 10
+    NEIGHBOR_FEATURE_DIM = 0      # 邻居特征从40维衍生
+    GRAPH_FEATURE_DIM = 0         # 图特征从40维衍生
 
-    # 总的经典特征维度 - 使用真实40维
-    CLASSIC_RAW_DIM = REAL_FEATURE_DIM + CATEGORICAL_DIM + SEQUENCE_FEATURE_DIM + GRAPH_FEATURE_DIM  # 40+15+32+10=97维
-    CLASSIC_DIM = 128  # 投影后维度 (增加以容纳更多信息)
+    # 总的经典特征维度 - 直接使用真实40维
+    CLASSIC_RAW_DIM = REAL_FEATURE_DIM  # 40维直接输入
+    CLASSIC_DIM = 128  # 投影后维度 (保持不变)
 
     # 图特征和融合特征维度
-    GRAPH_OUTPUT_DIM = 96   # 稍微增加
-    FUSED_DIM = 256         # 增加融合特征维度
+    GRAPH_OUTPUT_DIM = 96   # 保持不变
+    FUSED_DIM = 256         # 保持不变
 
     # === 维度映射字典 (用于complete_integrated_sharding_system.py) ===
     @classmethod
@@ -99,7 +99,12 @@ class EncodingMaps:
         'active': 4.0, 'standby': 3.0, 'maintenance': 2.0, 'inactive': 1.0, 'unknown': 0.0
     }
 
-    # 节点类型 (与NodeTypes保持一致)
+    # 节点类型映射
+    NODE_TYPE = {
+        'full_node': 1.0, 'light_node': 2.0, 'miner': 3.0, 'validator': 4.0, 'storage': 5.0, 'unknown': 0.0
+    }
+
+    # 节点类型列表 (与NodeTypes保持一致)
     NODE_TYPES = ['full_node', 'light_node', 'miner', 'validator', 'storage']
 
 # 继承原有配置

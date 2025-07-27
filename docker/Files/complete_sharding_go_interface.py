@@ -218,7 +218,7 @@ def main():
         print(json.dumps(go_result, ensure_ascii=False, indent=2))
         
         # 记录成功信息到stderr（日志）
-        print(f"✅ 分片系统调用成功: {go_result['algorithm']}", file=sys.stderr)
+        print(f" 分片系统调用成功: {go_result['algorithm']}", file=sys.stderr)
         print(f"   分片数量: {go_result['predicted_shards']}", file=sys.stderr)
         print(f"   性能评分: {go_result['performance_score']:.3f}", file=sys.stderr)
         print(f"   执行时间: {go_result['execution_time']:.2f}秒", file=sys.stderr)

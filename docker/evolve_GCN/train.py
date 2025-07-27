@@ -250,7 +250,7 @@ class ShardingTrainer:
 
     def _compute_sharding_loss(self, final_embeddings, epoch_losses):
         """计算分片损失 - 集成第四步反馈"""
-        # 🔄 加载第四步反馈信号
+        #  加载第四步反馈信号
         feedback_signal = self._load_step4_feedback()
         
         # 动态分片 - 使用优化后的模块

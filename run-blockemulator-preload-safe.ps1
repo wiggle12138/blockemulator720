@@ -17,7 +17,7 @@ $ExePath = if (Test-Path ".\blockEmulator_Windows_UTF8.exe") {
 }
 
 # 使用用户指定的Python环境路径
-$PythonExePath = "D:\Environment\Anaconda_envs\envs\blockemulator_torch\python.exe"
+$PythonExePath = "E:\Codefield\BlockEmulator\.venv\Scripts\python.exe"
 
 function Start-PythonWarmup {
     Write-Host "[WARMUP] 启动Python EvolveGCN预热..." -ForegroundColor Yellow
@@ -112,7 +112,6 @@ function Start-PythonWarmup {
 
 function Start-BlockEmulatorSystemWithWarmup {
     Write-Host "[START] 启动BlockEmulator EvolveGCN预启动系统" -ForegroundColor Green
-    Write-Host "=" * 60 -ForegroundColor Yellow
     
     # 检查可执行文件是否存在
     if (-not (Test-Path $ExePath)) {
@@ -280,7 +279,6 @@ function Test-WarmupOnly {
 
 # 主逻辑
 Write-Host "BlockEmulator EvolveGCN 预启动系统 v2.0 (编码安全版)" -ForegroundColor Magenta
-Write-Host "=" * 60 -ForegroundColor Magenta
 
 if ($Stop) {
     Stop-BlockEmulatorSystem

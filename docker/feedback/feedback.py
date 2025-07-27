@@ -153,7 +153,7 @@ class PerformanceEvaluator(nn.Module):
         Returns:
             performance_metrics: 性能指标字典
         """
-        print(f"🔍 评估输入特征: {list(features.keys())}")
+        print(f" 评估输入特征: {list(features.keys())}")
 
         # 验证并提取6类特征
         extracted_features = self._extract_six_feature_types(features)
@@ -579,7 +579,7 @@ class FeatureImportanceAnalyzer:
         Returns:
             layer_importance: 6类特征重要性矩阵
         """
-        print(f"🔍 分析6类特征重要性: {list(features.keys())}")
+        print(f" 分析6类特征重要性: {list(features.keys())}")
 
         importance_matrix = {}
 
@@ -850,7 +850,7 @@ class FeedbackController:
             feedback_signal: 反馈信号 [4] (负载均衡, 跨片率, 安全性, 特征质量)
             evolved_features: 优化后的特征空间
         """
-        print(f"🔄 处理6类原始特征反馈 - 输入特征: {list(features.keys())}")
+        print(f" 处理6类原始特征反馈 - 输入特征: {list(features.keys())}")
 
         try:
             # 1. 基于6类特征的性能评估

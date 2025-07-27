@@ -645,7 +645,7 @@ class Pipeline:
 
         # 特征融合 (如果启用)
         if self.use_fusion:
-            print("🔗 执行特征融合...")
+            print(" 执行特征融合...")
             f_fused, contrastive_loss = self.fusion_pipeline(results['f_classic'], results['f_graph'])
             results['f_fused'] = f_fused
             results['contrastive_loss'] = contrastive_loss

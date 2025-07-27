@@ -634,7 +634,9 @@ class TemporalMSCIA(nn.Module):
             timestamps = torch.zeros((num_nodes,), dtype=torch.long, device=device)
             time_emb = self.time_embedding(timestamps)
         
-        # Fuse features and time information
+        # Fuse features and time information - 确保设备一致性
+        X_batch = X_batch.to(device)  # 确保X_batch在正确设备上
+        time_emb = time_emb.to(device)  # 确保time_emb在正确设备上
         X_time = torch.cat([X_batch, time_emb], dim=1)  # [num_nodes, input_dim + time_dim]
         X_proj = self.feature_proj(X_time)  # [num_nodes, hidden_dim]
 

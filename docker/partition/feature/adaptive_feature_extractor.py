@@ -4,11 +4,31 @@
 import torch
 import torch.nn as nn
 from typing import List, Dict, Any, Optional, Tuple
-from .feature_extractor import UnifiedFeatureExtractor, ComprehensiveFeatureExtractor
-from .sliding_window_extractor import EnhancedSequenceFeatureEncoder
-from .nodeInitialize import Node
 import copy
 import numpy as np
+import sys
+from pathlib import Path
+
+# 添加当前目录到系统路径
+current_dir = Path(__file__).parent
+if str(current_dir) not in sys.path:
+    sys.path.insert(0, str(current_dir))
+
+# 直接导入模块
+try:
+    from feature_extractor import UnifiedFeatureExtractor, ComprehensiveFeatureExtractor
+except ImportError as e:
+    raise ImportError(f"feature_extractor导入失败: {e}")
+
+try:
+    from sliding_window_extractor import EnhancedSequenceFeatureEncoder
+except ImportError as e:
+    raise ImportError(f"sliding_window_extractor导入失败: {e}")
+
+try:
+    from nodeInitialize import Node
+except ImportError as e:
+    raise ImportError(f"nodeInitialize导入失败: {e}")
 
 class AdaptiveFeatureExtractor(nn.Module):
     """自适应特征提取器 - 接受第四步反馈并调整99维原始特征"""

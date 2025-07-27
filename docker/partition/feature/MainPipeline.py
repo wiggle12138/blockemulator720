@@ -13,21 +13,15 @@ from typing import List, Dict, Tuple, Any, Optional
 def smart_import():
     """智能导入函数"""
     try:
-        # 方式1：相对导入（包模式）
-        from .nodeInitialize import Node, load_nodes_from_csv
-        from .feature_extractor import UnifiedFeatureExtractor
-        from .feature_fusion import FeatureFusionPipeline
-        from .config import FeatureDimensions
-        from .adaptive_feature_extractor import AdaptiveFeatureExtractor
+        # 直接导入模块，失败时立即报错
+        from nodeInitialize import Node, load_nodes_from_csv
+        from feature_extractor import UnifiedFeatureExtractor
+        from feature_fusion import FeatureFusionPipeline
+        from config import FeatureDimensions
+        from adaptive_feature_extractor import AdaptiveFeatureExtractor
         return Node, load_nodes_from_csv, UnifiedFeatureExtractor, FeatureFusionPipeline, FeatureDimensions, AdaptiveFeatureExtractor
-    except ImportError:
-        try:
-            # 方式2：绝对导入（包模式备选）
-            from partition.feature.nodeInitialize import Node, load_nodes_from_csv
-            from partition.feature.feature_extractor import UnifiedFeatureExtractor
-            from partition.feature.feature_fusion import FeatureFusionPipeline
-            from partition.feature.config import FeatureDimensions
-            from partition.feature.adaptive_feature_extractor import AdaptiveFeatureExtractor
+    except ImportError as e:
+        raise ImportError(f"主要模块导入失败: {e}")
             return Node, load_nodes_from_csv, UnifiedFeatureExtractor, FeatureFusionPipeline, FeatureDimensions, AdaptiveFeatureExtractor
         except ImportError:
             # 方式3：直接导入（脚本模式）
@@ -645,7 +639,7 @@ class Pipeline:
 
         # 特征融合 (如果启用)
         if self.use_fusion:
-            print("🔗 执行特征融合...")
+            print(" 执行特征融合...")
             f_fused, contrastive_loss = self.fusion_pipeline(results['f_classic'], results['f_graph'])
             results['f_fused'] = f_fused
             results['contrastive_loss'] = contrastive_loss

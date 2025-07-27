@@ -5,8 +5,24 @@ import torch
 import numpy as np
 import json
 from typing import List, Dict, Tuple, Any
-from .nodeInitialize import Node
-from .config import RelationTypes, NodeTypes
+import sys
+from pathlib import Path
+
+# 添加当前目录到系统路径
+current_dir = Path(__file__).parent
+if str(current_dir) not in sys.path:
+    sys.path.insert(0, str(current_dir))
+
+# 直接导入模块
+try:
+    from nodeInitialize import Node
+except ImportError as e:
+    raise ImportError(f"nodeInitialize导入失败: {e}")
+
+try:
+    from config import RelationTypes, NodeTypes
+except ImportError as e:
+    raise ImportError(f"config导入失败: {e}")
 
 class HeterogeneousGraphBuilder:
     def __init__(self):

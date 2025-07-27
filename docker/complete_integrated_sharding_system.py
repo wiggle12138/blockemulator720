@@ -187,54 +187,51 @@ class CompleteIntegratedShardingSystem:
         logger.info("初始化Step1：特征提取")
         
         try:
-            # 导入docker目录下的Step1模块
+            # 确保正确导入路径
             import sys
-            docker_feature_path = str(Path(__file__).parent / "partition" / "feature")
-            if docker_feature_path not in sys.path:
-                sys.path.insert(0, docker_feature_path)
-            
-            # 导入真实的特征提取器和流水线
-            from system_integration_pipeline import BlockEmulatorStep1Pipeline
-            from feature_extractor import ComprehensiveFeatureExtractor
+            root_step1_path = str(Path(__file__).parent / "partition" / "feature")
+            if root_step1_path not in sys.path:
+                sys.path.insert(0, root_step1_path)
+
+            # 导入核心模块
             from blockemulator_adapter import BlockEmulatorAdapter
             
-            # 创建真实的特征提取器
-            self.step1_processor = self._create_real_step1_processor()
+            # 创建简化的特征提取器
+            self.step1_processor = self._create_simple_step1_processor()
             
-            logger.info("Step1真实特征提取器初始化成功")
+            logger.info("Step1特征提取器初始化成功")
             
         except Exception as e:
             logger.error(f"Step1初始化失败: {e}")
+            import traceback
+            logger.error(f"详细错误信息: {traceback.format_exc()}")
             # 必须使用真实实现
-            raise RuntimeError(f"Step1初始化失败，必须使用Docker目录下的真实实现: {e}")
-    
-    def _create_real_step1_processor(self):
-        """创建真实的Step1处理器 - 使用Docker目录下的特征提取器"""
-        class RealStep1Processor:
+            raise RuntimeError(f"Step1初始化失败，必须使用真实实现: {e}")
+
+    def _create_simple_step1_processor(self):
+        """创建简化的Step1处理器"""
+        class SimpleStep1Processor:
             def __init__(self, parent):
                 self.parent = parent
                 self.feature_dims = parent.real_feature_dims
                 self.device = parent.device
                 
-                # 导入真实的特征提取器
+                # 导入适配器
                 try:
-                    from system_integration_pipeline import BlockEmulatorStep1Pipeline
-                    from feature_extractor import ComprehensiveFeatureExtractor
                     from blockemulator_adapter import BlockEmulatorAdapter
-                    
-                    # 初始化真实组件
-                    self.pipeline = BlockEmulatorStep1Pipeline(
-                        use_comprehensive_features=True,
-                        save_adjacency=True,
-                        output_dir="./step1_real_outputs"
-                    )
-                    self.extractor = ComprehensiveFeatureExtractor()
                     self.adapter = BlockEmulatorAdapter()
+                    logger.info("BlockEmulatorAdapter初始化成功")
                     
-                    logger.info("真实Step1组件初始化成功")
+                    # 添加特征提取器引用
+                    if hasattr(self.adapter, 'comprehensive_extractor'):
+                        self.extractor = self.adapter.comprehensive_extractor
+                        logger.info("ComprehensiveFeatureExtractor引用设置成功")
+                    else:
+                        logger.warning("适配器中没有comprehensive_extractor")
+                        self.extractor = None
                     
                 except Exception as e:
-                    logger.error(f"真实Step1组件初始化失败: {e}")
+                    logger.error(f"BlockEmulatorAdapter初始化失败: {e}")
                     raise
                 
             def extract_real_features(self, node_data=None, feature_dims=None):
@@ -276,7 +273,7 @@ class CompleteIntegratedShardingSystem:
                         'num_nodes': len(processed_nodes),
                         'feature_dims': self.feature_dims,
                         'source': 'real_docker_feature_extractor',
-                        'algorithm': 'ComprehensiveFeatureExtractor_99_dims',
+                        'algorithm': 'ComprehensiveFeatureExtractor_38_dims',
                         'success': True,
                         'metadata': {
                             'use_real_data': node_data is not None,
@@ -419,9 +416,12 @@ class CompleteIntegratedShardingSystem:
                     # 调用真实的特征提取器
                     feature_tensor = self.extractor.extract_features(processed_nodes)
                     
+                    # 确保特征张量在正确的设备上
+                    feature_tensor = feature_tensor.to(self.parent.device)
+                    
                     logger.info(f"真实特征提取完成，维度: {feature_tensor.shape}")
                     
-                    # 将99维特征分割为6类
+                    # 将40维特征分割为5类
                     features_dict = self._split_features_to_categories(feature_tensor)
                     
                     return features_dict
@@ -432,7 +432,7 @@ class CompleteIntegratedShardingSystem:
                     return self._create_manual_features(len(processed_nodes))
             
             def _split_features_to_categories(self, feature_tensor):
-                """将99维特征分割为6个类别"""
+                """将38维特征分割为5个类别"""
                 features_dict = {}
                 start_idx = 0
                 
@@ -490,8 +490,25 @@ class CompleteIntegratedShardingSystem:
                     edge_index = torch.tensor([[i, i+1] for i in range(num_nodes-1)], device=self.device).t()
                 
                 return edge_index
+            
+            def process_transaction_data(self, tx_data):
+                """处理交易数据"""
+                try:
+                    if self.adapter and hasattr(self.adapter, 'extract_features'):
+                        # 使用真实适配器提取特征
+                        features = self.adapter.extract_features(tx_data)
+                        logger.info(f"使用真实适配器提取特征: {features.shape if hasattr(features, 'shape') else len(features)}")
+                        return features
+                    else:
+                        logger.error("适配器未正确初始化")
+                        raise RuntimeError("特征提取失败：适配器未正确初始化")
+                        
+                except Exception as e:
+                    logger.error(f"特征提取失败: {e}")
+                    # 不使用任何备用结果
+                    raise RuntimeError(f"特征提取失败，必须使用真实实现: {e}")
                 
-        return RealStep1Processor(self)
+        return SimpleStep1Processor(self)
     
     def initialize_step2(self):
         """初始化第二步：多尺度对比学习"""
@@ -503,7 +520,7 @@ class CompleteIntegratedShardingSystem:
             from All_Final import TemporalMSCIA
             
             config = self.config["step2"]
-            total_features = sum(self.real_feature_dims.values())  # 99维
+            total_features = sum(self.real_feature_dims.values())  # 40维
             
             # 创建真实的TemporalMSCIA模型
             self.step2_processor = TemporalMSCIA(
@@ -565,7 +582,7 @@ class CompleteIntegratedShardingSystem:
                 self.parent = parent
                 self.config = parent.config["step3"]
                 self.device = parent.device
-                self.total_features = sum(parent.real_feature_dims.values())  # 99维
+                self.total_features = sum(parent.real_feature_dims.values())  # 40维
                 
             def run_sharding(self, features, edge_index=None, num_epochs=100):
                 """运行EvolveGCN分片"""
@@ -577,7 +594,7 @@ class CompleteIntegratedShardingSystem:
                     for name, tensor in features.items():
                         feature_list.append(tensor)
                     
-                    combined_features = torch.cat(feature_list, dim=1)  # [N, 99]
+                    combined_features = torch.cat(feature_list, dim=1)  # [N, 40]
                     num_nodes = combined_features.shape[0]
                     
                     # 确定分片数量（基于节点数和网络特征）
@@ -699,19 +716,13 @@ class CompleteIntegratedShardingSystem:
             # 导入真实的统一反馈引擎
             from feedback.unified_feedback_engine import UnifiedFeedbackEngine
             
-            # 创建真实的统一反馈引擎
-            feature_dims = {
-                'hardware': 17,
-                'onchain_behavior': 17,
-                'network_topology': 20,
-                'dynamic_attributes': 13,
-                'heterogeneous_type': 17,
-                'categorical': 15
-            }
+            # 使用真实的40维特征配置
+            feature_dims = self.real_feature_dims  # 使用40维真实特征维度
             
             # 确保配置完整
             step4_config = self.config["step4"]
             logger.info(f"Step4配置: {step4_config}")
+            logger.info(f"真实特征维度: {feature_dims}")
             
             self.step4_processor = UnifiedFeedbackEngine(
                 feature_dims=feature_dims,
@@ -1073,15 +1084,19 @@ class CompleteIntegratedShardingSystem:
             else:
                 logger.warning("   ❌ Step1未提供边索引")
             
-            # 合并特征到99维
+            # 合并特征到40维
             logger.info("=== 特征合并过程 ===")
             feature_list = []
             total_dim = 0
             for name, tensor in features.items():
                 logger.info(f"   添加特征 {name}: {tensor.shape[1]}维")
                 total_dim += tensor.shape[1]
+                # 确保每个特征张量都在正确的设备上
+                tensor = tensor.to(self.device)
                 feature_list.append(tensor)
-            combined_features = torch.cat(feature_list, dim=1)  # [N, 99]
+            combined_features = torch.cat(feature_list, dim=1)  # [N, 40]
+            # 确保合并的特征在正确的设备上
+            combined_features = combined_features.to(self.device)
             logger.info(f"   合并结果: 形状{combined_features.shape}, 总维度{total_dim}")
             logger.info(f"   数值范围: [{combined_features.min().item():.3f}, {combined_features.max().item():.3f}]")
             logger.info(f"   设备: {combined_features.device}, 数据类型: {combined_features.dtype}")

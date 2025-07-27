@@ -388,7 +388,7 @@ func (egcm *EvolveGCNCommitteeModule) runEvolveGCNPartition() (map[string]uint64
 
 			if len(accountMapping) > 0 {
 				egcm.sl.Slog.Printf("EvolveGCN: 成功转换为账户映射，数量: %d", len(accountMapping))
-				egcm.sl.Slog.Printf("EvolveGCN: ✅ 节点级重分片转换完成")
+				egcm.sl.Slog.Printf("EvolveGCN:  节点级重分片转换完成")
 				return accountMapping, crossShardEdges
 			} else {
 				egcm.sl.Slog.Println("EvolveGCN: 转换结果为空，使用空映射")
@@ -1030,12 +1030,12 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	}
 
 	// 检查Python脚本是否存在
-	if _, err := os.Stat("complete_sharding_go_interface.py"); err != nil {
+	if _, err := os.Stat("evolvegcn_go_interface.py"); err != nil {
 		egcm.sl.Slog.Printf("EvolveGCN ERROR: Python interface script not found: %v", err)
 		return nil, 0, fmt.Errorf("Python interface script not found: %v", err)
 	}
 
-	cmd := exec.Command(pythonPath, "complete_sharding_go_interface.py", "--input", inputFile, "--output", outputFile)
+	cmd := exec.Command(pythonPath, "evolvegcn_go_interface.py", "--input", inputFile, "--output", outputFile)
 
 	// 设置工作目录为当前目录
 	if wd, err := os.Getwd(); err == nil {
@@ -1055,7 +1055,7 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	egcm.sl.Slog.Printf("EvolveGCN: Command: %s %v", pythonPath, cmd.Args)
 
 	// 记录环境变量
-	egcm.sl.Slog.Printf("EvolveGCN: Environment variables: %v", cmd.Env)
+	// egcm.sl.Slog.Printf("EvolveGCN: Environment variables: %v", cmd.Env)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -1067,29 +1067,29 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	defer cancel()
 
 	// 选择Python脚本优先级：安全预加载服务 > 预加载服务 > 优化版完整流水线 > 原始完整版 > 快速测试版
-	scriptName := "complete_sharding_go_interface.py" // 723优化版本
+	scriptName := "evolvegcn_go_interface.py" // 723优化版本
 
-	if _, err := os.Stat("evolvegcn_preload_service_safe.py"); err == nil {
-		scriptName = "evolvegcn_preload_service_safe.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using encoding-safe preloaded service (fastest)")
-	} else if _, err := os.Stat("evolvegcn_preload_service.py"); err == nil {
-		scriptName = "evolvegcn_preload_service.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using preloaded service (fastest)")
-	} else if _, err := os.Stat("evolvegcn_optimized.py"); err == nil {
-		scriptName = "evolvegcn_optimized.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using optimized four-step pipeline")
-	} else if _, err := os.Stat("evolvegcn_go_interface.py"); err == nil {
-		scriptName = "evolvegcn_go_interface.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using original four-step pipeline")
-	} else if _, err := os.Stat("evolvegcn_quick_test.py"); err == nil {
-		// 检查是否强制使用快速测试
-		if os.Getenv("EVOLVEGCN_QUICK_TEST") == "1" {
-			scriptName = "evolvegcn_quick_test.py"
-			egcm.sl.Slog.Printf("EvolveGCN: Using quick test script (EVOLVEGCN_QUICK_TEST=1)")
-		} else {
-			egcm.sl.Slog.Printf("EvolveGCN: Quick test available but using optimized version")
-		}
-	}
+	// if _, err := os.Stat("evolvegcn_preload_service_safe.py"); err == nil {
+	// 	scriptName = "evolvegcn_preload_service_safe.py"
+	// 	egcm.sl.Slog.Printf("EvolveGCN: Using encoding-safe preloaded service (fastest)")
+	// } else if _, err := os.Stat("evolvegcn_preload_service.py"); err == nil {
+	// 	scriptName = "evolvegcn_preload_service.py"
+	// 	egcm.sl.Slog.Printf("EvolveGCN: Using preloaded service (fastest)")
+	// } else if _, err := os.Stat("evolvegcn_optimized.py"); err == nil {
+	// 	scriptName = "evolvegcn_optimized.py"
+	// 	egcm.sl.Slog.Printf("EvolveGCN: Using optimized four-step pipeline")
+	// } else if _, err := os.Stat("evolvegcn_go_interface.py"); err == nil {
+	// 	scriptName = "evolvegcn_go_interface.py"
+	// 	egcm.sl.Slog.Printf("EvolveGCN: Using original four-step pipeline")
+	// } else if _, err := os.Stat("evolvegcn_quick_test.py"); err == nil {
+	// 	// 检查是否强制使用快速测试
+	// 	if os.Getenv("EVOLVEGCN_QUICK_TEST") == "1" {
+	// 		scriptName = "evolvegcn_quick_test.py"
+	// 		egcm.sl.Slog.Printf("EvolveGCN: Using quick test script (EVOLVEGCN_QUICK_TEST=1)")
+	// 	} else {
+	// 		egcm.sl.Slog.Printf("EvolveGCN: Quick test available but using optimized version")
+	// 	}
+	// }
 
 	cmdWithTimeout := exec.CommandContext(ctx, pythonPath, scriptName, "--input", inputFile, "--output", outputFile)
 	cmdWithTimeout.Dir = cmd.Dir

@@ -322,7 +322,7 @@ func (p *PbftConsensusNode) handleRequestNodeState(content []byte) {
 		NodeID:    p.NodeID,
 		Epoch:     p.nodeFeatureCollector.GetCurrentEpoch(),
 		RequestID: request.RequestID,
-		NodeState: currentNodeState, // ✅ 现在类型匹配了！
+		NodeState: currentNodeState, //  现在类型匹配了！
 	}
 
 	// 序列化并发送

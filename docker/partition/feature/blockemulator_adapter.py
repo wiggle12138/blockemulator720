@@ -13,59 +13,40 @@ import time
 from datetime import datetime
 import os
 
-# 导入原有的特征提取组件
+# 导入原有的特征提取组件 - 使用绝对导入避免相对导入问题
+import sys
+from pathlib import Path
+
+# 添加feature目录到系统路径
+current_dir = Path(__file__).parent
+if str(current_dir) not in sys.path:
+    sys.path.insert(0, str(current_dir))
+
+# 直接导入模块，失败时立即报错
 try:
-    from .feature_extractor import UnifiedFeatureExtractor, ComprehensiveFeatureExtractor
-    from .nodeInitialize import Node
-    from .data_processor import DataProcessor
-    from .config import FeatureDimensions, EncodingMaps
-    from .graph_builder import HeterogeneousGraphBuilder
-except ImportError:
-    # 处理相对导入失败的情况 - 使用更robust的导入方式
-    import sys
-    import importlib.util
-    from pathlib import Path
-    
-    current_dir = Path(__file__).parent
-    
-    def load_module_safe(module_name, file_path):
-        try:
-            if file_path.exists():
-                spec = importlib.util.spec_from_file_location(module_name, file_path)
-                if spec and spec.loader:
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
-                    return module
-        except Exception as e:
-            print(f"警告: 无法加载模块 {module_name}: {e}")
-        return None
-    
-    # 加载特征提取器
-    feature_extractor_module = load_module_safe("feature_extractor", current_dir / "feature_extractor.py")
-    if feature_extractor_module:
-        UnifiedFeatureExtractor = getattr(feature_extractor_module, 'UnifiedFeatureExtractor', None)
-        ComprehensiveFeatureExtractor = getattr(feature_extractor_module, 'ComprehensiveFeatureExtractor', None)
-    else:
-        UnifiedFeatureExtractor = ComprehensiveFeatureExtractor = None
-    
-    # 加载其他模块
-    node_init_module = load_module_safe("nodeInitialize", current_dir / "nodeInitialize.py")
-    Node = getattr(node_init_module, 'Node', None) if node_init_module else None
-    
-    data_processor_module = load_module_safe("data_processor", current_dir / "data_processor.py")
-    DataProcessor = getattr(data_processor_module, 'DataProcessor', None) if data_processor_module else None
-    
-    config_module = load_module_safe("config", current_dir / "config.py")
-    if config_module:
-        FeatureDimensions = getattr(config_module, 'FeatureDimensions', None)
-        EncodingMaps = getattr(config_module, 'EncodingMaps', None)
-    else:
-        FeatureDimensions = EncodingMaps = None
-    
-    graph_builder_module = load_module_safe("graph_builder", current_dir / "graph_builder.py")
-    HeterogeneousGraphBuilder = getattr(graph_builder_module, 'HeterogeneousGraphBuilder', None) if graph_builder_module else None
+    from feature_extractor import UnifiedFeatureExtractor, ComprehensiveFeatureExtractor
+except ImportError as e:
+    raise ImportError(f"feature_extractor导入失败，必须使用真实实现: {e}")
+
+try:
+    from nodeInitialize import Node
+except ImportError as e:
+    raise ImportError(f"nodeInitialize导入失败，必须使用真实实现: {e}")
+
+try:
+    from data_processor import DataProcessor
+except ImportError as e:
+    raise ImportError(f"data_processor导入失败，必须使用真实实现: {e}")
+
+try:
     from config import FeatureDimensions, EncodingMaps
+except ImportError as e:
+    raise ImportError(f"config导入失败，必须使用真实实现: {e}")
+
+try:
     from graph_builder import HeterogeneousGraphBuilder
+except ImportError as e:
+    raise ImportError(f"graph_builder导入失败，必须使用真实实现: {e}")
 
 @dataclass
 class BlockEmulatorNodeData:
@@ -109,82 +90,78 @@ class BlockEmulatorAdapter:
             'total_nodes': 0
         }
         
-        # BlockEmulator特征字段映射 (基于message.go中的StaticNodeFeatures和DynamicNodeFeatures)
-        # 总计55个特征字段：26个静态特征 + 29个动态特征
+        # BlockEmulator特征字段映射 (基于committee_evolvegcn.go的extractRealStaticFeatures和extractRealDynamicFeatures)
+        # 总计40个特征字段：18个静态特征 + 22个动态特征
         self.be_field_mapping = {
-            # === 静态特征 (26个字段) ===
-            # 硬件资源 (11个字段)
-            "Static.ResourceCapacity.Hardware.CPU.CoreCount": "static.hardware.cpu.cores",
-            "Static.ResourceCapacity.Hardware.CPU.Architecture": "static.hardware.cpu.arch",
-            "Static.ResourceCapacity.Hardware.Memory.TotalCapacity": "static.hardware.memory.capacity",
-            "Static.ResourceCapacity.Hardware.Memory.Type": "static.hardware.memory.type", 
-            "Static.ResourceCapacity.Hardware.Memory.Bandwidth": "static.hardware.memory.bandwidth",
-            "Static.ResourceCapacity.Hardware.Storage.Capacity": "static.hardware.storage.capacity",
-            "Static.ResourceCapacity.Hardware.Storage.Type": "static.hardware.storage.type",
-            "Static.ResourceCapacity.Hardware.Storage.ReadWriteSpeed": "static.hardware.storage.speed",
-            "Static.ResourceCapacity.Hardware.Network.UpstreamBW": "static.hardware.network.upstream",
-            "Static.ResourceCapacity.Hardware.Network.DownstreamBW": "static.hardware.network.downstream", 
-            "Static.ResourceCapacity.Hardware.Network.Latency": "static.hardware.network.latency",
+            # === 静态特征 (18个字段) ===
+            # 硬件特征 (11个字段)
+            "cpu_cores": "static.hardware.cpu.cores",                    # float64(static.ResourceCapacity.Hardware.CPU.CoreCount)
+            "cpu_clock_freq": "static.hardware.cpu.clock_freq",          # static.ResourceCapacity.Hardware.CPU.ClockFrequency
+            "memory_gb": "static.hardware.memory.capacity",              # float64(static.ResourceCapacity.Hardware.Memory.TotalCapacity)
+            "memory_bandwidth": "static.hardware.memory.bandwidth",      # static.ResourceCapacity.Hardware.Memory.Bandwidth
+            "memory_type": "static.hardware.memory.type",                # encodeMemoryType(static.ResourceCapacity.Hardware.Memory.Type)
+            "storage_gb": "static.hardware.storage.capacity",            # float64(static.ResourceCapacity.Hardware.Storage.Capacity)
+            "storage_type": "static.hardware.storage.type",              # encodeStorageType(static.ResourceCapacity.Hardware.Storage.Type)
+            "storage_rw_speed": "static.hardware.storage.speed",         # static.ResourceCapacity.Hardware.Storage.ReadWriteSpeed
+            "network_upstream": "static.hardware.network.upstream",      # static.ResourceCapacity.Hardware.Network.UpstreamBW
+            "network_downstream": "static.hardware.network.downstream",  # static.ResourceCapacity.Hardware.Network.DownstreamBW
+            "network_latency": "static.hardware.network.latency",        # parseLatency(static.ResourceCapacity.Hardware.Network.Latency)
             
-            # 网络拓扑 (8个字段)
-            "Static.NetworkTopology.GeoLocation.Timezone": "static.network.geo.timezone",
-            "Static.NetworkTopology.Connections.IntraShardConn": "static.network.conn.intra_shard",
-            "Static.NetworkTopology.Connections.InterShardConn": "static.network.conn.inter_shard",
-            "Static.NetworkTopology.Connections.WeightedDegree": "static.network.conn.weighted_degree",
-            "Static.NetworkTopology.Connections.ActiveConn": "static.network.conn.active",
-            "Static.NetworkTopology.ShardAllocation.Priority": "static.network.shard.priority",
-            "Static.NetworkTopology.ShardAllocation.ShardPreference": "static.network.shard.preference",
-            "Static.NetworkTopology.ShardAllocation.Adaptability": "static.network.shard.adaptability",
+            # 网络拓扑特征 (5个字段)
+            "intra_shard_conn": "static.network.conn.intra_shard",       # float64(static.NetworkTopology.Connections.IntraShardConn)
+            "inter_shard_conn": "static.network.conn.inter_shard",       # float64(static.NetworkTopology.Connections.InterShardConn)
+            "weighted_degree": "static.network.conn.weighted_degree",    # static.NetworkTopology.Connections.WeightedDegree
+            "active_conn": "static.network.conn.active",                 # float64(static.NetworkTopology.Connections.ActiveConn)
+            "adaptability": "static.network.shard.adaptability",         # static.NetworkTopology.ShardAllocation.Adaptability
             
-            # 异构类型 (7个字段)
-            "Static.HeterogeneousType.NodeType": "static.hetero.node_type",
-            "Static.HeterogeneousType.FunctionTags": "static.hetero.function_tags",
-            "Static.HeterogeneousType.SupportedFuncs.Functions": "static.hetero.supported_funcs",
-            "Static.HeterogeneousType.SupportedFuncs.Priorities": "static.hetero.func_priorities",
-            "Static.HeterogeneousType.Application.CurrentState": "static.hetero.app_state",
-            "Static.HeterogeneousType.Application.LoadMetrics.TxFrequency": "static.hetero.tx_freq",
-            "Static.HeterogeneousType.Application.LoadMetrics.StorageOps": "static.hetero.storage_ops",
+            # 异构类型特征 (2个字段)
+            "node_type": "static.hetero.node_type",                      # encodeNodeType(static.HeterogeneousType.NodeType)
+            "core_eligibility": "static.hetero.core_eligibility",        # 默认值1.0 (原字段不存在)
             
             # === 动态特征 (22个字段) ===
-            # 链上行为 - 交易能力 (8个字段)
-            "Dynamic.OnChainBehavior.TransactionCapability.AvgTPS": "dynamic.onchain.tx.avg_tps",
-            "Dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterNodeVolume": "dynamic.onchain.tx.inter_node_vol",
-            "Dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterShardVolume": "dynamic.onchain.tx.inter_shard_vol",
-            "Dynamic.OnChainBehavior.TransactionCapability.ConfirmationDelay": "dynamic.onchain.tx.confirm_delay",
-            "Dynamic.OnChainBehavior.TransactionCapability.ResourcePerTx.CPUPerTx": "dynamic.onchain.tx.cpu_per_tx",
-            "Dynamic.OnChainBehavior.TransactionCapability.ResourcePerTx.MemPerTx": "dynamic.onchain.tx.mem_per_tx",
-            "Dynamic.OnChainBehavior.TransactionCapability.ResourcePerTx.DiskPerTx": "dynamic.onchain.tx.disk_per_tx",
-            "Dynamic.OnChainBehavior.TransactionCapability.ResourcePerTx.NetworkPerTx": "dynamic.onchain.tx.net_per_tx",
+            # 交易处理能力 (2个字段)
+            "avg_tps": "dynamic.onchain.tx.avg_tps",                     # dynamic.OnChainBehavior.TransactionCapability.AvgTPS
+            "confirmation_delay": "dynamic.onchain.tx.confirmation_delay", # parseDelay(dynamic.OnChainBehavior.TransactionCapability.ConfirmationDelay)
             
-            # 链上行为 - 其他 (9个字段)
-            "Dynamic.OnChainBehavior.BlockGeneration.AvgInterval": "dynamic.onchain.block.avg_interval",
-            "Dynamic.OnChainBehavior.BlockGeneration.IntervalStdDev": "dynamic.onchain.block.interval_std",
-            "Dynamic.OnChainBehavior.EconomicContribution.FeeContributionRatio": "dynamic.onchain.econ.fee_ratio",
-            "Dynamic.OnChainBehavior.SmartContractUsage.InvocationFrequency": "dynamic.onchain.contract.invocation_freq",
-            "Dynamic.OnChainBehavior.TransactionTypes.NormalTxRatio": "dynamic.onchain.types.normal_ratio",
-            "Dynamic.OnChainBehavior.TransactionTypes.ContractTxRatio": "dynamic.onchain.types.contract_ratio",
-            "Dynamic.OnChainBehavior.Consensus.ParticipationRate": "dynamic.onchain.consensus.participation",
-            "Dynamic.OnChainBehavior.Consensus.TotalReward": "dynamic.onchain.consensus.total_reward",
-            "Dynamic.OnChainBehavior.Consensus.SuccessRate": "dynamic.onchain.consensus.success_rate",
+            # 跨分片交易 (2个字段)
+            "inter_shard_volume": "dynamic.onchain.cross.inter_shard",   # parseVolumeString(dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterShardVolume)
+            "inter_node_volume": "dynamic.onchain.cross.inter_node",     # parseVolumeString(dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterNodeVolume)
             
-            # 动态属性 (14个字段)
-            "Dynamic.DynamicAttributes.Compute.CPUUsage": "dynamic.attrs.compute.cpu_usage",
-            "Dynamic.DynamicAttributes.Compute.MemUsage": "dynamic.attrs.compute.mem_usage",
-            "Dynamic.DynamicAttributes.Compute.ResourceFlux": "dynamic.attrs.compute.resource_flux",
-            "Dynamic.DynamicAttributes.Storage.Available": "dynamic.attrs.storage.available",
-            "Dynamic.DynamicAttributes.Storage.Utilization": "dynamic.attrs.storage.utilization",
-            "Dynamic.DynamicAttributes.Network.LatencyFlux": "dynamic.attrs.network.latency_flux",
-            "Dynamic.DynamicAttributes.Network.AvgLatency": "dynamic.attrs.network.avg_latency",
-            "Dynamic.DynamicAttributes.Network.BandwidthUsage": "dynamic.attrs.network.bandwidth_usage",
-            "Dynamic.DynamicAttributes.Transactions.Frequency": "dynamic.attrs.tx.frequency",
-            "Dynamic.DynamicAttributes.Transactions.ProcessingDelay": "dynamic.attrs.tx.processing_delay",
-            "Dynamic.DynamicAttributes.Transactions.StakeChangeRate": "dynamic.attrs.tx.stake_change_rate",
-            "Dynamic.DynamicAttributes.Reputation.Uptime24h": "dynamic.attrs.reputation.uptime_24h",
-            "Dynamic.DynamicAttributes.Reputation.ReputationScore": "dynamic.attrs.reputation.score",
+            # 区块生成 (2个字段)
+            "avg_block_interval": "dynamic.onchain.block.avg_interval",  # parseInterval(dynamic.OnChainBehavior.BlockGeneration.AvgInterval)
+            "block_interval_stddev": "dynamic.onchain.block.stddev",     # parseInterval(dynamic.OnChainBehavior.BlockGeneration.IntervalStdDev)
+            
+            # 交易类型 (2个字段)
+            "normal_tx_ratio": "dynamic.onchain.tx_type.normal_ratio",   # dynamic.OnChainBehavior.TransactionTypes.NormalTxRatio
+            "contract_tx_ratio": "dynamic.onchain.tx_type.contract_ratio", # dynamic.OnChainBehavior.TransactionTypes.ContractTxRatio
+            
+            # 共识参与 (3个字段)
+            "participation_rate": "dynamic.onchain.consensus.participation", # dynamic.OnChainBehavior.Consensus.ParticipationRate
+            "total_reward": "dynamic.onchain.consensus.total_reward",    # dynamic.OnChainBehavior.Consensus.TotalReward
+            "success_rate": "dynamic.onchain.consensus.success_rate",    # dynamic.OnChainBehavior.Consensus.SuccessRate
+            
+            # 资源使用率 (3个字段)
+            "cpu_usage": "dynamic.resource.cpu_usage",                   # dynamic.DynamicAttributes.Compute.CPUUsage
+            "memory_usage": "dynamic.resource.memory_usage",             # dynamic.DynamicAttributes.Compute.MemUsage
+            "resource_flux": "dynamic.resource.resource_flux",           # dynamic.DynamicAttributes.Compute.ResourceFlux
+            
+            # 网络动态 (3个字段)
+            "latency_flux": "dynamic.network.latency_flux",              # dynamic.DynamicAttributes.Network.LatencyFlux
+            "avg_latency": "dynamic.network.avg_latency",                # parseLatency(dynamic.DynamicAttributes.Network.AvgLatency)
+            "bandwidth_usage": "dynamic.network.bandwidth_usage",        # dynamic.DynamicAttributes.Network.BandwidthUsage
+            
+            # 交易处理 (2个字段)
+            "tx_frequency": "dynamic.tx.frequency",                      # float64(dynamic.DynamicAttributes.Transactions.Frequency)
+            "processing_delay": "dynamic.tx.processing_delay",           # parseDelay(dynamic.DynamicAttributes.Transactions.ProcessingDelay)
+            
+            # 应用状态 (3个字段)
+            "application_state": "dynamic.app.state",                    # encodeApplicationState(nodeState.NodeState.Static.HeterogeneousType.Application.CurrentState)
+            "tx_frequency_metric": "dynamic.app.tx_frequency_metric",    # float64(nodeState.NodeState.Static.HeterogeneousType.Application.LoadMetrics.TxFrequency)
+            "storage_ops": "dynamic.app.storage_ops",                    # float64(nodeState.NodeState.Static.HeterogeneousType.Application.LoadMetrics.StorageOps)
         }
         
         print(f"BlockEmulatorAdapter初始化完成")
-        print(f"  支持字段数量: {len(self.be_field_mapping)}")
+        print(f"  支持字段数量: {len(self.be_field_mapping)} (期望40个)")
         print(f"  输出特征维度: F_classic={self.output_dims['f_classic']}, F_graph={self.output_dims['f_graph']}")
 
     def extract_features_realtime(self, node_data_list: List[Dict[str, Any]]) -> Dict[str, torch.Tensor]:
