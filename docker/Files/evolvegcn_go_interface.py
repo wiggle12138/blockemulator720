@@ -99,8 +99,20 @@ def convert_python_output_to_go_format(python_result: Dict[str, Any]) -> Dict[st
             'execution_time': python_result.get('execution_time', 0.0)
         }
     
-    # 转换分片分配格式
-    shard_assignments = python_result.get('shard_assignments')
+    # 转换分片分配格式 - 修复字段名查找逻辑
+    shard_assignments = None
+    
+    # 尝试多种可能的字段位置查找shard_assignments
+    # 1. 直接在顶级查找
+    if 'shard_assignments' in python_result:
+        shard_assignments = python_result['shard_assignments']
+    # 2. 在step3_sharding子字典中查找
+    elif 'step3_sharding' in python_result and isinstance(python_result['step3_sharding'], dict):
+        shard_assignments = python_result['step3_sharding'].get('shard_assignments')
+    # 3. 在step3子字典中查找（备用）
+    elif 'step3' in python_result and isinstance(python_result['step3'], dict):
+        shard_assignments = python_result['step3'].get('shard_assignments')
+    
     partition_map = {}
     
     if shard_assignments is not None:
@@ -108,10 +120,72 @@ def convert_python_output_to_go_format(python_result: Dict[str, Any]) -> Dict[st
             # PyTorch tensor转换
             shard_assignments = shard_assignments.tolist()
         
+        # 获取原始节点映射信息 - 修复查找逻辑
+        node_info = {}
+        original_node_mapping = {}
+        
+        # 尝试多种可能的位置查找node_info
+        if 'metadata' in python_result and isinstance(python_result['metadata'], dict):
+            metadata = python_result['metadata']
+            node_info = metadata.get('node_info', {})
+            original_node_mapping = metadata.get('original_node_mapping', {})
+        elif 'step1_features' in python_result and isinstance(python_result['step1_features'], dict):
+            step1_metadata = python_result['step1_features'].get('metadata', {})
+            node_info = step1_metadata.get('node_info', {})
+            original_node_mapping = step1_metadata.get('original_node_mapping', {})
+        
         # 转换为节点ID到分片ID的映射（Go期望的partition_map格式）
         if isinstance(shard_assignments, list):
-            for i, shard_id in enumerate(shard_assignments):
-                partition_map[f"node_{i}"] = int(shard_id)
+            # 尝试使用原始节点映射信息生成正确的S{ShardID}N{NodeID}格式
+            if node_info and 'original_node_keys' in node_info:
+                # 优先使用original_node_keys，这是已经格式化好的S{ShardID}N{NodeID}格式
+                original_node_keys = node_info.get('original_node_keys', [])
+                
+                if hasattr(original_node_keys, 'tolist'):
+                    original_node_keys = original_node_keys.tolist()
+                    
+                for i, new_shard_id in enumerate(shard_assignments):
+                    if i < len(original_node_keys):
+                        # 直接使用原始的S{ShardID}N{NodeID}格式键
+                        node_key = original_node_keys[i]
+                        partition_map[node_key] = int(new_shard_id)
+                    else:
+                        # 备用：如果原始信息不完整，使用默认格式
+                        partition_map[f"S0N{i}"] = int(new_shard_id)
+                        
+            elif node_info and 'node_ids' in node_info and 'shard_ids' in node_info:
+                # 备用方案：使用node_info中的原始映射信息构建
+                original_node_ids = node_info.get('node_ids', [])
+                original_shard_ids = node_info.get('shard_ids', [])
+                
+                if hasattr(original_node_ids, 'tolist'):
+                    original_node_ids = original_node_ids.tolist()
+                if hasattr(original_shard_ids, 'tolist'):
+                    original_shard_ids = original_shard_ids.tolist()
+                    
+                for i, new_shard_id in enumerate(shard_assignments):
+                    if i < len(original_node_ids) and i < len(original_shard_ids):
+                        # 使用原始的shard_id和node_id构建正确的NodeID格式
+                        original_shard_id = original_shard_ids[i] if isinstance(original_shard_ids[i], int) else int(original_shard_ids[i])
+                        original_node_id = original_node_ids[i] if isinstance(original_node_ids[i], int) else int(original_node_ids[i])
+                        node_key = f"S{original_shard_id}N{original_node_id}"
+                        partition_map[node_key] = int(new_shard_id)
+                    else:
+                        # 备用：如果原始信息不完整，使用节点索引
+                        partition_map[f"S0N{i}"] = int(new_shard_id)
+            elif original_node_mapping:
+                # 尝试使用original_node_mapping
+                node_keys = list(original_node_mapping.keys())
+                for i, new_shard_id in enumerate(shard_assignments):
+                    if i < len(node_keys):
+                        partition_map[node_keys[i]] = int(new_shard_id)
+                    else:
+                        partition_map[f"S0N{i}"] = int(new_shard_id)
+            else:
+                # 最后的备用方案：使用标准的S{ShardID}N{NodeID}格式
+                for i, shard_id in enumerate(shard_assignments):
+                    # 假设节点在原始分片0中，使用标准格式
+                    partition_map[f"S0N{i}"] = int(shard_id)
         elif isinstance(shard_assignments, dict):
             # 如果已经是字典格式，直接使用
             partition_map = {str(k): int(v) for k, v in shard_assignments.items()}

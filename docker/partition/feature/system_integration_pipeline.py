@@ -25,13 +25,6 @@ try:
     from blockemulator_adapter import BlockEmulatorAdapter
 except ImportError as e:
     raise ImportError(f"blockemulator_adapter导入失败: {e}")
-                adapter_module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(adapter_module)
-                BlockEmulatorAdapter = getattr(adapter_module, 'BlockEmulatorAdapter', None)
-            else:
-                raise ImportError("无法加载BlockEmulatorAdapter")
-        else:
-            raise ImportError(f"适配器文件不存在: {adapter_path}")
 
 class BlockEmulatorStep1Pipeline:
     """BlockEmulator系统第一步特征提取流水线"""
@@ -121,7 +114,7 @@ class BlockEmulatorStep1Pipeline:
         将系统原始数据转换为适配器期望的格式
         
         Args:
-            raw_node_data: 系统返回的ReplyNodeStateMsg列表
+            raw_node_data: 系统返回的ReplyNodeStateMsg列表或字典列表
             
         Returns:
             转换后的数据列表
@@ -129,17 +122,28 @@ class BlockEmulatorStep1Pipeline:
         converted_data = []
         
         for node_msg in raw_node_data:
-            # 提取数据字段
-            converted_item = {
-                'ShardID': getattr(node_msg, 'ShardID', 0),
-                'NodeID': getattr(node_msg, 'NodeID', 0),
-                'Timestamp': getattr(node_msg, 'Timestamp', int(time.time() * 1000)),
-                'RequestID': getattr(node_msg, 'RequestID', ''),
-                'NodeState': {
-                    'Static': self._extract_static_features(node_msg),
-                    'Dynamic': self._extract_dynamic_features(node_msg)
+            # 兼容字典和对象两种输入格式
+            if isinstance(node_msg, dict):
+                # 字典格式输入（测试环境）
+                converted_item = {
+                    'ShardID': node_msg.get('ShardID', 0),
+                    'NodeID': node_msg.get('NodeID', 0),
+                    'Timestamp': node_msg.get('Timestamp', int(time.time() * 1000)),
+                    'RequestID': node_msg.get('RequestID', ''),
+                    'NodeState': node_msg.get('NodeState', {})
                 }
-            }
+            else:
+                # 对象格式输入（真实系统）
+                converted_item = {
+                    'ShardID': getattr(node_msg, 'ShardID', 0),
+                    'NodeID': getattr(node_msg, 'NodeID', 0),
+                    'Timestamp': getattr(node_msg, 'Timestamp', int(time.time() * 1000)),
+                    'RequestID': getattr(node_msg, 'RequestID', ''),
+                    'NodeState': {
+                        'Static': self._extract_static_features(node_msg),
+                        'Dynamic': self._extract_dynamic_features(node_msg)
+                    }
+                }
             converted_data.append(converted_item)
         
         return converted_data

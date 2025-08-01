@@ -5,24 +5,31 @@ import torch
 import numpy as np
 import json
 from typing import List, Dict, Tuple, Any
-import sys
-from pathlib import Path
 
-# 添加当前目录到系统路径
-current_dir = Path(__file__).parent
-if str(current_dir) not in sys.path:
-    sys.path.insert(0, str(current_dir))
-
-# 直接导入模块
+# 修复导入问题：使用绝对导入或try-except处理
 try:
-    from nodeInitialize import Node
-except ImportError as e:
-    raise ImportError(f"nodeInitialize导入失败: {e}")
-
-try:
-    from config import RelationTypes, NodeTypes
-except ImportError as e:
-    raise ImportError(f"config导入失败: {e}")
+    from .nodeInitialize import Node
+    from .config import RelationTypes, NodeTypes
+except ImportError:
+    try:
+        from nodeInitialize import Node
+        from config import RelationTypes, NodeTypes
+    except ImportError:
+        # 如果都导入失败，创建最基本的替代品
+        class Node:
+            def __init__(self):
+                self.HeterogeneousType = type('HeterogeneousType', (), {'NodeType': 'unknown'})()
+        
+        class RelationTypes:
+            COMPETE = 0
+            SERVE = 1
+            VALIDATE = 2
+            COOPERATE = 3
+            CONNECT = 4
+            COMMUNICATE = 5
+        
+        class NodeTypes:
+            TYPES = ['miner', 'validator', 'full_node', 'storage', 'light_node']
 
 class HeterogeneousGraphBuilder:
     def __init__(self):

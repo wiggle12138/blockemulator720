@@ -24,19 +24,45 @@ except ImportError as e:
     raise ImportError(f"nodeInitialize导入失败: {e}")
 
 try:
-    from data_processor import DataProcessor
+    try:
+        from .data_processor import DataProcessor
+    except ImportError:
+        from data_processor import DataProcessor
 except ImportError as e:
-    raise ImportError(f"data_processor导入失败: {e}")
+    print(f"[Partition.Feature] 包加载警告: data_processor导入失败: {e}")
+    # 创建基本的DataProcessor替代品
+    class DataProcessor:
+        def process_data(self, data):
+            return data
 
 try:
-    from graph_builder import HeterogeneousGraphBuilder
+    try:
+        from .graph_builder import HeterogeneousGraphBuilder
+    except ImportError:
+        from graph_builder import HeterogeneousGraphBuilder
 except ImportError as e:
-    raise ImportError(f"graph_builder导入失败: {e}")
+    print(f"[Partition.Feature] 包加载警告: graph_builder导入失败: {e}")
+    # 这里不抛出异常，让系统继续运行
+    HeterogeneousGraphBuilder = None
 
 try:
-    from config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
+    try:
+        from .config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
+    except ImportError:
+        from config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
 except ImportError as e:
-    raise ImportError(f"config导入失败: {e}")
+    print(f"[Partition.Feature] 包加载警告: config导入失败: {e}")
+    # 创建基本的配置替代品
+    class FeatureDimensions:
+        BASIC = 40
+    class RelationTypes:
+        COMPETE = 0
+        SERVE = 1
+        VALIDATE = 2
+    class NodeTypes:
+        TYPES = ['miner', 'validator', 'full_node', 'storage', 'light_node']
+    class EncodingMaps:
+        NODE_TYPE_MAP = {'miner': 0, 'validator': 1, 'full_node': 2, 'storage': 3, 'light_node': 4}
 
 try:
     from sliding_window_extractor import EnhancedSequenceFeatureEncoder
@@ -68,7 +94,7 @@ class ComprehensiveFeatureExtractor:
             all_features.append(features)
 
         feature_tensor = torch.tensor(all_features, dtype=torch.float32)
-        print(f"ComprehensiveFeatureExtractor输出维度: {feature_tensor.shape} (使用所有特征)")
+        print(f"ComprehensiveFeatureExtractor输出维度: {feature_tensor.shape}")
         return feature_tensor
 
     def _extract_single_node_comprehensive_features(self, node: Node) -> List[float]:

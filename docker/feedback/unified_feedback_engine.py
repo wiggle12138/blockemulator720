@@ -43,14 +43,14 @@ class UnifiedFeedbackEngine:
         print(f"   配置参数: 历史窗口={self.config['max_history']}, 学习率={self.config['learning_rate']}")
 
     def _get_default_feature_dims(self) -> Dict[str, int]:
-        """获取默认的6类特征维度"""
+        """获取默认的6类特征维度 - 更新为实际使用的维度"""
         return {
-            'hardware': 17,           # 硬件特征
-            'onchain_behavior': 17,   # 链上行为特征  
-            'network_topology': 20,   # 网络拓扑特征
-            'dynamic_attributes': 13, # 动态属性特征
-            'heterogeneous_type': 17, # 异构类型特征
-            'categorical': 15         # 分类特征
+            'hardware': 11,           # 硬件特征 (实际使用)
+            'onchain_behavior': 15,   # 链上行为特征 (实际使用)
+            'network_topology': 5,    # 网络拓扑特征 (实际使用)
+            'dynamic_attributes': 7,  # 动态属性特征 (实际使用)
+            'heterogeneous_type': 2,  # 异构类型特征 (实际使用)
+            'categorical': 8          # 分类特征 (实际使用)
         }
     
     def _get_default_config(self) -> Dict[str, Any]:
@@ -449,8 +449,10 @@ class SmartPerformanceEvaluator(nn.Module):
             'hetero_security': nn.Parameter(torch.tensor(0.3)),
         })
         
-        # 性能预测网络
+        # 性能预测网络 - 动态调整维度
         total_dim = sum(feature_dims.values())
+        print(f"[DEBUG] 性能网络初始化 - 特征维度: {feature_dims}")
+        print(f"[DEBUG] 性能网络初始化 - 总维度: {total_dim}")
         self.performance_net = nn.Sequential(
             nn.Linear(total_dim, 128),
             nn.ReLU(),
@@ -474,8 +476,23 @@ class SmartPerformanceEvaluator(nn.Module):
         security_score = self._compute_security_score(features, shard_assignments)
         consensus_latency = self._compute_consensus_latency(features, shard_assignments)
         
-        # 使用神经网络增强评估
-        combined_features = torch.cat([features[k] for k in sorted(features.keys())], dim=1)
+        # 使用神经网络增强评估 - 确保特征顺序与初始化时一致
+        expected_keys = sorted(self.feature_dims.keys())
+        available_keys = sorted(features.keys())
+        
+        # 只使用神经网络预期的特征类别
+        valid_features = []
+        for key in expected_keys:
+            if key in features:
+                valid_features.append(features[key])
+            else:
+                # 如果缺少某个特征类别，用零填充
+                batch_size = list(features.values())[0].shape[0]
+                device = list(features.values())[0].device
+                zeros = torch.zeros(batch_size, self.feature_dims[key], device=device)
+                valid_features.append(zeros)
+        
+        combined_features = torch.cat(valid_features, dim=1)
         # 确保神经网络输入在正确设备上
         combined_features = combined_features.to(next(self.performance_net.parameters()).device)
         nn_scores = self.performance_net(combined_features.mean(dim=0, keepdim=True)).squeeze()

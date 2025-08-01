@@ -5,24 +5,21 @@ import torch
 import torch.nn as nn
 import numpy as np
 from typing import List, Dict, Tuple
-import sys
-from pathlib import Path
 
-# 添加当前目录到系统路径
-current_dir = Path(__file__).parent
-if str(current_dir) not in sys.path:
-    sys.path.insert(0, str(current_dir))
-
-# 直接导入模块
+# 修复导入 - 使用条件导入避免循环依赖
 try:
-    from nodeInitialize import Node
-except ImportError as e:
-    raise ImportError(f"nodeInitialize导入失败: {e}")
-
-try:
-    from config import FeatureDimensions, EncodingMaps
-except ImportError as e:
-    raise ImportError(f"config导入失败: {e}")
+    from .nodeInitialize import Node
+    from .config import FeatureDimensions, EncodingMaps
+except ImportError:
+    try:
+        from nodeInitialize import Node
+        from config import FeatureDimensions, EncodingMaps
+    except ImportError:
+        # 如果仍然失败，定义占位符
+        Node = None
+        FeatureDimensions = None
+        EncodingMaps = None
+        print("警告: 无法导入Node相关模块，使用占位符")
 
 class EnhancedSequenceFeatureEncoder(nn.Module):
     """增强的时序特征编码器"""

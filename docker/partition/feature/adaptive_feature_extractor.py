@@ -31,7 +31,7 @@ except ImportError as e:
     raise ImportError(f"nodeInitialize导入失败: {e}")
 
 class AdaptiveFeatureExtractor(nn.Module):
-    """自适应特征提取器 - 接受第四步反馈并调整99维原始特征"""
+    """自适应特征提取器 - 接受第四步反馈并调整40维原始特征"""
 
     def __init__(self):
         super().__init__()
@@ -41,24 +41,21 @@ class AdaptiveFeatureExtractor(nn.Module):
         self.sequence_encoder = EnhancedSequenceFeatureEncoder()
         self.graph_encoder = None  # 将从原始实现中获取
 
-        # 6层特征的反馈适配器 (对应99维原始特征的分解)
+        # 5层特征的反馈适配器 (对应40维原始特征的分解)
         self.layer_adapters = nn.ModuleDict({
-
-
-            'hardware': LayerFeedbackAdapter(17, 'hardware'),           # 硬件规格特征 (0:17)
-            'onchain_behavior': LayerFeedbackAdapter(17, 'onchain_behavior'),  # 链上行为特征 (17:34)
-            'network_topology': LayerFeedbackAdapter(20, 'network_topology'),  # 网络拓扑特征 (34:54)
-            'dynamic_attributes': LayerFeedbackAdapter(13, 'dynamic_attributes'), # 动态属性特征 (54:67)
-            'heterogeneous_type': LayerFeedbackAdapter(17, 'heterogeneous_type'), # 异构类型特征 (67:84)
-            'categorical': LayerFeedbackAdapter(15, 'categorical'),     # 分类特征 (84:99)
+            'hardware': LayerFeedbackAdapter(11, 'hardware'),           # 硬件特征 (0:11)
+            'network_topology': LayerFeedbackAdapter(5, 'network_topology'),  # 网络拓扑特征 (11:16)
+            'heterogeneous_type': LayerFeedbackAdapter(2, 'heterogeneous_type'), # 异构类型特征 (16:18)
+            'onchain_behavior': LayerFeedbackAdapter(15, 'onchain_behavior'),  # 链上行为特征 (18:33)
+            'dynamic_attributes': LayerFeedbackAdapter(7, 'dynamic_attributes'), # 动态属性特征 (33:40)
         })
 
         # 时序和图结构特征适配器
         self.sequence_adapter = SequenceFeedbackAdapter(32)  # 时序特征 32维
         self.graph_adapter = GraphFeedbackAdapter(10)       # 图结构特征 10维
 
-        # 最终投影适配器
-        self.projection_adapter = ProjectionAdapter(141, 128)
+        # 最终投影适配器 (40+32+10=82维 -> 128维)
+        self.projection_adapter = ProjectionAdapter(82, 128)
 
         # 反馈状态管理
         self.feedback_state = {
@@ -68,14 +65,13 @@ class AdaptiveFeatureExtractor(nn.Module):
             'adaptation_history': []
         }
 
-        # 特征层结构定义
+        # 特征层结构定义 - 基于40维真实特征结构
         self.feature_layer_mapping = {
-            'hardware': {'slice': slice(0, 17), 'dim': 17},
-            'onchain_behavior': {'slice': slice(17, 34), 'dim': 17},
-            'network_topology': {'slice': slice(34, 54), 'dim': 20},
-            'dynamic_attributes': {'slice': slice(54, 67), 'dim': 13},
-            'heterogeneous_type': {'slice': slice(67, 84), 'dim': 17},
-            'categorical': {'slice': slice(84, 99), 'dim': 15}
+            'hardware': {'slice': slice(0, 11), 'dim': 11},
+            'network_topology': {'slice': slice(11, 16), 'dim': 5},
+            'heterogeneous_type': {'slice': slice(16, 18), 'dim': 2},
+            'onchain_behavior': {'slice': slice(18, 33), 'dim': 15},
+            'dynamic_attributes': {'slice': slice(33, 40), 'dim': 7}
         }
 
     def forward(self, nodes: List[Node],
@@ -97,9 +93,9 @@ class AdaptiveFeatureExtractor(nn.Module):
         self.feedback_state['epoch'] = epoch
         self._update_feedback_mode(step4_guidance, epoch)
 
-        # 1. 提取99维原始特征并分解为6层
-        comprehensive_features = self.comprehensive_extractor.extract_features(nodes)  # [N, 99]
-        layered_original = self._decompose_99dim_to_6layers(comprehensive_features)
+        # 1. 提取40维原始特征并分解为5层
+        comprehensive_features = self.comprehensive_extractor.extract_features(nodes)  # [N, 40]
+        layered_original = self._decompose_40dim_to_5layers(comprehensive_features)
 
         # 2. 提取32维时序特征
         sequence_features = self.sequence_encoder(nodes)  # [N, 32]
@@ -111,7 +107,7 @@ class AdaptiveFeatureExtractor(nn.Module):
 
         # 4. 应用第四步反馈调整
         if step4_guidance and self.feedback_state['mode'] != 'cold_start':
-            # 调整99维原始特征的6层
+            # 调整40维原始特征的5层
             adjusted_layered = self._apply_layered_feedback(layered_original, step4_guidance)
             # 调整32维时序特征
             adjusted_sequence = self.sequence_adapter(sequence_features, step4_guidance)
@@ -123,15 +119,15 @@ class AdaptiveFeatureExtractor(nn.Module):
             adjusted_sequence = sequence_features
             adjusted_graph_structure = graph_structure_features
 
-        # 5. 重构99维原始特征
-        reconstructed_99dim = self._reconstruct_6layers_to_99dim(adjusted_layered)  # [N, 99]
+        # 5. 重构40维原始特征
+        reconstructed_40dim = self._reconstruct_5layers_to_40dim(adjusted_layered)  # [N, 40]
 
-        # 6. 拼接为141维特征
+        # 6. 拼接为82维特征
         f_classic_raw = torch.cat([
-            reconstructed_99dim,        # [N, 99] - 调整后的原始特征
+            reconstructed_40dim,        # [N, 40] - 调整后的原始特征
             adjusted_sequence,          # [N, 32] - 调整后的时序特征
             adjusted_graph_structure    # [N, 10] - 调整后的图结构特征
-        ], dim=1)  # [N, 141]
+        ], dim=1)  # [N, 82]
 
         # 7. 自适应投影到128维
         f_classic = self.projection_adapter(f_classic_raw, step4_guidance)  # [N, 128]

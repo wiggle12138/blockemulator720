@@ -15,10 +15,10 @@ class Step2Config:
         # 基础配置
         self.base_config = {
             # 模型架构参数
-            'input_dim': 128,          # 第一步f_classic特征维度
-            'hidden_dim': 64,          # 隐藏层维度
+            'input_dim': 64,           # 修复：匹配第一步f_classic的64维输出
+            'hidden_dim': 32,          # 修复：相应调整隐藏层维度
             'time_dim': 16,            # 时间嵌入维度
-            'output_dim': 64,          # 输出嵌入维度
+            'output_dim': 32,          # 修复：相应调整输出嵌入维度
             
             # 对比学习参数
             'k_ratio': 0.9,            # 采样比例

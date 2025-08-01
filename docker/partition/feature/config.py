@@ -38,9 +38,9 @@ class FeatureDimensions:
     NEIGHBOR_FEATURE_DIM = 0      # 邻居特征从40维衍生
     GRAPH_FEATURE_DIM = 0         # 图特征从40维衍生
 
-    # 总的经典特征维度 - 直接使用真实40维
+    # 总的经典特征维度 - 修复为动态配置
     CLASSIC_RAW_DIM = REAL_FEATURE_DIM  # 40维直接输入
-    CLASSIC_DIM = 128  # 投影后维度 (保持不变)
+    CLASSIC_DIM = 64  # 修复：调整为64维以匹配真实需求
 
     # 图特征和融合特征维度
     GRAPH_OUTPUT_DIM = 96   # 保持不变

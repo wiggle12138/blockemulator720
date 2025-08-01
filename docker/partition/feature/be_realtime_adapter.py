@@ -9,26 +9,9 @@ from typing import Dict, List, Any, Tuple, Optional
 import torch
 import numpy as np
 from dataclasses import dataclass
-import sys
-from pathlib import Path
 
-# 添加当前目录到系统路径
-current_dir = Path(__file__).parent
-if str(current_dir) not in sys.path:
-    sys.path.insert(0, str(current_dir))
-
-try:
-    from unified_feature_extractor import UnifiedFeatureExtractor
-except ImportError as e:
-    raise ImportError(f"unified_feature_extractor导入失败: {e}")
-
-try:
-    from node import Node
-except ImportError:
-    try:
-        from nodeInitialize import Node
-    except ImportError as e:
-        raise ImportError(f"node或nodeInitialize导入失败: {e}")
+from .unified_feature_extractor import UnifiedFeatureExtractor
+from .node import Node
 
 
 @dataclass

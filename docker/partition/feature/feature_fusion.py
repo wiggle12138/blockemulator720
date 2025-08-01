@@ -5,18 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from typing import Tuple, Dict, List
-import sys
-from pathlib import Path
-
-# 添加当前目录到系统路径
-current_dir = Path(__file__).parent
-if str(current_dir) not in sys.path:
-    sys.path.insert(0, str(current_dir))
-
-try:
-    from config import FeatureDimensions
-except ImportError as e:
-    raise ImportError(f"config导入失败: {e}")
+from .config import FeatureDimensions
 
 class FeatureFusionPipeline(nn.Module):
     """特征融合流水线"""

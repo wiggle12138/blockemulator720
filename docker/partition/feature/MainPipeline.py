@@ -13,15 +13,21 @@ from typing import List, Dict, Tuple, Any, Optional
 def smart_import():
     """智能导入函数"""
     try:
-        # 直接导入模块，失败时立即报错
-        from nodeInitialize import Node, load_nodes_from_csv
-        from feature_extractor import UnifiedFeatureExtractor
-        from feature_fusion import FeatureFusionPipeline
-        from config import FeatureDimensions
-        from adaptive_feature_extractor import AdaptiveFeatureExtractor
+        # 方式1：相对导入（包模式）
+        from .nodeInitialize import Node, load_nodes_from_csv
+        from .feature_extractor import UnifiedFeatureExtractor
+        from .feature_fusion import FeatureFusionPipeline
+        from .config import FeatureDimensions
+        from .adaptive_feature_extractor import AdaptiveFeatureExtractor
         return Node, load_nodes_from_csv, UnifiedFeatureExtractor, FeatureFusionPipeline, FeatureDimensions, AdaptiveFeatureExtractor
-    except ImportError as e:
-        raise ImportError(f"主要模块导入失败: {e}")
+    except ImportError:
+        try:
+            # 方式2：绝对导入（包模式备选）
+            from partition.feature.nodeInitialize import Node, load_nodes_from_csv
+            from partition.feature.feature_extractor import UnifiedFeatureExtractor
+            from partition.feature.feature_fusion import FeatureFusionPipeline
+            from partition.feature.config import FeatureDimensions
+            from partition.feature.adaptive_feature_extractor import AdaptiveFeatureExtractor
             return Node, load_nodes_from_csv, UnifiedFeatureExtractor, FeatureFusionPipeline, FeatureDimensions, AdaptiveFeatureExtractor
         except ImportError:
             # 方式3：直接导入（脚本模式）
@@ -43,16 +49,18 @@ Node, load_nodes_from_csv, UnifiedFeatureExtractor, FeatureFusionPipeline, Featu
 class Pipeline:
     """第一步完整流水线 - 使用全面特征"""
 
-    def __init__(self, use_fusion: bool = True, save_adjacency: bool = True):
+    def __init__(self, use_fusion: bool = False, save_adjacency: bool = True, skip_fused: bool = True):
         """
         初始化流水线
 
         Args:
-            use_fusion: 是否使用特征融合
+            use_fusion: 是否使用特征融合 (默认False，因为第二步不需要f_fused)
             save_adjacency: 是否保存邻接矩阵信息
+            skip_fused: 是否跳过f_fused生成以节省计算开销
         """
         self.use_fusion = use_fusion
         self.save_adjacency = save_adjacency  # 新增参数
+        self.skip_fused = skip_fused  # 优化参数
         self.dims = FeatureDimensions()
         self.adaptive_mode = False
         self.adaptive_extractor = None
@@ -60,15 +68,22 @@ class Pipeline:
         # 初始化各个组件
         self.feature_extractor = UnifiedFeatureExtractor()
 
-        if self.use_fusion:
+        if self.use_fusion and not self.skip_fused:
             self.fusion_pipeline = FeatureFusionPipeline(
                 classic_dim=self.dims.CLASSIC_DIM,
                 graph_dim=self.dims.GRAPH_OUTPUT_DIM,
                 fused_dim=self.dims.FUSED_DIM
             )
+            print(f"[CONFIG] 特征融合已启用")
+        else:
+            print(f"[OPTIMIZATION] 跳过f_fused生成，因为第二步只需要f_classic+adjacency_matrix")
 
-        print(f"Step1Pipeline初始化完成 - 融合模式: {use_fusion}, 邻接矩阵保存: {save_adjacency}")
-        print(f"配置维度 - Classic: {self.dims.CLASSIC_DIM}, Graph: {self.dims.GRAPH_OUTPUT_DIM}, Fused: {self.dims.FUSED_DIM}")
+        print(f"Step1Pipeline初始化完成 - 融合模式: {use_fusion}, 邻接矩阵保存: {save_adjacency}, 跳过f_fused: {skip_fused}")
+        print(f"配置维度 - Classic: {self.dims.CLASSIC_DIM}, Graph: {self.dims.GRAPH_OUTPUT_DIM}")
+        if not self.skip_fused:
+            print(f"Fused: {self.dims.FUSED_DIM}")
+        else:
+            print(f"Fused: 已优化跳过 (节省 {self.dims.FUSED_DIM - self.dims.CLASSIC_DIM} 维计算开销)")
 
     def extract_features(self, nodes: List[Node]) -> Dict[str, torch.Tensor]:
         """
@@ -97,13 +112,15 @@ class Pipeline:
         if self.save_adjacency:
             self._save_adjacency_information()
 
-        # 如果启用融合
-        if self.use_fusion:
+        # 如果启用融合且未跳过f_fused
+        if self.use_fusion and not self.skip_fused:
             print("开始特征融合...")
             f_fused, contrastive_loss = self.fusion_pipeline(f_classic, f_graph)
             results['f_fused'] = f_fused  # [N, 256]
             results['contrastive_loss'] = contrastive_loss
             print(f"特征融合完成 - F_fused: {f_fused.shape}, 对比损失: {contrastive_loss:.4f}")
+        elif self.skip_fused:
+            print(f"[COMPATIBILITY] 第二步将使用 f_classic ({self.dims.CLASSIC_DIM}维) + adjacency_matrix")
 
         return results
 
@@ -112,22 +129,20 @@ class Pipeline:
         print(f"\n=== 保存邻接矩阵信息 ===")
 
         try:
-            # 1. 保存原始图构建的邻接矩阵
-            graph_builder = self.feature_extractor.graph_feature_extractor.graph_builder
-            if hasattr(graph_builder, 'adjacency_info') and graph_builder.adjacency_info:
-                graph_builder.save_adjacency_matrices("step1_adjacency")
+            # 直接从GraphFeatureExtractor获取邻接矩阵信息
+            graph_extractor = self.feature_extractor.graph_feature_extractor
+            adjacency_info = graph_extractor.get_adjacency_info()
+            
+            if adjacency_info and adjacency_info.get('num_edges', 0) > 0:
+                graph_extractor.save_adjacency_matrices("step1_adjacency")
+                print(f"成功保存邻接矩阵信息: {adjacency_info['num_nodes']}个节点, {adjacency_info['num_edges']}条边")
             else:
-                print("警告: 图构建器中没有邻接矩阵信息")
-
-            # 2. 保存RGCN中间表示
-            rgcn_extractor = self.feature_extractor.graph_feature_extractor
-            if hasattr(rgcn_extractor, 'intermediate_representations') and rgcn_extractor.intermediate_representations:
-                rgcn_extractor.save_rgcn_representations("step1_rgcn")
-            else:
-                print("警告: RGCN提取器中没有中间表示信息")
+                print("警告: 图中没有边，无邻接矩阵信息可保存")
 
         except Exception as e:
             print(f"保存邻接矩阵信息时出错: {e}")
+            import traceback
+            traceback.print_exc()
 
     def load_and_extract(self, csv_file: str) -> Dict[str, torch.Tensor]:
         """
@@ -637,12 +652,14 @@ class Pipeline:
                 'adaptive_mode': False
             }
 
-        # 特征融合 (如果启用)
-        if self.use_fusion:
+        # 特征融合 (如果启用且未跳过f_fused)
+        if self.use_fusion and not self.skip_fused:
             print(" 执行特征融合...")
             f_fused, contrastive_loss = self.fusion_pipeline(results['f_classic'], results['f_graph'])
             results['f_fused'] = f_fused
             results['contrastive_loss'] = contrastive_loss
+        elif self.skip_fused:
+            print(f"[OPTIMIZATION] 跳过反馈场景下的f_fused生成")
 
         # 保存邻接矩阵信息
         if self.save_adjacency:
@@ -684,8 +701,8 @@ def main():
     """全面特征提取流程"""
     print("=== 全面特征提取流水线演示 ===\n")
 
-    # 初始化流水线（启用邻接矩阵保存）
-    pipeline = Pipeline(use_fusion=True, save_adjacency=True)
+    # 初始化流水线（优化：跳过f_fused生成）
+    pipeline = Pipeline(use_fusion=False, save_adjacency=True, skip_fused=True)
 
     # 选择数据文件
     csv_files = ["large_samples.csv"]

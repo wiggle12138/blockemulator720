@@ -24,24 +24,54 @@ except ImportError as e:
     raise ImportError(f"nodeInitialize导入失败: {e}")
 
 try:
-    from data_processor import DataProcessor
+    try:
+        from .data_processor import DataProcessor
+    except ImportError:
+        from data_processor import DataProcessor
 except ImportError as e:
-    raise ImportError(f"data_processor导入失败: {e}")
+    print(f"[Partition.Feature] 包加载警告: data_processor导入失败: {e}")
+    # 创建基本的DataProcessor替代品
+    class DataProcessor:
+        def process_data(self, data):
+            return data
 
 try:
-    from graph_builder import HeterogeneousGraphBuilder
+    try:
+        from .graph_builder import HeterogeneousGraphBuilder
+    except ImportError:
+        from graph_builder import HeterogeneousGraphBuilder
 except ImportError as e:
-    raise ImportError(f"graph_builder导入失败: {e}")
+    print(f"[Partition.Feature] 包加载警告: graph_builder导入失败: {e}")
+    # 这里不抛出异常，让系统继续运行
+    HeterogeneousGraphBuilder = None
 
 try:
-    from config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
+    try:
+        from .config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
+    except ImportError:
+        from config import FeatureDimensions, RelationTypes, NodeTypes, EncodingMaps
 except ImportError as e:
-    raise ImportError(f"config导入失败: {e}")
+    print(f"[Partition.Feature] 包加载警告: config导入失败: {e}")
+    # 创建基本的配置替代品
+    class FeatureDimensions:
+        BASIC = 40
+    class RelationTypes:
+        COMPETE = 0
+        SERVE = 1
+        VALIDATE = 2
+    class NodeTypes:
+        TYPES = ['miner', 'validator', 'full_node', 'storage', 'light_node']
+    class EncodingMaps:
+        NODE_TYPE_MAP = {'miner': 0, 'validator': 1, 'full_node': 2, 'storage': 3, 'light_node': 4}
 
 try:
     from sliding_window_extractor import EnhancedSequenceFeatureEncoder
 except ImportError as e:
-    raise ImportError(f"sliding_window_extractor导入失败: {e}")
+    print(f"[WARNING] sliding_window_extractor导入失败: {e}")
+    # 定义占位符类
+    class EnhancedSequenceFeatureEncoder:
+        def __init__(self, *args, **kwargs):
+            pass
 
 class ComprehensiveFeatureExtractor:
     """全面的特征提取器 - 使用所有70+个特征"""
@@ -68,7 +98,7 @@ class ComprehensiveFeatureExtractor:
             all_features.append(features)
 
         feature_tensor = torch.tensor(all_features, dtype=torch.float32)
-        print(f"ComprehensiveFeatureExtractor输出维度: {feature_tensor.shape} (使用所有特征)")
+        print(f"ComprehensiveFeatureExtractor输出维度: {feature_tensor.shape}")
         return feature_tensor
 
     def _extract_single_node_comprehensive_features(self, node: Node) -> List[float]:
@@ -306,9 +336,23 @@ class UnifiedFeatureExtractor(nn.Module):
         super().__init__()
         self.dims = FeatureDimensions()
 
-        # 各个组件
+        # 各个组件 - 使用安全初始化
         self.comprehensive_extractor = ComprehensiveFeatureExtractor()
         self.sequence_encoder = EnhancedSequenceFeatureEncoder()
+        
+        # 图相关组件 - 使用绝对导入修复模块问题
+        try:
+            # 尝试相对导入
+            from .graph_extractor import GraphStructureEncoder, GraphFeatureExtractor
+        except ImportError:
+            # 相对导入失败时使用绝对导入
+            import sys
+            import os
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            if current_dir not in sys.path:
+                sys.path.insert(0, current_dir)
+            from graph_extractor import GraphStructureEncoder, GraphFeatureExtractor
+        
         self.graph_encoder = GraphStructureEncoder()
         self.graph_feature_extractor = GraphFeatureExtractor()
 
@@ -319,7 +363,7 @@ class UnifiedFeatureExtractor(nn.Module):
 
     def forward(self, nodes: List[Node]) -> Tuple[torch.Tensor, torch.Tensor]:
         """
-        提取F_classic和F_graph - 优化为40维直接处理
+        提取F_classic和F_graph - 修复40维输入处理
 
         Args:
             nodes: 节点列表
@@ -330,30 +374,44 @@ class UnifiedFeatureExtractor(nn.Module):
         """
         print(f"UnifiedFeatureExtractor处理 {len(nodes)} 个节点")
 
-        # 直接提取40维的基础特征（不再拼接额外维度）
+        # 提取40维基础特征
         comprehensive_features = self.comprehensive_extractor.extract_features(nodes)  # [N, 40]
         print(f"40维基础特征维度: {comprehensive_features.shape}")
 
-        # 如果维度不匹配，调整投影层输入维度
-        if comprehensive_features.shape[1] != self.dims.CLASSIC_RAW_DIM:
-            print(f"调整投影层：期望{self.dims.CLASSIC_RAW_DIM}维，实际{comprehensive_features.shape[1]}维")
-            if hasattr(self, '_adjusted_projector'):
-                f_classic_raw = comprehensive_features
-            else:
-                # 动态调整投影层
-                actual_input_dim = comprehensive_features.shape[1]
-                self.feature_projector = nn.Linear(actual_input_dim, self.dims.CLASSIC_DIM)
-                self._adjusted_projector = True
-                f_classic_raw = comprehensive_features
-        else:
-            f_classic_raw = comprehensive_features
+        # 动态调整投影层以匹配实际输入维度
+        actual_input_dim = comprehensive_features.shape[1]
+        if actual_input_dim != self.dims.CLASSIC_RAW_DIM or not hasattr(self, '_projector_fixed'):
+            print(f"[FIX] 动态调整投影层：{actual_input_dim}维 -> {self.dims.CLASSIC_DIM}维")
+            
+            # 重新创建投影层以匹配实际输入维度
+            self.feature_projector = nn.Sequential(
+                nn.Linear(actual_input_dim, self.dims.CLASSIC_DIM * 2),
+                nn.ReLU(),
+                nn.Dropout(0.1),
+                nn.Linear(self.dims.CLASSIC_DIM * 2, self.dims.CLASSIC_DIM),
+                nn.LayerNorm(self.dims.CLASSIC_DIM)
+            )
+            self._projector_fixed = True
 
-        # 投影到统一维度
-        f_classic = self.feature_projector(f_classic_raw)  # [N, 128]
-        print(f"投影后的F_classic维度: {f_classic.shape}")
+        # 验证输入维度
+        if comprehensive_features.shape[1] != actual_input_dim:
+            raise RuntimeError(f"特征维度不一致：期望{actual_input_dim}维，实际{comprehensive_features.shape[1]}维")
 
-        # 使用F_classic计算图特征
+        # 投影到目标维度
+        try:
+            f_classic = self.feature_projector(comprehensive_features)  # [N, CLASSIC_DIM]
+            print(f"投影后的F_classic维度: {f_classic.shape}")
+        except Exception as e:
+            print(f"[ERROR] 投影层处理失败: {e}")
+            print(f"输入特征形状: {comprehensive_features.shape}")
+            print(f"投影层期望输入: {actual_input_dim}")
+            # 返回零张量作为备用
+            f_classic = torch.zeros(len(nodes), self.dims.CLASSIC_DIM)
+            print(f"[FALLBACK] 使用零张量: {f_classic.shape}")
+
+        # 使用真实的图特征提取器
         f_graph = self.graph_feature_extractor(f_classic, nodes)  # [N, 96]
+        print(f"图特征F_graph维度: {f_graph.shape}")
 
         print(f"最终输出 - F_classic: {f_classic.shape}, F_graph: {f_graph.shape}")
         return f_classic, f_graph

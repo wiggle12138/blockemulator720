@@ -5,6 +5,8 @@
 expTest/database/
 expTest/database/chainDB/*
 
+complete_integrated_output/
+
 # Test files and temporary outputs
 test_*.json
 *test*.json
@@ -44,3 +46,7 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
+
+
+docker/expTest
+blockEmulator_linux_Precompile
