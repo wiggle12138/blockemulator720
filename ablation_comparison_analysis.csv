@@ -1,0 +1,3 @@
+﻿Comparison,Baseline,Ablation,TPS_Improvement_Percent,Latency_Reduction_Percent,CTX_Ratio_Change_Percent
+ours_full_vs_ours_no_contrastive,完整实现 (Full Implementation),无对比学习 (No Contrastive Learning),-1.9293757911169833,-0.7624052991443457,0.004388491498012399
+ours_full_vs_ours_no_layering,完整实现 (Full Implementation),无分层处理 (No Layered Processing),-0.8144755266464175,0.4640031904621724,-0.09988967141839546

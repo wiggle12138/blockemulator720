@@ -1,0 +1,31 @@
+﻿Variant,Variant_Name,Epoch_ID,Metric_Type,Value,Unit
+ours_full,完整实现 (Full Implementation),0.0,TPS,1030.1453070988184,transactions_per_second
+ours_full,完整实现 (Full Implementation),1.0,TPS,925.0405603208781,transactions_per_second
+ours_full,完整实现 (Full Implementation),2.0,TPS,685.4444025258534,transactions_per_second
+ours_full,完整实现 (Full Implementation),3.0,TPS,0.0,transactions_per_second
+ours_full,完整实现 (Full Implementation),0.0,Latency,12295.03088045703,milliseconds
+ours_full,完整实现 (Full Implementation),1.0,Latency,33889.56755486531,milliseconds
+ours_full,完整实现 (Full Implementation),2.0,Latency,94011.99987382175,milliseconds
+ours_full,完整实现 (Full Implementation),0.0,CTX_Ratio,0.7084851639770952,ratio
+ours_full,完整实现 (Full Implementation),1.0,CTX_Ratio,0.7104296118126545,ratio
+ours_full,完整实现 (Full Implementation),2.0,CTX_Ratio,0.8976186293944944,ratio
+ours_no_contrastive,无对比学习 (No Contrastive Learning),0.0,TPS,1054.7920860559148,transactions_per_second
+ours_no_contrastive,无对比学习 (No Contrastive Learning),1.0,TPS,955.6618048126124,transactions_per_second
+ours_no_contrastive,无对比学习 (No Contrastive Learning),2.0,TPS,682.1263708020902,transactions_per_second
+ours_no_contrastive,无对比学习 (No Contrastive Learning),3.0,TPS,0.0,transactions_per_second
+ours_no_contrastive,无对比学习 (No Contrastive Learning),0.0,Latency,12293.024040224087,milliseconds
+ours_no_contrastive,无对比学习 (No Contrastive Learning),1.0,Latency,33730.00573837035,milliseconds
+ours_no_contrastive,无对比学习 (No Contrastive Learning),2.0,Latency,93112.78967006518,milliseconds
+ours_no_contrastive,无对比学习 (No Contrastive Learning),0.0,CTX_Ratio,0.7107071941347181,ratio
+ours_no_contrastive,无对比学习 (No Contrastive Learning),1.0,CTX_Ratio,0.7098812434042667,ratio
+ours_no_contrastive,无对比学习 (No Contrastive Learning),2.0,CTX_Ratio,0.8958433112349071,ratio
+ours_no_layering,无分层处理 (No Layered Processing),0.0,TPS,1029.5808700176633,transactions_per_second
+ours_no_layering,无分层处理 (No Layered Processing),1.0,TPS,949.1387607492513,transactions_per_second
+ours_no_layering,无分层处理 (No Layered Processing),2.0,TPS,683.5945365135753,transactions_per_second
+ours_no_layering,无分层处理 (No Layered Processing),3.0,TPS,0.0,transactions_per_second
+ours_no_layering,无分层处理 (No Layered Processing),0.0,Latency,12395.992708613421,milliseconds
+ours_no_layering,无分层处理 (No Layered Processing),1.0,Latency,33350.521156094444,milliseconds
+ours_no_layering,无分层处理 (No Layered Processing),2.0,Latency,95103.63362254776,milliseconds
+ours_no_layering,无分层处理 (No Layered Processing),0.0,CTX_Ratio,0.7088776244659182,ratio
+ours_no_layering,无分层处理 (No Layered Processing),1.0,CTX_Ratio,0.7080103014371305,ratio
+ours_no_layering,无分层处理 (No Layered Processing),2.0,CTX_Ratio,0.9019617706237424,ratio

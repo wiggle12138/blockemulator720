@@ -1,0 +1,94 @@
+{
+  "generation_time": "2025-08-01T23:15:00.114468",
+  "metrics": {
+    "ours_full": {
+      "tps": {
+        "avg": 880.21008998185,
+        "max": 1030.1453070988184,
+        "min": 685.4444025258534,
+        "std": 176.66920135232664,
+        "valid_epochs": 3,
+        "total_epochs": 4
+      },
+      "latency": {
+        "avg_ms": 46732.199436381365,
+        "max_ms": 94011.99987382175,
+        "min_ms": 12295.03088045703,
+        "std_ms": 42345.19631078279,
+        "valid_epochs": 3
+      },
+      "ctx_ratio": {
+        "avg": 0.7721778017280814,
+        "max": 0.8976186293944944,
+        "min": 0.7084851639770952,
+        "std": 0.1086392937825553,
+        "valid_epochs": 3
+      }
+    },
+    "ours_no_contrastive": {
+      "tps": {
+        "avg": 897.5267538902058,
+        "max": 1054.7920860559148,
+        "min": 682.1263708020902,
+        "std": 193.01475834952177,
+        "valid_epochs": 3,
+        "total_epochs": 4
+      },
+      "latency": {
+        "avg_ms": 46378.606482886535,
+        "max_ms": 93112.78967006518,
+        "min_ms": 12293.024040224087,
+        "std_ms": 41868.233240862246,
+        "valid_epochs": 3
+      },
+      "ctx_ratio": {
+        "avg": 0.772143916257964,
+        "max": 0.8958433112349071,
+        "min": 0.7098812434042667,
+        "std": 0.1071276144927097,
+        "valid_epochs": 3
+      }
+    },
+    "ours_no_layering": {
+      "tps": {
+        "avg": 887.4380557601634,
+        "max": 1029.5808700176633,
+        "min": 683.5945365135753,
+        "std": 181.0576385851018,
+        "valid_epochs": 3,
+        "total_epochs": 4
+      },
+      "latency": {
+        "avg_ms": 46950.049162418545,
+        "max_ms": 95103.63362254776,
+        "min_ms": 12395.992708613421,
+        "std_ms": 42998.24226504115,
+        "valid_epochs": 3
+      },
+      "ctx_ratio": {
+        "avg": 0.7729498988422637,
+        "max": 0.9019617706237424,
+        "min": 0.7080103014371305,
+        "std": 0.1117283999604827,
+        "valid_epochs": 3
+      }
+    }
+  },
+  "comparisons": {
+    "ours_no_contrastive": {
+      "tps_improvement_pct": -1.9293757911169833,
+      "latency_reduction_pct": -0.7624052991443457,
+      "ctx_ratio_change_pct": 0.004388491498012399
+    },
+    "ours_no_layering": {
+      "tps_improvement_pct": -0.8144755266464175,
+      "latency_reduction_pct": 0.4640031904621724,
+      "ctx_ratio_change_pct": -0.09988967141839546
+    }
+  },
+  "variants": {
+    "ours_full": "完整实现 (Full Implementation)",
+    "ours_no_contrastive": "无对比学习 (No Contrastive Learning)",
+    "ours_no_layering": "无分层处理 (No Layered Processing)"
+  }
+}
