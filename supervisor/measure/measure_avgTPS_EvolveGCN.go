@@ -62,23 +62,67 @@ func (tat *TestModule_avgTPS_EvolveGCN) UpdateMeasureRecord(b *message.BlockInfo
 	}
 
 	// 累计当前epoch数据
-	tat.excutedTxNum[epochid] += float64(r1TxNum+r2TxNum) / 2
+	tat.excutedTxNum[epochid] += float64(r1TxNum+r2TxNum) / 2 // 保持除以2的逻辑
 	tat.excutedTxNum[epochid] += float64(len(b.InnerShardTxs))
 
 	tat.normalTxNum[epochid] += len(b.InnerShardTxs)
 	tat.relay1TxNum[epochid] += r1TxNum
 	tat.relay2TxNum[epochid] += r2TxNum
 
-	// 记录时间范围
-	if tat.startTime[epochid].IsZero() || tat.startTime[epochid].After(earliestTime) {
+	// 修复：正确的时间范围记录逻辑
+	if tat.startTime[epochid].IsZero() {
 		tat.startTime[epochid] = earliestTime
+	} else {
+		// 记录最早的开始时间
+		if earliestTime.Before(tat.startTime[epochid]) {
+			tat.startTime[epochid] = earliestTime
+		}
 	}
+
+	// 记录最晚的结束时间
 	if tat.endTime[epochid].IsZero() || latestTime.After(tat.endTime[epochid]) {
 		tat.endTime[epochid] = latestTime
 	}
 }
 
 func (tat *TestModule_avgTPS_EvolveGCN) HandleExtraMessage([]byte) {}
+
+// 新增：获取当前数据而不触发CSV写入
+func (tat *TestModule_avgTPS_EvolveGCN) GetCurrentData() (perEpochTPS []float64, totalTPS float64) {
+	// 计算每个epoch的TPS，但不写入CSV
+	perEpochTPS = make([]float64, tat.epochID+1)
+	totalTxNum := 0.0
+	eTime := time.Now()
+	lTime := time.Time{}
+
+	const minTimeWindow = 1.0 // 最小时间窗口1秒，避免除零或异常高TPS
+
+	for eid, exTxNum := range tat.excutedTxNum {
+		timeGap := tat.endTime[eid].Sub(tat.startTime[eid]).Seconds()
+
+		// 时间窗口保护：避免系统快速终止导致的异常高TPS
+		if timeGap < minTimeWindow {
+			timeGap = minTimeWindow
+		}
+
+		perEpochTPS[eid] = exTxNum / timeGap
+		totalTxNum += exTxNum
+
+		if eTime.After(tat.startTime[eid]) {
+			eTime = tat.startTime[eid]
+		}
+		if tat.endTime[eid].After(lTime) {
+			lTime = tat.endTime[eid]
+		}
+	}
+
+	totalTimeGap := lTime.Sub(eTime).Seconds()
+	if totalTimeGap < minTimeWindow {
+		totalTimeGap = minTimeWindow
+	}
+	totalTPS = totalTxNum / totalTimeGap
+	return
+}
 
 // 输出结果 - 与Relay方式完全一致
 func (tat *TestModule_avgTPS_EvolveGCN) OutputRecord() (perEpochTPS []float64, totalTPS float64) {

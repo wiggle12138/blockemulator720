@@ -62,6 +62,10 @@ func (rphm *RawRelayPbftExtraHandleMod) HandleinCommit(cmsg *message.Commit) boo
 	// 记录区块提交时间戳和统计交易
 	rphm.pbftNode.recordBlockCommit(block)
 
+	// 新增：更新节点收集器的epoch信息（基础模块使用区块高度作为epoch）
+	currentEpoch := int(block.Header.Number)
+	rphm.pbftNode.updateNodeFeatureCollectorEpoch(currentEpoch)
+
 	rphm.pbftNode.pl.Plog.Printf("S%dN%d : added the block %d... \n", rphm.pbftNode.ShardID, rphm.pbftNode.NodeID, block.Header.Number)
 	rphm.pbftNode.CurChain.PrintBlockChain()
 

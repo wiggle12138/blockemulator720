@@ -26,19 +26,13 @@ func (erom *EvolveGCNRelayOutsideModule) HandleMessageOutsidePBFT(msgType messag
 	// messages about CLPA/EvolveGCN
 	case message.CPartitionMsg:
 		// ========== 关键增强：接收分区消息时触发数据收集 ==========
-		erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message, triggering node feature collection")
-		erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
+		//erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message, triggering node feature collection")
+		//erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
 		erom.handlePartitionMsg(content)
 	case message.AccountState_and_TX:
 		erom.handleAccountStateAndTxMsg(content)
 	case message.CPartitionReady:
 		erom.handlePartitionReady(content)
-
-	// ========== 修复：处理节点状态收集请求 ==========
-	case message.CRequestNodeState:
-		erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d: received node state collection request", erom.pbftNode.ShardID, erom.pbftNode.NodeID)
-		// 异步处理避免阻塞其他消息
-		go erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
 
 	default:
 	}
@@ -97,21 +91,32 @@ func (erom *EvolveGCNRelayOutsideModule) handleInjectTx(content []byte) {
 	erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : has handled injected txs msg, txs: %d \n", erom.pbftNode.ShardID, erom.pbftNode.NodeID, len(it.Txs))
 }
 
-// 处理分区消息（复用 CLPA 逻辑，但增加数据收集）
+// 处理分区消息（修复消息结构体不匹配问题）
 func (erom *EvolveGCNRelayOutsideModule) handlePartitionMsg(content []byte) {
-	erom.pbftNode.pl.Plog.Println("EvolveGCN: received partition message from supervisor")
+	erom.pbftNode.pl.Plog.Println("worker节点收到重配置消息，开始重新映射分片")
 
-	// ========== 删除重复的数据收集触发，避免数据覆盖 ==========
-	// 原代码：erom.pbftNode.nodeFeatureCollector.HandleRequestNodeState()
-
-	pm := new(message.PartitionModifiedMap)
-	err := json.Unmarshal(content, pm)
-	if err != nil {
-		log.Panic()
+	// 修复：先尝试新版本结构体，如果失败则使用旧版本
+	pmWithEpoch := new(message.PartitionModifiedMapWithEpoch)
+	err := json.Unmarshal(content, pmWithEpoch)
+	if err == nil {
+		// 新版本消息，包含epoch信息
+		erom.cdm.ModifiedMap = append(erom.cdm.ModifiedMap, pmWithEpoch.PartitionModified)
+		erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : received partition message with epoch %d\n",
+			erom.pbftNode.ShardID, erom.pbftNode.NodeID, pmWithEpoch.EpochID)
+	} else {
+		// 回退到旧版本
+		pm := new(message.PartitionModifiedMap)
+		err = json.Unmarshal(content, pm)
+		if err != nil {
+			log.Panic(err)
+		}
+		erom.cdm.ModifiedMap = append(erom.cdm.ModifiedMap, pm.PartitionModified)
+		erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : received partition message (legacy format)\n",
+			erom.pbftNode.ShardID, erom.pbftNode.NodeID)
 	}
-	erom.cdm.ModifiedMap = append(erom.cdm.ModifiedMap, pm.PartitionModified)
-	erom.pbftNode.pl.Plog.Printf("EvolveGCN S%dN%d : has received partition message\n", erom.pbftNode.ShardID, erom.pbftNode.NodeID)
+
 	erom.cdm.PartitionOn = true
+	erom.pbftNode.pl.Plog.Println("PartitionOn参数设置为true，开始处理分片重配置")
 }
 
 // wait for other shards' last rounds are over

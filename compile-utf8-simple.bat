@@ -1,3 +1,4 @@
+chcp 65001 >nul
 @echo off
 REM BlockEmulator UTF-8 Windows编译脚本
 REM 参照zPrecompileScripts\windows_precomplieScript.bat

@@ -20,18 +20,22 @@ type EvolveGCNPbftInsideExtraHandleMod struct {
 }
 
 func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinPropose() (bool, *message.Request) {
-	eihm.pbftNode.pl.Plog.Println("EvolveGCN: HandleinPropose")
+	eihm.pbftNode.pl.Plog.Println("进入HandleinPropose函数")
 	if eihm.cdm.PartitionOn {
 		// EvolveGCN 分区重配置逻辑（基于 CLPA）
-		eihm.pbftNode.pl.Plog.Println("EvolveGCN: ready to partition")
+		eihm.pbftNode.pl.Plog.Println("是ON状态，可以重新映射")
 
 		// 继续原有的分区逻辑
 		eihm.sendPartitionReady()
+		eihm.pbftNode.pl.Plog.Println("第一步sendPartitionReady执行完成")
 		for !eihm.getPartitionReady() {
+			eihm.pbftNode.pl.Plog.Println("进入getPartitionReady循环")
 			time.Sleep(time.Second)
 		}
+		eihm.pbftNode.pl.Plog.Println("getPartitionReady执行完成")
 		// send accounts and txs
 		eihm.sendAccounts_and_Txs()
+		eihm.pbftNode.pl.Plog.Println("第二步sendAccounts_and_Txs执行完成")
 		// propose a partition
 		for !eihm.getCollectOver() {
 			time.Sleep(time.Second)
@@ -94,24 +98,26 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 
 	// requestType ...
 	if r.RequestType == message.PartitionReq {
-		// EvolveGCN 账户迁移请求处理
-		eihm.pbftNode.pl.Plog.Println("EvolveGCN: received partition msg, going to perform partition")
-
-		// if a partition Request ...
+		// 执行账户迁移
+		eihm.pbftNode.pl.Plog.Printf("收到PartitionReq请求，处理账户迁移")
 		atm := message.DecodeAccountTransferMsg(r.Msg.Content)
 		eihm.accountTransfer_do(atm)
 
-		// 新增：partition请求完成后也要发送BlockInfo消息，确保epoch更新
+		// 关键修复：发送正确的epoch信息
+		// 使用更新后的AccountTransferRound作为epoch
+		currentEpoch := int(eihm.cdm.AccountTransferRound)
+
 		bim := message.BlockInfoMsg{
-			BlockBodyLength: 0, // 分区请求没有普通交易
+			BlockBodyLength: -1, // 分区请求，特殊长度确认消息
 			InnerShardTxs:   make([]*core.Transaction, 0),
-			Epoch:           int(eihm.cdm.AccountTransferRound), // 使用更新后的AccountTransferRound
+			Epoch:           currentEpoch, // 使用正确的epoch
 			Relay1Txs:       make([]*core.Transaction, 0),
 			Relay2Txs:       make([]*core.Transaction, 0),
 			SenderShardID:   eihm.pbftNode.ShardID,
 			ProposeTime:     r.ReqTime,
 			CommitTime:      time.Now(),
 		}
+
 		bByte, err := json.Marshal(bim)
 		if err != nil {
 			log.Panic()
@@ -119,8 +125,8 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 		msg_send := message.MergeMessage(message.CBlockInfo, bByte)
 		go networks.TcpDial(msg_send, eihm.pbftNode.ip_nodeTable[params.SupervisorShard][0])
 
-		eihm.pbftNode.pl.Plog.Printf("EvolveGCN: Sent partition epoch update message with epoch %d",
-			eihm.cdm.AccountTransferRound)
+		eihm.pbftNode.pl.Plog.Printf("节点重配置反馈发送 epoch %d from shard %d",
+			currentEpoch, eihm.pbftNode.ShardID)
 
 		return true
 	}
@@ -132,6 +138,10 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) HandleinCommit(cmsg *message.Comm
 
 	// 记录区块提交时间戳和统计交易
 	eihm.pbftNode.recordBlockCommit(block)
+
+	// 新增：更新节点收集器的epoch信息
+	currentEpoch := int(eihm.cdm.AccountTransferRound)
+	eihm.pbftNode.updateNodeFeatureCollectorEpoch(currentEpoch)
 
 	eihm.pbftNode.pl.Plog.Printf("S%dN%d : added the block %d... \n", eihm.pbftNode.ShardID, eihm.pbftNode.NodeID, block.Header.Number)
 	eihm.pbftNode.CurChain.PrintBlockChain()
@@ -300,7 +310,16 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) getPartitionReady() bool {
 
 func (eihm *EvolveGCNPbftInsideExtraHandleMod) sendAccounts_and_Txs() {
 	// generate accout transfer and txs message
+	eihm.pbftNode.pl.Plog.Printf("进入sendAccounts_and_Txs()\n")
 	accountToFetch := make([]string, 0)
+
+	// 检查ModifiedMap状态
+	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: ModifiedMap长度: %d", len(eihm.cdm.ModifiedMap))
+	if len(eihm.cdm.ModifiedMap) == 0 {
+		eihm.pbftNode.pl.Plog.Printf("EvolveGCN: 错误 - ModifiedMap为空")
+		return
+	}
+
 	lastMapid := len(eihm.cdm.ModifiedMap) - 1
 	for key, val := range eihm.cdm.ModifiedMap[lastMapid] {
 		if val != eihm.pbftNode.ShardID && eihm.pbftNode.CurChain.Get_PartitionMap(key) == eihm.pbftNode.ShardID {
@@ -429,15 +448,19 @@ func (eihm *EvolveGCNPbftInsideExtraHandleMod) accountTransfer_do(atm *message.A
 	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: %d accountstates to add\n", len(atm.AccountState))
 	eihm.pbftNode.CurChain.AddAccounts(atm.Addrs, atm.AccountState, eihm.pbftNode.view.Load())
 
-	// 关键修复：确保正确更新AccountTransferRound
+	// 关键修复：先更新AccountTransferRound，然后更新节点收集器的epoch
 	previousRound := eihm.cdm.AccountTransferRound
 	if uint64(len(eihm.cdm.ModifiedMap)) != atm.ATid {
 		eihm.cdm.ModifiedMap = append(eihm.cdm.ModifiedMap, atm.ModifiedMap)
 	}
 	eihm.cdm.AccountTransferRound = atm.ATid
 
-	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: AccountTransferRound updated from %d to %d",
-		previousRound, eihm.cdm.AccountTransferRound)
+	// 立即更新节点收集器的epoch，确保后续状态收集使用正确的epoch
+	newEpoch := int(eihm.cdm.AccountTransferRound)
+	eihm.pbftNode.updateNodeFeatureCollectorEpoch(newEpoch)
+
+	eihm.pbftNode.pl.Plog.Printf("EvolveGCN: AccountTransferRound updated from %d to %d, node collector epoch updated to %d",
+		previousRound, eihm.cdm.AccountTransferRound, newEpoch)
 
 	eihm.cdm.AccountStateTx = make(map[uint64]*message.AccountStateAndTx)
 	eihm.cdm.ReceivedNewAccountState = make(map[string]*core.AccountState)

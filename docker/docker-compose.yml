@@ -5,18 +5,28 @@ services:
   supervisor:
     image: block-emulator:latest
     container_name: supervisor
-    command: ["-c", "-N", "4", "-S", "4"]
+    command: >
+      bash -c "
+        # 运行程序
+        ./blockEmulator_linux_Precompile -c -N 4 -S 4
+      "
     volumes:
-      - ./Files/paramsConfig.json:/app/paramsConfig.json
-      - ./Files/ipTable.json:/app/ipTable.json
       - ./Files/broker:/app/broker/broker
       - ./expTest:/app/expTest  # 保留：supervisor 需要挂载 expTest
       - ./Files/selectedTxs_300K.csv:/app/selectedTxs_300K.csv
+      - ./Files/selectedTxs_100K.csv:/app/selectedTxs_100K.csv
+      # 挂载项目代码
+      - ./Files/paramsConfig.json:/app/paramsConfig.json
+      - ./Files/ipTable.json:/app/ipTable.json
+      
     networks:
       - blockchain_net
     cpus: '2.0'
     mem_limit: 4g
     environment:
+      - PATH=/opt/conda/Scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - CONDA_DEFAULT_ENV=base
+      - CONDA_PREFIX=/opt/conda
       # Supervisor 节点硬件配置 - 配置较高以处理监控任务
       - CPU_LIMIT=2.0
       - MEM_LIMIT=4
@@ -54,7 +64,8 @@ services:
   shard0-node0:
     image: block-emulator:latest
     container_name: shard0-node0
-    command: ["-n", "0", "-N", "4", "-s", "0", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 0 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -78,7 +89,8 @@ services:
   shard0-node1:
     image: block-emulator:latest
     container_name: shard0-node1
-    command: ["-n", "1", "-N", "4", "-s", "0", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 0 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -102,7 +114,8 @@ services:
   shard0-node2:
     image: block-emulator:latest
     container_name: shard0-node2
-    command: ["-n", "2", "-N", "4", "-s", "0", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 0 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -125,7 +138,8 @@ services:
   shard0-node3:
     image: block-emulator:latest
     container_name: shard0-node3
-    command: ["-n", "3", "-N", "4", "-s", "0", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 0 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -149,7 +163,8 @@ services:
   shard1-node0:
     image: block-emulator:latest
     container_name: shard1-node0
-    command: ["-n", "0", "-N", "4", "-s", "1", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 1 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -172,7 +187,8 @@ services:
   shard1-node1:
     image: block-emulator:latest
     container_name: shard1-node1
-    command: ["-n", "1", "-N", "4", "-s", "1", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 1 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -195,7 +211,8 @@ services:
   shard1-node2:
     image: block-emulator:latest
     container_name: shard1-node2
-    command: ["-n", "2", "-N", "4", "-s", "1", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 1 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -218,7 +235,8 @@ services:
   shard1-node3:
     image: block-emulator:latest
     container_name: shard1-node3
-    command: ["-n", "3", "-N", "4", "-s", "1", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 1 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -242,7 +260,8 @@ services:
   shard2-node0:
     image: block-emulator:latest
     container_name: shard2-node0
-    command: ["-n", "0", "-N", "4", "-s", "2", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 2 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -265,7 +284,8 @@ services:
   shard2-node1:
     image: block-emulator:latest
     container_name: shard2-node1
-    command: ["-n", "1", "-N", "4", "-s", "2", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 2 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -288,7 +308,8 @@ services:
   shard2-node2:
     image: block-emulator:latest
     container_name: shard2-node2
-    command: ["-n", "2", "-N", "4", "-s", "2", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 2 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -311,7 +332,8 @@ services:
   shard2-node3:
     image: block-emulator:latest
     container_name: shard2-node3
-    command: ["-n", "3", "-N", "4", "-s", "2", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 2 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -335,7 +357,8 @@ services:
   shard3-node0:
     image: block-emulator:latest
     container_name: shard3-node0
-    command: ["-n", "0", "-N", "4", "-s", "3", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 0 -N 4 -s 3 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -358,7 +381,8 @@ services:
   shard3-node1:
     image: block-emulator:latest
     container_name: shard3-node1
-    command: ["-n", "1", "-N", "4", "-s", "3", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 1 -N 4 -s 3 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -381,7 +405,8 @@ services:
   shard3-node2:
     image: block-emulator:latest
     container_name: shard3-node2
-    command: ["-n", "2", "-N", "4", "-s", "3", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 2 -N 4 -s 3 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json
@@ -404,7 +429,8 @@ services:
   shard3-node3:
     image: block-emulator:latest
     container_name: shard3-node3
-    command: ["-n", "3", "-N", "4", "-s", "3", "-S", "4"]
+    command: >
+      ./blockEmulator_linux_Precompile -n 3 -N 4 -s 3 -S 4
     volumes:
       - ./Files/paramsConfig.json:/app/paramsConfig.json
       - ./Files/ipTable.json:/app/ipTable.json

@@ -494,7 +494,9 @@ class SmartPerformanceEvaluator(nn.Module):
     def _compute_load_balance(self, shard_assignments: torch.Tensor, features: Dict[str, torch.Tensor]) -> float:
         """计算负载均衡指标"""
         try:
-            shard_sizes = torch.bincount(shard_assignments, minlength=shard_assignments.max().item() + 1)
+            # 确保 minlength 是整数类型
+            max_shard_id = int(shard_assignments.max().item())
+            shard_sizes = torch.bincount(shard_assignments, minlength=max_shard_id + 1)
             if len(shard_sizes) <= 1:
                 return 0.8  # 单分片情况
             
@@ -550,7 +552,8 @@ class SmartPerformanceEvaluator(nn.Module):
             hetero_features = features.get('heterogeneous_type', torch.randn(len(shard_assignments), 17, device=shard_assignments.device))
             
             # 每个分片的安全性评估
-            num_shards = shard_assignments.max().item() + 1
+            max_shard_id = int(shard_assignments.max().item())
+            num_shards = max_shard_id + 1
             shard_security_scores = []
             
             for shard_id in range(num_shards):
@@ -599,7 +602,8 @@ class SmartPerformanceEvaluator(nn.Module):
             processing_capacity = onchain_features.mean(dim=1)
             
             # 每个分片的共识延迟估算
-            num_shards = shard_assignments.max().item() + 1
+            max_shard_id = int(shard_assignments.max().item())
+            num_shards = max_shard_id + 1
             shard_latencies = []
             
             for shard_id in range(num_shards):

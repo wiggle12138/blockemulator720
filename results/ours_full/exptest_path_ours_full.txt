@@ -1,0 +1,3 @@
+expTest数据路径: /app/expTest
+变体: ours_full
+生成时间: 2025-07-31T22:05:22.488610

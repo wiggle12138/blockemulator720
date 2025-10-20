@@ -125,13 +125,6 @@ class Pipeline:
             else:
                 print("警告: 图构建器中没有邻接矩阵信息")
 
-            # 2. 保存RGCN中间表示
-            rgcn_extractor = self.feature_extractor.graph_feature_extractor
-            if hasattr(rgcn_extractor, 'intermediate_representations') and rgcn_extractor.intermediate_representations:
-                rgcn_extractor.save_rgcn_representations("step1_rgcn")
-            else:
-                print("警告: RGCN提取器中没有中间表示信息")
-
         except Exception as e:
             print(f"保存邻接矩阵信息时出错: {e}")
 
@@ -645,7 +638,7 @@ class Pipeline:
 
         # 特征融合 (如果启用)
         if self.use_fusion:
-            print("🔗 执行特征融合...")
+            print(" 执行特征融合...")
             f_fused, contrastive_loss = self.fusion_pipeline(results['f_classic'], results['f_graph'])
             results['f_fused'] = f_fused
             results['contrastive_loss'] = contrastive_loss

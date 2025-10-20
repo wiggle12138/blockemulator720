@@ -66,6 +66,32 @@ func (tctr *TestCrossTxRate_EvolveGCN) UpdateMeasureRecord(b *message.BlockInfoM
 
 func (tctr *TestCrossTxRate_EvolveGCN) HandleExtraMessage([]byte) {}
 
+// 新增：获取当前数据而不触发CSV写入
+func (tctr *TestCrossTxRate_EvolveGCN) GetCurrentData() (perEpochCTXratio []float64, totCTXratio float64) {
+	// 计算每个epoch的跨分片交易率，但不写入CSV
+	perEpochCTXratio = make([]float64, tctr.epochID+1)
+	allEpoch_ctxNum := 0.0
+	allEpoch_totTxNum := 0.0
+
+	for eid, totTxInE := range tctr.totTxNum {
+		if totTxInE > 0 {
+			perEpochCTXratio[eid] = tctr.totCrossTxNum[eid] / totTxInE
+		} else {
+			perEpochCTXratio[eid] = 0.0
+		}
+		allEpoch_ctxNum += tctr.totCrossTxNum[eid]
+		allEpoch_totTxNum += totTxInE
+	}
+
+	if allEpoch_totTxNum > 0 {
+		totCTXratio = allEpoch_ctxNum / allEpoch_totTxNum
+	} else {
+		totCTXratio = 0.0
+	}
+
+	return perEpochCTXratio, totCTXratio
+}
+
 func (tctr *TestCrossTxRate_EvolveGCN) OutputRecord() (perEpochCTXratio []float64, totCTXratio float64) {
 	tctr.writeToCSV()
 

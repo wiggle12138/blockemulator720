@@ -17,7 +17,7 @@ $ExePath = if (Test-Path ".\blockEmulator_Windows_UTF8.exe") {
 }
 
 # 使用用户指定的Python环境路径
-$PythonExePath = "D:\Environment\Anaconda_envs\envs\blockemulator_torch\python.exe"
+$PythonExePath = "E:\Codefield\BlockEmulator\.venv\Scripts\python.exe"
 
 function Start-PythonWarmup {
     Write-Host "[WARMUP] 启动Python EvolveGCN预热..." -ForegroundColor Yellow
@@ -110,50 +110,8 @@ function Start-PythonWarmup {
     }
 }
 
-function Update-PythonConfig {
-    Write-Host "[CONFIG] 更新Python配置文件..." -ForegroundColor Cyan
-    
-    try {
-        $configPath = "python_config.json"
-        
-        # 使用简化的JSON构建方式避免特殊字符问题
-        $configJson = @"
-{
-  "enable_evolve_gcn": true,
-  "enable_feedback": true,
-  "python_path": "$($PythonExePath.Replace('\', '\\'))",
-  "module_path": "./",
-  "max_iterations": 10,
-  "epochs_per_iteration": 8,
-  "data_exchange_dir": "./data_exchange",
-  "output_interval": 30,
-  "continuous_mode": true,
-  "log_level": "INFO",
-  "evolvegcn_integration": {
-    "enabled": true,
-    "algorithm": "four_step_pipeline",
-    "fallback_to_clpa": false,
-    "auto_detect_venv": false,
-    "description": "EvolveGCN integrated with specified Python environment"
-  }
-}
-"@
-        
-        # 使用UTF-8编码写入配置文件
-        $configJson | Out-File -FilePath $configPath -Encoding UTF8
-        
-        Write-Host "[SUCCESS] Python配置已更新: $configPath" -ForegroundColor Green
-        Write-Host "[INFO] 已设置Python路径: $PythonExePath" -ForegroundColor Cyan
-        
-    } catch {
-        Write-Host "[ERROR] 更新配置失败: $($_.Exception.Message)" -ForegroundColor Red
-        throw $_.Exception
-    }
-}
-
 function Start-BlockEmulatorSystemWithWarmup {
     Write-Host "[START] 启动BlockEmulator EvolveGCN预启动系统" -ForegroundColor Green
-    Write-Host "=" * 60 -ForegroundColor Yellow
     
     # 检查可执行文件是否存在
     if (-not (Test-Path $ExePath)) {
@@ -163,12 +121,8 @@ function Start-BlockEmulatorSystemWithWarmup {
     }
     
     try {
-        # 步骤1：更新Python配置
-        Write-Host "[STEP1] 更新Python配置..." -ForegroundColor Cyan
-        Update-PythonConfig
-        
-        # 步骤2：Python预热（必须成功才能继续）
-        Write-Host "[STEP2] 执行Python预热..." -ForegroundColor Cyan
+        # Python预热（必须成功才能继续）
+        Write-Host "[STEP1] 执行Python预热..." -ForegroundColor Cyan
         $warmupResult = Start-PythonWarmup
         
         Write-Host "[SUCCESS] 预热验证通过，开始启动系统..." -ForegroundColor Green
@@ -181,8 +135,8 @@ function Start-BlockEmulatorSystemWithWarmup {
     
     $jobs = @()
     
-    # 步骤3：启动分片0的4个节点
-    Write-Host "[STEP3] 启动分片0节点..." -ForegroundColor Cyan
+    # 步骤2：启动分片0的4个节点
+    Write-Host "[STEP2] 启动分片0节点..." -ForegroundColor Cyan
     for ($nodeId = 0; $nodeId -lt 4; $nodeId++) {
         $job = Start-Process -FilePath $ExePath -ArgumentList @("-n", $nodeId, "-N", "4", "-s", "0", "-S", "2") -PassThru
         $jobs += $job
@@ -190,8 +144,8 @@ function Start-BlockEmulatorSystemWithWarmup {
         Start-Sleep -Milliseconds 500
     }
     
-    # 步骤4：启动分片1的4个节点  
-    Write-Host "[STEP4] 启动分片1节点..." -ForegroundColor Cyan
+    # 步骤3：启动分片1的4个节点  
+    Write-Host "[STEP3] 启动分片1节点..." -ForegroundColor Cyan
     for ($nodeId = 0; $nodeId -lt 4; $nodeId++) {
         $job = Start-Process -FilePath $ExePath -ArgumentList @("-n", $nodeId, "-N", "4", "-s", "1", "-S", "2") -PassThru
         $jobs += $job
@@ -199,8 +153,8 @@ function Start-BlockEmulatorSystemWithWarmup {
         Start-Sleep -Milliseconds 500
     }
     
-    # 步骤5：启动Supervisor
-    Write-Host "[STEP5] 启动Supervisor..." -ForegroundColor Cyan
+    # 步骤4：启动Supervisor
+    Write-Host "[STEP4] 启动Supervisor..." -ForegroundColor Cyan
     $supervisorJob = Start-Process -FilePath $ExePath -ArgumentList @("-c", "-N", "4", "-S", "2") -PassThru
     $jobs += $supervisorJob
     Write-Host "  [SUPERVISOR] Supervisor 启动中... (PID: $($supervisorJob.Id))" -ForegroundColor Gray
@@ -325,7 +279,6 @@ function Test-WarmupOnly {
 
 # 主逻辑
 Write-Host "BlockEmulator EvolveGCN 预启动系统 v2.0 (编码安全版)" -ForegroundColor Magenta
-Write-Host "=" * 60 -ForegroundColor Magenta
 
 if ($Stop) {
     Stop-BlockEmulatorSystem

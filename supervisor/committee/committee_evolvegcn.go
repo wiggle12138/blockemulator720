@@ -19,6 +19,8 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"runtime/debug"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -27,6 +29,12 @@ import (
 // 定义接口以避免循环引用
 type NodeStateCollector interface {
 	TriggerNodeStateCollection()
+}
+
+// 新增：NodeFeaturesModule接口，用于获取真实收集的节点数据
+type NodeFeaturesModule interface {
+	GetLatestNodeStates() map[string]interface{}
+	GetEpochData(epoch int) ([]message.ReplyNodeStateMsg, bool)
 }
 
 // EvolveGCN committee operations
@@ -53,6 +61,9 @@ type EvolveGCNCommitteeModule struct {
 
 	// 新增：节点状态收集器接口引用
 	nodeStateCollector NodeStateCollector
+
+	// 新增：节点特征模块接口引用
+	nodeFeatureModule NodeFeaturesModule
 }
 
 func NewEvolveGCNCommitteeModule(Ip_nodeTable map[uint64]map[uint64]string, Ss *signal.StopSignal, sl *supervisor_log.SupervisorLog, csvFilePath string, dataNum, batchNum, evolvegcnFrequency int) *EvolveGCNCommitteeModule {
@@ -72,6 +83,7 @@ func NewEvolveGCNCommitteeModule(Ip_nodeTable map[uint64]map[uint64]string, Ss *
 		sl:                       sl,
 		curEpoch:                 0,
 		nodeStateCollector:       nil, // 将在supervisor中设置
+		nodeFeatureModule:        nil, // 将在supervisor中设置
 	}
 
 	// 异步启动Python预热
@@ -83,6 +95,11 @@ func NewEvolveGCNCommitteeModule(Ip_nodeTable map[uint64]map[uint64]string, Ss *
 // 新增：设置节点状态收集器的方法
 func (egcm *EvolveGCNCommitteeModule) SetNodeStateCollector(collector NodeStateCollector) {
 	egcm.nodeStateCollector = collector
+}
+
+// 新增：设置节点特征模块的方法
+func (egcm *EvolveGCNCommitteeModule) SetNodeFeaturesModule(module NodeFeaturesModule) {
+	egcm.nodeFeatureModule = module
 }
 
 func (egcm *EvolveGCNCommitteeModule) HandleOtherMessage([]byte) {}
@@ -133,85 +150,105 @@ func (egcm *EvolveGCNCommitteeModule) MsgSendingControl() {
 	}
 	defer txfile.Close()
 	reader := csv.NewReader(txfile)
-	txlist := make([]*core.Transaction, 0) // save the txs in this epoch (round)
+	txlist := make([]*core.Transaction, 0)
 	evolvegcnCnt := 0
 
 	for {
 		data, err := reader.Read()
 		if err == io.EOF {
+			egcm.sl.Slog.Printf("读取到文件末尾EOF，结束MsgSendingControl")
 			break
 		}
 		if err != nil {
+			egcm.sl.Slog.Printf("MsgSendingControl读取文件遇到panic")
 			log.Panic(err)
 		}
 		if tx, ok := data2tx(data, uint64(egcm.nowDataNum)); ok {
 			txlist = append(txlist, tx)
+			//egcm.sl.Slog.Printf("txlist增加交易")
 			egcm.nowDataNum++
 		} else {
 			continue
 		}
 
-		// batch sending condition
+		// 批量发送交易
 		if len(txlist) == int(egcm.batchDataNum) || egcm.nowDataNum == egcm.dataTotalNum {
-			// set the algorithm timer begins
+			egcm.sl.Slog.Printf("到了batchDataNum或dataTotalNum, 开始发送交易")
 			if egcm.evolvegcnLastRunningTime.IsZero() {
 				egcm.evolvegcnLastRunningTime = time.Now()
 			}
 
 			egcm.txSending(txlist)
-
-			// reset the variants about tx sending
 			txlist = make([]*core.Transaction, 0)
 			egcm.Ss.StopGap_Reset()
 		}
 
-		// ========== EvolveGCN重分片触发逻辑（类似CLPA） ==========
+		// 修复：参考CLPA的epoch确认机制
 		if params.ShardNum > 1 && !egcm.evolvegcnLastRunningTime.IsZero() && time.Since(egcm.evolvegcnLastRunningTime) >= time.Duration(egcm.evolvegcnFreq)*time.Second {
 			egcm.evolvegcnLock.Lock()
 			evolvegcnCnt++
 
-			// ========== 第一步：重分片前触发节点特征收集（使用确认机制） ==========
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Step 1 - Triggering node feature collection with confirmation...", evolvegcnCnt)
+			egcm.sl.Slog.Printf("===============================================")
+			egcm.sl.Slog.Printf(" EvolveGCN Epoch %d 开始执行重分片算法", evolvegcnCnt)
+			egcm.sl.Slog.Printf("===============================================")
+
+			// 执行重分片流程
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Step 1 - 触发节点特征收集...", evolvegcnCnt)
 			if egcm.nodeStateCollector != nil {
-				// 使用现有的TriggerNodeStateCollection，它内部已经处理了发送和等待
 				egcm.nodeStateCollector.TriggerNodeStateCollection()
-				egcm.sl.Slog.Printf("EvolveGCN Epoch %d: All nodes confirmed feature collection completed", evolvegcnCnt)
+				egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  节点特征收集完成", evolvegcnCnt)
 			}
 
-			// ========== 第二步：计算重配置前的跨分片交易率 ==========
 			preReconfigCTXRatio := egcm.calculateCurrentCrossShardRatio()
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Pre-reconfiguration CTX ratio: %.4f", evolvegcnCnt, preReconfigCTXRatio)
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  重分片前跨分片交易率: %.4f (%.2f%%)",
+				evolvegcnCnt, preReconfigCTXRatio, preReconfigCTXRatio*100)
 
-			// ========== 第三步：运行EvolveGCN分区算法 ==========
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Step 3 - Running EvolveGCN partition algorithm...", evolvegcnCnt)
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Step 3 -  执行EvolveGCN分片算法...", evolvegcnCnt)
 			mmap, crossTxNum := egcm.runEvolveGCNPartition()
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Partition completed, cross-shard edges: %d", evolvegcnCnt, crossTxNum)
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  分片算法完成，跨分片边数: %d", evolvegcnCnt, crossTxNum)
 
-			// ========== 第四步：计算重配置后的预期跨分片交易率 ==========
 			postReconfigCTXRatio := egcm.estimatePostReconfigCrossShardRatio(mmap, crossTxNum)
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Post-reconfiguration estimated CTX ratio: %.4f", evolvegcnCnt, postReconfigCTXRatio)
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  重分片后预期跨分片率: %.4f (%.2f%%) [改善: %.2f%%]",
+				evolvegcnCnt, postReconfigCTXRatio, postReconfigCTXRatio*100,
+				(preReconfigCTXRatio-postReconfigCTXRatio)*100)
 
-			// ========== 第五步：记录重配置效果到统计模块 ==========
 			egcm.recordReconfigurationMetrics(evolvegcnCnt, preReconfigCTXRatio, postReconfigCTXRatio)
 
-			// ========== 第六步：发送分区重配置指令（使用固定等待时间） ==========
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Step 6 - Sending partition messages with 4-second fixed wait...", evolvegcnCnt)
-			egcm.evolvegcnMapSendWithFixedWait(mmap, evolvegcnCnt)
+			// ========== 核心修改：直接使用转换后的mmap，移除硬编码示例 =========
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  发送分区映射消息到所有分片...", evolvegcnCnt)
+			egcm.evolvegcnMapSend(mmap) // 直接使用转换后的真实mmap
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  所有分区映射消息已发送完成", evolvegcnCnt)
 
-			// ========== 第七步：更新本地分区映射 ==========
+			// 更新本地分区映射
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  更新本地分区映射开始", evolvegcnCnt)
 			for key, val := range mmap {
 				egcm.modifiedMap[key] = val
 			}
-
-			// ========== 第八步：重置图状态 ==========
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  更新本地分区映射完成", evolvegcnCnt)
 			egcm.evolvegcnReset()
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  evolvegcnReset执行完成", evolvegcnCnt)
 			egcm.evolvegcnLock.Unlock()
 
+			// 等待epoch确认 - 参考CLPA的确认机制
+			egcm.sl.Slog.Printf("EvolveGCN Epoch %d:  等待所有分片确认epoch更新...", evolvegcnCnt)
+			//waitStart := time.Now()
+			for atomic.LoadInt32(&egcm.curEpoch) != int32(evolvegcnCnt) {
+				time.Sleep(time.Second)
+				// if time.Since(waitStart) > 30*time.Second {
+				// 	egcm.sl.Slog.Printf("EvolveGCN Epoch %d:   等待超时，强制继续", evolvegcnCnt)
+				// 	atomic.StoreInt32(&egcm.curEpoch, int32(evolvegcnCnt))
+				// 	break
+				// }
+			}
+
 			egcm.evolvegcnLastRunningTime = time.Now()
-			egcm.sl.Slog.Printf("EvolveGCN Epoch %d: Successfully completed with fixed 4-second wait", evolvegcnCnt)
+			egcm.sl.Slog.Printf("===============================================")
+			egcm.sl.Slog.Printf(" EvolveGCN Epoch %d 重分片完成! 下一轮开始准备...", evolvegcnCnt)
+			egcm.sl.Slog.Printf("===============================================")
 		}
 
 		if egcm.nowDataNum == egcm.dataTotalNum {
+			egcm.sl.Slog.Printf("交易数量达到dataTotalNum，结束MsgSendingControl")
 			break
 		}
 	}
@@ -220,10 +257,9 @@ func (egcm *EvolveGCNCommitteeModule) MsgSendingControl() {
 	for !egcm.Ss.GapEnough() { // wait all txs to be handled
 		time.Sleep(time.Second)
 		if params.ShardNum > 1 && time.Since(egcm.evolvegcnLastRunningTime) >= time.Duration(egcm.evolvegcnFreq)*time.Second {
+			egcm.sl.Slog.Printf("到GapEnough中了,且触发重分片")
 			egcm.evolvegcnLock.Lock()
 			evolvegcnCnt++
-
-			// ========== 最终重分片时也执行完整流程 ==========
 			egcm.sl.Slog.Printf("EvolveGCN Final Epoch %d: Executing final reconfiguration...", evolvegcnCnt)
 			if egcm.nodeStateCollector != nil {
 				egcm.nodeStateCollector.TriggerNodeStateCollection()
@@ -243,27 +279,12 @@ func (egcm *EvolveGCNCommitteeModule) MsgSendingControl() {
 			egcm.evolvegcnReset()
 			egcm.evolvegcnLock.Unlock()
 
-			// 添加超时机制到最终epoch等待
-			finalEpochTimeout := time.Now().Add(30 * time.Second)
-			finalEpochConfirmed := false
-
-			for time.Now().Before(finalEpochTimeout) {
-				if atomic.LoadInt32(&egcm.curEpoch) >= int32(evolvegcnCnt) {
-					finalEpochConfirmed = true
-					break
-				}
-				time.Sleep(time.Second)
-			}
-
-			if !finalEpochConfirmed {
-				egcm.sl.Slog.Printf("EvolveGCN Final Epoch %d: WARNING - Timeout, forcing epoch transition", evolvegcnCnt)
-				atomic.StoreInt32(&egcm.curEpoch, int32(evolvegcnCnt))
-			}
-
 			egcm.evolvegcnLastRunningTime = time.Now()
 			egcm.sl.Slog.Printf("EvolveGCN Final Epoch %d: Completed", evolvegcnCnt)
 		}
 	}
+
+	egcm.sl.Slog.Printf("从MsgSendingControl出去了")
 }
 
 // ========== 新增：计算当前跨分片交易率 ==========
@@ -316,7 +337,7 @@ func (egcm *EvolveGCNCommitteeModule) runEvolveGCNPartition() (map[string]uint64
 	}
 
 	// 第一步：特征提取
-	egcm.sl.Slog.Println("EvolveGCN Step 1: Feature extraction...")
+	egcm.sl.Slog.Println("EvolveGCN Step 1: 特征提取...")
 	nodeFeatures, err := egcm.extractNodeFeatures()
 	if err != nil {
 		egcm.sl.Slog.Printf("EvolveGCN: CRITICAL ERROR - Feature extraction failed: %v", err)
@@ -333,8 +354,55 @@ func (egcm *EvolveGCNCommitteeModule) runEvolveGCNPartition() (map[string]uint64
 		log.Fatalf("EvolveGCN: System cannot continue without successful EvolveGCN processing: %v", err)
 	}
 
+	// ========== 新增：节点映射转换为账户映射 ==========
+	if len(partitionMap) > 0 {
+		// 检查返回的是节点格式还是账户格式
+		firstKey := ""
+		for k := range partitionMap {
+			firstKey = k
+			break
+		}
+
+		if strings.HasPrefix(firstKey, "S") && strings.Contains(firstKey, "N") {
+			// 这是节点-分片映射，需要转换为账户-分片映射
+			egcm.sl.Slog.Printf("EvolveGCN: 检测到节点格式映射，开始转换为账户映射...")
+			egcm.sl.Slog.Printf("EvolveGCN: 原始节点映射数量: %d", len(partitionMap))
+
+			// ========== 新增：打印partitionMap重映射内容 ==========
+			egcm.sl.Slog.Printf("========== partitionMap重映射详细内容 ==========")
+
+			if len(partitionMap) > 0 {
+				count := 0
+				for key, value := range partitionMap {
+					egcm.sl.Slog.Printf("partitionMap[%d] - 键: '%s', 值: %d", count, key, value)
+					count++
+					if count >= 8 { // 只打印前8条
+						egcm.sl.Slog.Printf("... (还有%d条记录)", len(partitionMap)-8)
+						break
+					}
+				}
+			}
+
+			// 转换节点映射为账户映射
+			accountMapping := egcm.convertNodeMappingToAccountMapping(partitionMap)
+
+			if len(accountMapping) > 0 {
+				egcm.sl.Slog.Printf("EvolveGCN: 成功转换为账户映射，数量: %d", len(accountMapping))
+				egcm.sl.Slog.Printf("EvolveGCN: ✅ 节点级重分片转换完成")
+				return accountMapping, crossShardEdges
+			} else {
+				egcm.sl.Slog.Println("EvolveGCN: 转换结果为空，使用空映射")
+				return make(map[string]uint64), crossShardEdges
+			}
+		} else {
+			// 已经是账户格式，直接返回
+			egcm.sl.Slog.Printf("EvolveGCN: 检测到账户格式映射，直接使用")
+			return partitionMap, crossShardEdges
+		}
+	}
+
 	egcm.sl.Slog.Printf("EvolveGCN: Pipeline completed successfully. Cross-shard edges: %d", crossShardEdges)
-	egcm.sl.Slog.Println("EvolveGCN: ✅ Real EvolveGCN algorithm active (CLPA placeholder replaced)")
+	egcm.sl.Slog.Println("Real EvolveGCN algorithm active ")
 	return partitionMap, crossShardEdges
 }
 
@@ -375,65 +443,13 @@ func (egcm *EvolveGCNCommitteeModule) evolvegcnMapSend(m map[string]uint64) {
 	}
 	send_msg := message.MergeMessage(message.CPartitionMsg, pmByte)
 
-	// send to worker shards
+	// send to worker shards 发送给0号节点
 	for i := uint64(0); i < uint64(params.ShardNum); i++ {
 		go networks.TcpDial(send_msg, egcm.IpNodeTable[i][0])
 	}
 
-	egcm.sl.Slog.Printf("EvolveGCN Supervisor: partition map with epoch %d sent to all shards",
+	egcm.sl.Slog.Printf("EvolveGCNMapSend函数发送CPartitionMsg完毕 %d 广播到0号节点",
 		atomic.LoadInt32(&egcm.curEpoch))
-}
-
-// 添加带确认机制的分区消息发送方法，复用现有的epoch更新机制作为确认信号
-func (egcm *EvolveGCNCommitteeModule) evolvegcnMapSendWithConfirmation(m map[string]uint64, epochID int) {
-	egcm.sl.Slog.Printf("EvolveGCN: Sending partition map with confirmation for epoch %d...", epochID)
-
-	// 复用现有的分区消息结构
-	pm := message.PartitionModifiedMapWithEpoch{
-		PartitionModified: m,
-		EpochID:           int32(epochID),
-		Timestamp:         time.Now().Unix(),
-	}
-	pmByte, err := json.Marshal(pm)
-	if err != nil {
-		log.Panic(err)
-	}
-	send_msg := message.MergeMessage(message.CPartitionMsg, pmByte)
-
-	// 发送到所有分片
-	totalShards := uint64(params.ShardNum)
-	for i := uint64(0); i < totalShards; i++ {
-		go networks.TcpDial(send_msg, egcm.IpNodeTable[i][0])
-	}
-
-	egcm.sl.Slog.Printf("EvolveGCN: Partition messages sent to %d shards", totalShards)
-
-	// 等待确认机制：通过检查BlockInfo消息中的epoch更新来确认
-	egcm.waitForPartitionConfirmation(epochID)
-}
-
-// 新增：等待分区确认的方法
-func (egcm *EvolveGCNCommitteeModule) waitForPartitionConfirmation(epochID int) {
-	egcm.sl.Slog.Printf("EvolveGCN: Waiting for partition confirmation for epoch %d...", epochID)
-
-	timeout := time.After(30 * time.Second) // 30秒超时
-	checkInterval := time.NewTicker(1 * time.Second)
-	defer checkInterval.Stop()
-
-	for {
-		select {
-		case <-timeout:
-			egcm.sl.Slog.Printf("EvolveGCN: Partition confirmation timeout for epoch %d", epochID)
-			return
-		case <-checkInterval.C:
-			// 检查当前epoch是否已更新，表示节点已处理分区消息
-			currentEpoch := atomic.LoadInt32(&egcm.curEpoch)
-			if int(currentEpoch) >= epochID {
-				egcm.sl.Slog.Printf("EvolveGCN: Partition confirmation received for epoch %d", epochID)
-				return
-			}
-		}
-	}
 }
 
 // 添加图状态重置方法
@@ -446,54 +462,43 @@ func (egcm *EvolveGCNCommitteeModule) evolvegcnReset() {
 }
 
 func (egcm *EvolveGCNCommitteeModule) HandleBlockInfo(b *message.BlockInfoMsg) {
-	egcm.sl.Slog.Printf("EvolveGCN Supervisor: received from shard %d in epoch %d.\n", b.SenderShardID, b.Epoch)
+	// egcm.sl.Slog.Printf("EvolveGCN Supervisor: received from shard %d in epoch %d, blockLength=%d\n",
+	// b.SenderShardID, b.Epoch, b.BlockBodyLength)
 
-	// 修复：使用更宽松的epoch更新策略
-	currentEpoch := atomic.LoadInt32(&egcm.curEpoch)
-	if int32(b.Epoch) > currentEpoch {
-		// 允许跳跃式更新，适应分布式环境下的消息乱序
-		if atomic.CompareAndSwapInt32(&egcm.curEpoch, currentEpoch, int32(b.Epoch)) {
-			egcm.sl.Slog.Printf("EvolveGCN: epoch updated from %d to %d (from shard %d)",
-				currentEpoch, b.Epoch, b.SenderShardID)
-		}
-	} else if int32(b.Epoch) == currentEpoch+1 {
-		// 标准的递增更新
-		if atomic.CompareAndSwapInt32(&egcm.curEpoch, int32(b.Epoch-1), int32(b.Epoch)) {
-			egcm.sl.Slog.Printf("EvolveGCN: epoch incremented to %d (from shard %d)",
-				b.Epoch, b.SenderShardID)
-		}
-	}
-
-	// 修复：正确区分分区请求和正常区块消息
-	if b.BlockBodyLength == 0 {
-		// 这是分区请求消息（空区块），记录但不处理交易图
-		egcm.sl.Slog.Printf("EvolveGCN: Received partition request message from shard %d with epoch %d",
+	// 关键修复：区分普通区块和分区确认消息
+	if b.BlockBodyLength == -1 {
+		// 这是分区确认消息（222）
+		egcm.sl.Slog.Printf("收到-1长度的重分片确认区块 from shard %d epoch %d",
 			b.SenderShardID, b.Epoch)
-		return
+
+		// 更新epoch
+		egcm.evolvegcnLock.Lock()
+		currentEpoch := atomic.LoadInt32(&egcm.curEpoch)
+		if int32(b.Epoch) > currentEpoch {
+			atomic.StoreInt32(&egcm.curEpoch, int32(b.Epoch))
+			egcm.sl.Slog.Printf("EPOCH UPDATED from 老的%d to 接收到的%d (PARTITION CONFIRMED by shard %d)",
+				currentEpoch, b.Epoch, b.SenderShardID)
+		} else {
+			egcm.sl.Slog.Printf("epoch received %d and current is %d 无需更新", b.Epoch, currentEpoch)
+		}
+		egcm.evolvegcnLock.Unlock()
+	} else {
+		// 这是普通区块信息，处理交易图构建
+		egcm.sl.Slog.Printf("收到普通区块信息 with %d transactions from shard %d epoch %d",
+			b.BlockBodyLength, b.SenderShardID, b.Epoch)
+
+		egcm.evolvegcnLock.Lock()
+		for _, tx := range b.InnerShardTxs {
+			egcm.evolvegcnGraph.AddEdge(partition.Vertex{Addr: tx.Sender}, partition.Vertex{Addr: tx.Recipient})
+		}
+		for _, r1tx := range b.Relay1Txs {
+			egcm.evolvegcnGraph.AddEdge(partition.Vertex{Addr: r1tx.Sender}, partition.Vertex{Addr: r1tx.Recipient})
+		}
+		for _, r2tx := range b.Relay2Txs {
+			egcm.evolvegcnGraph.AddEdge(partition.Vertex{Addr: r2tx.Sender}, partition.Vertex{Addr: r2tx.Recipient})
+		}
+		egcm.evolvegcnLock.Unlock()
 	}
-
-	// 这是正常的区块信息，处理交易图构建
-	egcm.sl.Slog.Printf("EvolveGCN: Processing block info with %d transactions from shard %d",
-		b.BlockBodyLength, b.SenderShardID)
-
-	egcm.evolvegcnLock.Lock()
-
-	// 处理分片内交易
-	for _, tx := range b.InnerShardTxs {
-		egcm.evolvegcnGraph.AddEdge(partition.Vertex{Addr: tx.Sender}, partition.Vertex{Addr: tx.Recipient})
-	}
-
-	// 处理跨分片交易的发送阶段 (Relay1Txs) - 之前缺失的部分
-	for _, r1tx := range b.Relay1Txs {
-		egcm.evolvegcnGraph.AddEdge(partition.Vertex{Addr: r1tx.Sender}, partition.Vertex{Addr: r1tx.Recipient})
-	}
-
-	// 处理跨分片交易的接收阶段 (Relay2Txs)
-	for _, r2tx := range b.Relay2Txs {
-		egcm.evolvegcnGraph.AddEdge(partition.Vertex{Addr: r2tx.Sender}, partition.Vertex{Addr: r2tx.Recipient})
-	}
-
-	egcm.evolvegcnLock.Unlock()
 }
 
 // ========== EvolveGCN四步处理流程实现 ==========
@@ -519,12 +524,97 @@ type ShardingResult struct {
 	Embeddings         []float64 `json:"embeddings"`
 }
 
-// 第一步：特征提取
+// 第一步：特征提取 - 修改为使用真实收集的节点数据
 func (egcm *EvolveGCNCommitteeModule) extractNodeFeatures() ([]NodeFeatureData, error) {
-	egcm.sl.Slog.Println("EvolveGCN Step 1: Extracting node features...")
+	egcm.sl.Slog.Println("EvolveGCN Step 1: 提取真实特征开始...")
 
-	// 构建节点特征数据
 	var nodeFeatures []NodeFeatureData
+
+	// 优先尝试从NodeFeaturesModule获取真实收集的数据
+	if egcm.nodeFeatureModule != nil {
+		egcm.sl.Slog.Println("真实特征存在 NodeFeaturesModule")
+
+		// 获取最新收集的节点状态数据
+		egcm.sl.Slog.Println("尝试执行GetLatestNodeStates")
+
+		// 添加完整的错误捕获和调试逻辑
+		var latestNodeStates map[string]interface{}
+		var getStatesError error
+
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					getStatesError = fmt.Errorf("GetLatestNodeStates panic: %v", r)
+					egcm.sl.Slog.Printf("[PANIC捕获] GetLatestNodeStates发生panic: %v", r)
+					egcm.sl.Slog.Printf("[PANIC捕获] 调用栈信息: %s", debug.Stack())
+				}
+			}()
+
+			egcm.sl.Slog.Println("[调试] 开始调用GetLatestNodeStates方法")
+
+			// 检查nodeFeatureModule是否为nil
+			if egcm.nodeFeatureModule == nil {
+				getStatesError = fmt.Errorf("nodeFeatureModule is nil")
+				egcm.sl.Slog.Println("[错误] nodeFeatureModule为nil")
+				return
+			}
+
+			egcm.sl.Slog.Println("[调试] nodeFeatureModule不为nil，开始调用GetLatestNodeStates")
+
+			// 调用GetLatestNodeStates方法
+			latestNodeStates = egcm.nodeFeatureModule.GetLatestNodeStates()
+
+			egcm.sl.Slog.Printf("[调试] GetLatestNodeStates调用成功，返回数据量: %d", len(latestNodeStates))
+		}()
+
+		// 检查是否发生了错误
+		if getStatesError != nil {
+			egcm.sl.Slog.Printf("[错误处理] GetLatestNodeStates调用失败: %v", getStatesError)
+			egcm.sl.Slog.Println("[错误处理] 跳过真实数据处理，准备使用模拟数据")
+		} else {
+			egcm.sl.Slog.Printf("GetLatestNodeStates执行成功，返回%d个节点数据", len(latestNodeStates))
+		}
+
+		if len(latestNodeStates) > 0 {
+			egcm.sl.Slog.Printf("找到 %d 个真实节点 NodeFeaturesModule", len(latestNodeStates))
+
+			// 转换真实节点状态数据为EvolveGCN需要的格式
+			for nodeKey, stateInterface := range latestNodeStates {
+				if nodeState, ok := stateInterface.(message.ReplyNodeStateMsg); ok {
+					// 从真实数据中提取静态特征
+					staticFeatures := egcm.extractRealStaticFeatures(nodeState)
+
+					// 从真实数据中提取动态特征
+					dynamicFeatures := egcm.extractRealDynamicFeatures(nodeState)
+
+					nodeFeatures = append(nodeFeatures, NodeFeatureData{
+						NodeID:          nodeKey, // 使用节点键值 "S0N0" 格式
+						ShardID:         nodeState.ShardID,
+						StaticFeatures:  staticFeatures,
+						DynamicFeatures: dynamicFeatures,
+					})
+				}
+			}
+
+			if len(nodeFeatures) > 0 {
+				egcm.sl.Slog.Printf("成功提取节点特征 for %d nodes", len(nodeFeatures))
+
+				// 保存真实特征数据到文件供Python处理
+				if err := egcm.saveNodeFeaturesToCSV(nodeFeatures); err != nil {
+					return nil, fmt.Errorf("failed to save real node features: %v", err)
+				}
+
+				return nodeFeatures, nil
+			}
+		}
+
+		egcm.sl.Slog.Println("没有真实node states found, 回退到模拟数据提取")
+	} else {
+		egcm.sl.Slog.Println("NodeFeaturesModule 是nil，回退到模拟数据提取")
+	}
+
+	// 备用方案：使用模拟数据（保持原有逻辑作为fallback）
+	egcm.sl.Slog.Println("回退到模拟数据...")
 
 	// 检查evolvegcnGraph是否已初始化
 	if egcm.evolvegcnGraph == nil || egcm.evolvegcnGraph.PartitionMap == nil {
@@ -532,8 +622,8 @@ func (egcm *EvolveGCNCommitteeModule) extractNodeFeatures() ([]NodeFeatureData, 
 
 		// 使用IP节点表作为备用方案
 		for shardID, nodeMap := range egcm.IpNodeTable {
-			for nodeID, address := range nodeMap {
-				nodeIDStr := fmt.Sprintf("%s_%d", address, nodeID)
+			for nodeID := range nodeMap {
+				nodeIDStr := fmt.Sprintf("S%dN%d", shardID, nodeID)
 
 				// 计算节点的静态特征
 				staticFeatures := egcm.calculateStaticFeatures(nodeIDStr)
@@ -575,111 +665,8 @@ func (egcm *EvolveGCNCommitteeModule) extractNodeFeatures() ([]NodeFeatureData, 
 		return nil, fmt.Errorf("failed to save node features: %v", err)
 	}
 
-	egcm.sl.Slog.Printf("EvolveGCN Step 1: Extracted features for %d nodes", len(nodeFeatures))
+	egcm.sl.Slog.Printf("EvolveGCN Step 1: Extracted simulated features for %d nodes", len(nodeFeatures))
 	return nodeFeatures, nil
-}
-
-// 第二步：多尺度对比学习（异步处理）
-func (egcm *EvolveGCNCommitteeModule) runMultiScaleContrastiveLearning(nodeFeatures []NodeFeatureData) ([]TemporalEmbedding, error) {
-	egcm.sl.Slog.Println("EvolveGCN Step 2: Running multi-scale contrastive learning...")
-
-	// 创建异步处理通道
-	resultChan := make(chan []TemporalEmbedding, 1)
-	errorChan := make(chan error, 1)
-
-	// 异步执行以避免阻塞主流程
-	go func() {
-		defer close(resultChan)
-		defer close(errorChan)
-
-		// 调用Python脚本进行多尺度对比学习
-		embeddings, err := egcm.callPythonMultiScaleLearning()
-		if err != nil {
-			errorChan <- err
-			return
-		}
-
-		resultChan <- embeddings
-	}()
-
-	// 设置超时以避免长时间等待
-	timeout := time.Duration(30) * time.Second // 30秒超时
-	select {
-	case embeddings := <-resultChan:
-		egcm.sl.Slog.Printf("EvolveGCN Step 2: Generated temporal embeddings for %d nodes", len(embeddings))
-		return embeddings, nil
-	case err := <-errorChan:
-		return nil, err
-	case <-time.After(timeout):
-		egcm.sl.Slog.Println("EvolveGCN Step 2: Timeout, using simplified embeddings")
-		// 超时时使用简化的嵌入生成
-		return egcm.generateSimplifiedEmbeddings(nodeFeatures), nil
-	}
-}
-
-// 第三步：EvolveGCN动态分片
-func (egcm *EvolveGCNCommitteeModule) runEvolveGCNSharding(embeddings []TemporalEmbedding) ([]ShardingResult, error) {
-	egcm.sl.Slog.Println("EvolveGCN Step 3: Running EvolveGCN dynamic sharding...")
-
-	// 调用Python EvolveGCN模型
-	results, err := egcm.callPythonEvolveGCNSharding(embeddings)
-	if err != nil {
-		// 如果Python调用失败，使用基于图的简化分片算法
-		egcm.sl.Slog.Printf("EvolveGCN Step 3: Python call failed, using graph-based fallback: %v", err)
-		return egcm.graphBasedSharding(embeddings), nil
-	}
-
-	egcm.sl.Slog.Printf("EvolveGCN Step 3: Generated sharding recommendations for %d nodes", len(results))
-	return results, nil
-}
-
-// 第四步：性能反馈评估
-func (egcm *EvolveGCNCommitteeModule) evaluateAndOptimize(results []ShardingResult) ([]ShardingResult, error) {
-	egcm.sl.Slog.Println("EvolveGCN Step 4: Evaluating and optimizing sharding results...")
-
-	// 计算预期的跨分片交易率
-	expectedCrossShardRatio := egcm.calculateExpectedCrossShardRatio(results)
-
-	// 如果预期跨分片率过高，进行优化
-	if expectedCrossShardRatio > 0.3 { // 30%阈值
-		egcm.sl.Slog.Printf("EvolveGCN Step 4: High cross-shard ratio (%.2f%%), optimizing...", expectedCrossShardRatio*100)
-		optimizedResults := egcm.optimizeShardingForCrossShardReduction(results)
-		return optimizedResults, nil
-	}
-
-	egcm.sl.Slog.Printf("EvolveGCN Step 4: Cross-shard ratio acceptable (%.2f%%)", expectedCrossShardRatio*100)
-	return results, nil
-}
-
-// 转换为分区映射格式
-func (egcm *EvolveGCNCommitteeModule) convertToPartitionMap(results []ShardingResult) (map[string]uint64, int) {
-	partitionMap := make(map[string]uint64)
-	crossShardEdges := 0
-
-	// 构建新的分区映射
-	for _, result := range results {
-		partitionMap[result.NodeID] = result.RecommendedShardID
-	}
-
-	// 计算跨分片边数
-	for vertex := range egcm.evolvegcnGraph.PartitionMap {
-		nodeID := vertex.Addr
-		newShardID := partitionMap[nodeID]
-
-		if neighbors, exists := egcm.evolvegcnGraph.NetGraph.EdgeSet[vertex]; exists {
-			for _, neighbor := range neighbors {
-				neighborShardID := partitionMap[neighbor.Addr]
-				if newShardID != neighborShardID {
-					crossShardEdges++
-				}
-			}
-		}
-	}
-
-	// 避免重复计算（无向图）
-	crossShardEdges /= 2
-
-	return partitionMap, crossShardEdges
 }
 
 // ========== 辅助方法实现 ==========
@@ -845,60 +832,9 @@ func (egcm *EvolveGCNCommitteeModule) isEvolveGCNEnabled() bool {
 	return true
 }
 
-// 调用Python多尺度对比学习
-func (egcm *EvolveGCNCommitteeModule) callPythonMultiScaleLearning() ([]TemporalEmbedding, error) {
-	// 构建Python命令
-	cmd := exec.Command("python", "muti_scale/realtime_mscia.py", "--input", "node_features_input.csv", "--output", "temporal_embeddings.json")
-
-	var out bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &stderr
-
-	// 设置工作目录
-	cmd.Dir = "."
-
-	err := cmd.Run()
-	if err != nil {
-		return nil, fmt.Errorf("python execution failed: %v, stderr: %s", err, stderr.String())
-	}
-
-	// 读取Python输出的嵌入结果
-	return egcm.readTemporalEmbeddingsFromFile("temporal_embeddings.json")
-}
-
-// 生成简化嵌入（备用方案）
-func (egcm *EvolveGCNCommitteeModule) generateSimplifiedEmbeddings(nodeFeatures []NodeFeatureData) []TemporalEmbedding {
-	var embeddings []TemporalEmbedding
-
-	for _, node := range nodeFeatures {
-		// 使用简化的特征组合生成64维嵌入
-		embedding := make([]float64, 64)
-
-		// 基于节点特征生成嵌入
-		hashBytes := md5.Sum([]byte(node.NodeID))
-		hash := hashBytes[:]
-		for i := 0; i < 64; i++ {
-			// 结合静态和动态特征生成嵌入值
-			staticVal := node.StaticFeatures["cpu_cores"] + node.StaticFeatures["memory_gb"]
-			dynamicVal := node.DynamicFeatures["node_degree"] + node.DynamicFeatures["cross_shard_ratio"]*100
-
-			embedding[i] = (staticVal + dynamicVal + float64(hash[i%32])) / 100.0
-		}
-
-		embeddings = append(embeddings, TemporalEmbedding{
-			NodeID:     node.NodeID,
-			Embeddings: embedding,
-			Timestamp:  time.Now().Unix(),
-		})
-	}
-
-	return embeddings
-}
-
 // 调用Python四步完整流水线
 func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []NodeFeatureData) (map[string]uint64, int, error) {
-	egcm.sl.Slog.Println("EvolveGCN: Preparing input for Python four-step pipeline...")
+	egcm.sl.Slog.Println("EvolveGCN: 准备输入 for Python four-step pipeline...")
 
 	// 准备输入数据
 	inputData := egcm.preparePipelineInput(nodeFeatures)
@@ -965,7 +901,7 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	egcm.sl.Slog.Printf("EvolveGCN: Command: %s %v", pythonPath, cmd.Args)
 
 	// 记录环境变量
-	egcm.sl.Slog.Printf("EvolveGCN: Environment variables: %v", cmd.Env)
+	// egcm.sl.Slog.Printf("EvolveGCN: Environment variables: %v", cmd.Env)
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
@@ -977,29 +913,9 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	defer cancel()
 
 	// 选择Python脚本优先级：安全预加载服务 > 预加载服务 > 优化版完整流水线 > 原始完整版 > 快速测试版
-	scriptName := "evolvegcn_go_interface.py" // 默认原始版本
+	scriptName := "evolvegcn_go_interface.py" // 723优化版本
 
-	if _, err := os.Stat("evolvegcn_preload_service_safe.py"); err == nil {
-		scriptName = "evolvegcn_preload_service_safe.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using encoding-safe preloaded service (fastest)")
-	} else if _, err := os.Stat("evolvegcn_preload_service.py"); err == nil {
-		scriptName = "evolvegcn_preload_service.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using preloaded service (fastest)")
-	} else if _, err := os.Stat("evolvegcn_optimized.py"); err == nil {
-		scriptName = "evolvegcn_optimized.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using optimized four-step pipeline")
-	} else if _, err := os.Stat("evolvegcn_go_interface.py"); err == nil {
-		scriptName = "evolvegcn_go_interface.py"
-		egcm.sl.Slog.Printf("EvolveGCN: Using original four-step pipeline")
-	} else if _, err := os.Stat("evolvegcn_quick_test.py"); err == nil {
-		// 检查是否强制使用快速测试
-		if os.Getenv("EVOLVEGCN_QUICK_TEST") == "1" {
-			scriptName = "evolvegcn_quick_test.py"
-			egcm.sl.Slog.Printf("EvolveGCN: Using quick test script (EVOLVEGCN_QUICK_TEST=1)")
-		} else {
-			egcm.sl.Slog.Printf("EvolveGCN: Quick test available but using optimized version")
-		}
-	}
+	egcm.sl.Slog.Printf("EvolveGCN: Using script: %s", scriptName)
 
 	cmdWithTimeout := exec.CommandContext(ctx, pythonPath, scriptName, "--input", inputFile, "--output", outputFile)
 	cmdWithTimeout.Dir = cmd.Dir
@@ -1010,7 +926,7 @@ func (egcm *EvolveGCNCommitteeModule) callPythonFourStepPipeline(nodeFeatures []
 	err = cmdWithTimeout.Run()
 
 	// 详细记录执行结果
-	egcm.sl.Slog.Printf("EvolveGCN: Python pipeline execution completed")
+	egcm.sl.Slog.Printf("EvolveGCN: Python pipeline 执行结束")
 	egcm.sl.Slog.Printf("EvolveGCN: STDOUT: %s", stdout.String())
 	if stderr.Len() > 0 {
 		egcm.sl.Slog.Printf("EvolveGCN: STDERR: %s", stderr.String())
@@ -1178,259 +1094,6 @@ func (egcm *EvolveGCNCommitteeModule) parsePipelineOutput(outputFile string) (*P
 	return &result, nil
 }
 
-// 调用Python EvolveGCN分片
-func (egcm *EvolveGCNCommitteeModule) callPythonEvolveGCNSharding(embeddings []TemporalEmbedding) ([]ShardingResult, error) {
-	// 保存嵌入到文件
-	if err := egcm.saveEmbeddingsToFile(embeddings, "temporal_embeddings.json"); err != nil {
-		return nil, err
-	}
-
-	// 调用Python EvolveGCN脚本
-	cmd := exec.Command("python", "evolve_GCN/train.py", "--input", "temporal_embeddings.json", "--output", "sharding_results.json")
-
-	var out bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &stderr
-
-	err := cmd.Run()
-	if err != nil {
-		return nil, fmt.Errorf("EvolveGCN execution failed: %v, stderr: %s", err, stderr.String())
-	}
-
-	// 读取分片结果
-	return egcm.readShardingResultsFromFile("sharding_results.json")
-}
-
-// 基于图的分片（备用方案）
-func (egcm *EvolveGCNCommitteeModule) graphBasedSharding(embeddings []TemporalEmbedding) []ShardingResult {
-	var results []ShardingResult
-
-	// 使用改进的图聚类算法
-	shardClusters := egcm.performGraphClustering()
-
-	for _, embedding := range embeddings {
-		nodeID := embedding.NodeID
-		vertex := partition.Vertex{Addr: nodeID}
-
-		// 根据图聚类结果分配分片
-		recommendedShard := uint64(0)
-		if cluster, exists := shardClusters[vertex]; exists {
-			recommendedShard = uint64(cluster % params.ShardNum)
-		}
-
-		results = append(results, ShardingResult{
-			NodeID:             nodeID,
-			RecommendedShardID: recommendedShard,
-			Confidence:         0.7, // 中等置信度
-			Embeddings:         embedding.Embeddings,
-		})
-	}
-
-	return results
-}
-
-// 执行图聚类
-func (egcm *EvolveGCNCommitteeModule) performGraphClustering() map[partition.Vertex]int {
-	clusters := make(map[partition.Vertex]int)
-	visited := make(map[partition.Vertex]bool)
-	clusterID := 0
-
-	// 使用BFS进行社区发现
-	for vertex := range egcm.evolvegcnGraph.PartitionMap {
-		if !visited[vertex] {
-			egcm.bfsCluster(vertex, clusterID, clusters, visited)
-			clusterID++
-		}
-	}
-
-	return clusters
-}
-
-// BFS聚类
-func (egcm *EvolveGCNCommitteeModule) bfsCluster(start partition.Vertex, clusterID int, clusters map[partition.Vertex]int, visited map[partition.Vertex]bool) {
-	queue := []partition.Vertex{start}
-	visited[start] = true
-	clusters[start] = clusterID
-
-	for len(queue) > 0 {
-		current := queue[0]
-		queue = queue[1:]
-
-		if neighbors, exists := egcm.evolvegcnGraph.NetGraph.EdgeSet[current]; exists {
-			for _, neighbor := range neighbors {
-				if !visited[neighbor] {
-					visited[neighbor] = true
-					clusters[neighbor] = clusterID
-					queue = append(queue, neighbor)
-				}
-			}
-		}
-	}
-}
-
-// 计算预期跨分片交易率
-func (egcm *EvolveGCNCommitteeModule) calculateExpectedCrossShardRatio(results []ShardingResult) float64 {
-	shardMapping := make(map[string]uint64)
-	for _, result := range results {
-		shardMapping[result.NodeID] = result.RecommendedShardID
-	}
-
-	totalEdges := 0
-	crossShardEdges := 0
-
-	for vertex := range egcm.evolvegcnGraph.PartitionMap {
-		if neighbors, exists := egcm.evolvegcnGraph.NetGraph.EdgeSet[vertex]; exists {
-			nodeShardID := shardMapping[vertex.Addr]
-			for _, neighbor := range neighbors {
-				totalEdges++
-				neighborShardID := shardMapping[neighbor.Addr]
-				if nodeShardID != neighborShardID {
-					crossShardEdges++
-				}
-			}
-		}
-	}
-
-	if totalEdges == 0 {
-		return 0.0
-	}
-
-	return float64(crossShardEdges) / float64(totalEdges)
-}
-
-// 优化分片以减少跨分片交易
-func (egcm *EvolveGCNCommitteeModule) optimizeShardingForCrossShardReduction(results []ShardingResult) []ShardingResult {
-	optimized := make([]ShardingResult, len(results))
-	copy(optimized, results)
-
-	// 迭代优化：尝试将高跨分片连接的节点移动到更合适的分片
-	for i := 0; i < 5; i++ { // 最多5次迭代
-		improved := false
-
-		for j, result := range optimized {
-			bestShard := result.RecommendedShardID
-			minCrossConnections := egcm.countCrossShardConnections(result.NodeID, result.RecommendedShardID, optimized)
-
-			// 尝试其他分片
-			for shardID := uint64(0); shardID < uint64(params.ShardNum); shardID++ {
-				if shardID != result.RecommendedShardID {
-					crossConnections := egcm.countCrossShardConnections(result.NodeID, shardID, optimized)
-					if crossConnections < minCrossConnections {
-						minCrossConnections = crossConnections
-						bestShard = shardID
-						improved = true
-					}
-				}
-			}
-
-			optimized[j].RecommendedShardID = bestShard
-		}
-
-		if !improved {
-			break
-		}
-	}
-
-	return optimized
-}
-
-// 计算节点在特定分片的跨分片连接数
-func (egcm *EvolveGCNCommitteeModule) countCrossShardConnections(nodeID string, shardID uint64, results []ShardingResult) int {
-	// 构建节点到分片的映射
-	shardMapping := make(map[string]uint64)
-	for _, result := range results {
-		shardMapping[result.NodeID] = result.RecommendedShardID
-	}
-	shardMapping[nodeID] = shardID // 临时设置
-
-	vertex := partition.Vertex{Addr: nodeID}
-	crossConnections := 0
-
-	if neighbors, exists := egcm.evolvegcnGraph.NetGraph.EdgeSet[vertex]; exists {
-		for _, neighbor := range neighbors {
-			neighborShardID := shardMapping[neighbor.Addr]
-			if shardID != neighborShardID {
-				crossConnections++
-			}
-		}
-	}
-
-	return crossConnections
-}
-
-// 读取时序嵌入文件
-func (egcm *EvolveGCNCommitteeModule) readTemporalEmbeddingsFromFile(filename string) ([]TemporalEmbedding, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var embeddings []TemporalEmbedding
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&embeddings)
-	return embeddings, err
-}
-
-// 保存嵌入到文件
-func (egcm *EvolveGCNCommitteeModule) saveEmbeddingsToFile(embeddings []TemporalEmbedding, filename string) error {
-	file, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	encoder := json.NewEncoder(file)
-	return encoder.Encode(embeddings)
-}
-
-// 读取分片结果文件
-func (egcm *EvolveGCNCommitteeModule) readShardingResultsFromFile(filename string) ([]ShardingResult, error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var results []ShardingResult
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&results)
-	return results, err
-}
-
-// ========== 自动配置Python虚拟环境 ==========
-func (egcm *EvolveGCNCommitteeModule) autoConfigurePythonEnvironment() error {
-	egcm.sl.Slog.Println("EvolveGCN: Auto-configuring Python virtual environment...")
-
-	// 运行Python配置脚本
-	cmd := exec.Command("python", "config_python_venv.py")
-
-	// 显式设置UTF-8编码环境变量
-	cmd.Env = append(os.Environ(),
-		"PYTHONIOENCODING=utf-8",
-		"LANG=en_US.UTF-8",
-		"LC_ALL=en_US.UTF-8",
-		"PYTHONUTF8=1",
-	)
-
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-
-	err := cmd.Run()
-	if err != nil {
-		egcm.sl.Slog.Printf("EvolveGCN: Python environment configuration failed: %v", err)
-		egcm.sl.Slog.Printf("EvolveGCN: Error output: %s", stderr.String())
-		return fmt.Errorf("failed to configure Python environment: %v", err)
-	}
-
-	egcm.sl.Slog.Printf("EvolveGCN: Python environment configuration output: %s", stdout.String())
-	egcm.sl.Slog.Println("EvolveGCN: Python virtual environment configured successfully")
-
-	return nil
-}
-
 // ========== Python预热服务 ==========
 
 func (egcm *EvolveGCNCommitteeModule) warmupPythonService() {
@@ -1486,33 +1149,380 @@ func (egcm *EvolveGCNCommitteeModule) warmupPythonService() {
 	}
 }
 
-// ========== 新增：带固定等待时间的分区消息发送 ==========
-func (egcm *EvolveGCNCommitteeModule) evolvegcnMapSendWithFixedWait(m map[string]uint64, epochID int) {
-	egcm.sl.Slog.Printf("EvolveGCN: Sending partition map with 4-second fixed wait for epoch %d...", epochID)
+// ========== 改进：从真实节点状态提取静态特征 ==========
+func (egcm *EvolveGCNCommitteeModule) extractRealStaticFeatures(nodeState message.ReplyNodeStateMsg) map[string]float64 {
+	features := make(map[string]float64)
 
-	// 复用现有的分区消息结构
-	pm := message.PartitionModifiedMapWithEpoch{
-		PartitionModified: m,
-		EpochID:           int32(epochID),
-		Timestamp:         time.Now().Unix(),
+	// 从真实收集的静态数据中提取硬件特征
+	static := nodeState.NodeState.Static
+
+	// CPU特征
+	features["cpu_cores"] = float64(static.ResourceCapacity.Hardware.CPU.CoreCount)
+	features["cpu_architecture"] = egcm.encodeArchitecture(static.ResourceCapacity.Hardware.CPU.Architecture)
+
+	// 内存特征
+	features["memory_gb"] = float64(static.ResourceCapacity.Hardware.Memory.TotalCapacity)
+	features["memory_bandwidth"] = static.ResourceCapacity.Hardware.Memory.Bandwidth
+	features["memory_type"] = egcm.encodeMemoryType(static.ResourceCapacity.Hardware.Memory.Type)
+
+	// 存储特征
+	features["storage_gb"] = float64(static.ResourceCapacity.Hardware.Storage.Capacity)
+	features["storage_type"] = egcm.encodeStorageType(static.ResourceCapacity.Hardware.Storage.Type)
+	features["storage_rw_speed"] = static.ResourceCapacity.Hardware.Storage.ReadWriteSpeed
+
+	// 网络特征
+	features["network_upstream"] = static.ResourceCapacity.Hardware.Network.UpstreamBW
+	features["network_downstream"] = static.ResourceCapacity.Hardware.Network.DownstreamBW
+	features["network_latency"] = egcm.parseLatency(static.ResourceCapacity.Hardware.Network.Latency)
+
+	// 网络拓扑特征
+	features["intra_shard_conn"] = float64(static.NetworkTopology.Connections.IntraShardConn)
+	features["inter_shard_conn"] = float64(static.NetworkTopology.Connections.InterShardConn)
+	features["weighted_degree"] = static.NetworkTopology.Connections.WeightedDegree
+	features["active_conn"] = float64(static.NetworkTopology.Connections.ActiveConn)
+	features["adaptability"] = static.NetworkTopology.ShardAllocation.Adaptability
+
+	// 异构类型特征
+	features["node_type"] = egcm.encodeNodeType(static.HeterogeneousType.NodeType)
+	// 注释掉不存在的字段，使用默认值
+	// features["core_eligibility"] = egcm.encodeBool(static.ResourceCapacity.OperationalStatus.CoreEligibility)
+	features["core_eligibility"] = 1.0 // 默认符合条件
+
+	egcm.sl.Slog.Printf("EvolveGCN: Extracted %d real static features for node %d", len(features), nodeState.NodeID)
+
+	return features
+}
+
+// ========== 改进：从真实节点状态提取动态特征 ==========
+func (egcm *EvolveGCNCommitteeModule) extractRealDynamicFeatures(nodeState message.ReplyNodeStateMsg) map[string]float64 {
+	features := make(map[string]float64)
+
+	// 从真实收集的动态数据中提取运行时特征
+	dynamic := nodeState.NodeState.Dynamic
+
+	// 交易处理能力特征
+	features["avg_tps"] = dynamic.OnChainBehavior.TransactionCapability.AvgTPS
+	features["confirmation_delay"] = egcm.parseDelay(dynamic.OnChainBehavior.TransactionCapability.ConfirmationDelay)
+
+	// 跨分片交易特征
+	features["inter_shard_volume"] = egcm.parseVolumeString(dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterShardVolume)
+	features["inter_node_volume"] = egcm.parseVolumeString(dynamic.OnChainBehavior.TransactionCapability.CrossShardTx.InterNodeVolume)
+
+	// 区块生成特征
+	features["avg_block_interval"] = egcm.parseInterval(dynamic.OnChainBehavior.BlockGeneration.AvgInterval)
+	features["block_interval_stddev"] = egcm.parseInterval(dynamic.OnChainBehavior.BlockGeneration.IntervalStdDev)
+
+	// 交易类型特征
+	features["normal_tx_ratio"] = dynamic.OnChainBehavior.TransactionTypes.NormalTxRatio
+	features["contract_tx_ratio"] = dynamic.OnChainBehavior.TransactionTypes.ContractTxRatio
+
+	// 共识参与特征
+	features["participation_rate"] = dynamic.OnChainBehavior.Consensus.ParticipationRate
+	features["total_reward"] = dynamic.OnChainBehavior.Consensus.TotalReward
+	features["success_rate"] = dynamic.OnChainBehavior.Consensus.SuccessRate
+
+	// 资源使用率特征
+	features["cpu_usage"] = dynamic.DynamicAttributes.Compute.CPUUsage
+	features["memory_usage"] = dynamic.DynamicAttributes.Compute.MemUsage
+	features["resource_flux"] = dynamic.DynamicAttributes.Compute.ResourceFlux
+
+	// 网络动态特征
+	features["latency_flux"] = dynamic.DynamicAttributes.Network.LatencyFlux
+	features["avg_latency"] = egcm.parseLatency(dynamic.DynamicAttributes.Network.AvgLatency)
+	features["bandwidth_usage"] = dynamic.DynamicAttributes.Network.BandwidthUsage
+
+	// 交易处理特征
+	features["tx_frequency"] = float64(dynamic.DynamicAttributes.Transactions.Frequency)
+	features["processing_delay"] = egcm.parseDelay(dynamic.DynamicAttributes.Transactions.ProcessingDelay)
+
+	// 应用状态特征
+	features["application_state"] = egcm.encodeApplicationState(nodeState.NodeState.Static.HeterogeneousType.Application.CurrentState)
+	features["tx_frequency_metric"] = float64(nodeState.NodeState.Static.HeterogeneousType.Application.LoadMetrics.TxFrequency)
+	features["storage_ops"] = float64(nodeState.NodeState.Static.HeterogeneousType.Application.LoadMetrics.StorageOps)
+
+	egcm.sl.Slog.Printf("EvolveGCN: Extracted %d real dynamic features for node %d", len(features), nodeState.NodeID)
+
+	return features
+}
+
+// ========== 辅助编码方法 ==========
+
+// 编码CPU架构
+func (egcm *EvolveGCNCommitteeModule) encodeArchitecture(arch string) float64 {
+	switch arch {
+	case "x86_64", "amd64":
+		return 1.0
+	case "arm64", "aarch64":
+		return 2.0
+	case "x86", "i386":
+		return 3.0
+	default:
+		return 0.0
 	}
-	pmByte, err := json.Marshal(pm)
-	if err != nil {
-		log.Panic(err)
+}
+
+// 编码内存类型
+func (egcm *EvolveGCNCommitteeModule) encodeMemoryType(memType string) float64 {
+	switch memType {
+	case "DDR4":
+		return 4.0
+	case "DDR5":
+		return 5.0
+	case "DDR3":
+		return 3.0
+	default:
+		return 4.0 // 默认DDR4
 	}
-	send_msg := message.MergeMessage(message.CPartitionMsg, pmByte)
+}
 
-	// 发送到所有分片
-	totalShards := uint64(params.ShardNum)
-	for i := uint64(0); i < totalShards; i++ {
-		go networks.TcpDial(send_msg, egcm.IpNodeTable[i][0])
+// 编码存储类型
+func (egcm *EvolveGCNCommitteeModule) encodeStorageType(storageType string) float64 {
+	switch storageType {
+	case "SSD":
+		return 2.0
+	case "NVMe":
+		return 3.0
+	case "HDD":
+		return 1.0
+	default:
+		return 2.0 // 默认SSD
+
+	}
+}
+
+// 编码节点类型
+func (egcm *EvolveGCNCommitteeModule) encodeNodeType(nodeType string) float64 {
+	switch nodeType {
+	case "full_node":
+		return 4.0
+	case "miner_node":
+		return 3.0
+	case "storage_node":
+		return 2.0
+	case "validate_node":
+		return 1.5
+	case "light_node":
+		return 1.0
+	default:
+		return 2.0 // 默认值
+	}
+}
+
+// 编码应用状态
+func (egcm *EvolveGCNCommitteeModule) encodeApplicationState(state string) float64 {
+	switch state {
+	case "active":
+		return 3.0
+	case "high_load":
+		return 4.0
+	case "idle":
+		return 1.0
+	default:
+		return 2.0 // 默认值
+	}
+}
+
+// 解析延迟字符串 (如 "50ms")
+func (egcm *EvolveGCNCommitteeModule) parseLatency(latencyStr string) float64 {
+	if latencyStr == "" {
+		return 50.0 // 默认50ms
 	}
 
-	egcm.sl.Slog.Printf("EvolveGCN: Partition messages sent to %d shards", totalShards)
+	// 简单解析，去掉"ms"后缀
+	if len(latencyStr) > 2 && latencyStr[len(latencyStr)-2:] == "ms" {
+		if val, err := fmt.Sscanf(latencyStr[:len(latencyStr)-2], "%f"); err == nil && val > 0 {
+			return float64(val)
+		}
+	}
 
-	// 固定等待4秒，让节点有足够时间处理重分片
-	egcm.sl.Slog.Printf("EvolveGCN: Waiting 4 seconds for nodes to process reconfiguration...")
-	time.Sleep(4 * time.Second)
+	return 50.0 // 解析失败时的默认值
+}
 
-	egcm.sl.Slog.Printf("EvolveGCN: Fixed wait completed for epoch %d", epochID)
+// 解析延迟字符串 (如 "200ms")
+func (egcm *EvolveGCNCommitteeModule) parseDelay(delayStr string) float64 {
+	return egcm.parseLatency(delayStr) // 复用延迟解析逻辑
+}
+
+// 解析时间间隔字符串 (如 "5.0s")
+func (egcm *EvolveGCNCommitteeModule) parseInterval(intervalStr string) float64 {
+	if intervalStr == "" {
+		return 5.0 // 默认5秒
+	}
+
+	// 简单解析，去掉"s"后缀
+	if len(intervalStr) > 1 && intervalStr[len(intervalStr)-1:] == "s" {
+		if val, err := fmt.Sscanf(intervalStr[:len(intervalStr)-1], "%f"); err == nil && val > 0 {
+			return float64(val)
+		}
+	}
+
+	return 5.0 // 解析失败时的默认值
+}
+
+// 解析交易量字符串 (如 "shard0:1000;shard1:2000")
+func (egcm *EvolveGCNCommitteeModule) parseVolumeString(volumeStr string) float64 {
+	if volumeStr == "" {
+		return 0.0
+	}
+
+	// 简单统计：计算总交易量
+	var total float64 = 0.0
+
+	// 按分号分割
+	parts := strings.Split(volumeStr, ";")
+	for _, part := range parts {
+		// 按冒号分割
+		if kvPair := strings.Split(part, ":"); len(kvPair) == 2 {
+			if val, err := fmt.Sscanf(kvPair[1], "%f"); err == nil && val > 0 {
+				total += float64(val)
+			}
+		}
+	}
+
+	return total
+}
+
+// ========== 节点映射转换核心功能 ==========
+
+// 将节点-分片映射转换为账户-分片映射的核心函数
+func (egcm *EvolveGCNCommitteeModule) convertNodeMappingToAccountMapping(nodeMappings map[string]uint64) map[string]uint64 {
+	egcm.sl.Slog.Printf("EvolveGCN: 开始转换节点映射到账户映射，输入节点数: %d", len(nodeMappings))
+
+	// 分析节点投票，决定分片级迁移
+	shardMigrations := egcm.analyzeShardMigrations(nodeMappings)
+
+	if len(shardMigrations) == 0 {
+		egcm.sl.Slog.Println("EvolveGCN: 没有分片需要迁移，返回空映射")
+		return make(map[string]uint64)
+	}
+
+	// 将分片级迁移转换为账户级映射
+	accountMappings := egcm.generateAccountMappingsFromShardMigrations(shardMigrations)
+
+	egcm.sl.Slog.Printf("EvolveGCN: 转换完成，生成账户映射数: %d", len(accountMappings))
+	return accountMappings
+}
+
+// 分析节点投票，决定哪些分片需要迁移
+func (egcm *EvolveGCNCommitteeModule) analyzeShardMigrations(nodeMappings map[string]uint64) map[uint64]uint64 {
+	egcm.sl.Slog.Println("EvolveGCN: 开始分析节点投票...")
+
+	// 统计每个分片的节点投票情况: [原分片][目标分片] = 票数
+	shardVotes := make(map[uint64]map[uint64]int)
+	shardNodeCounts := make(map[uint64]int) // [原分片] = 总节点数
+
+	for nodeID, targetShard := range nodeMappings {
+		if originalShard := egcm.parseShardFromNodeID(nodeID); originalShard != nil {
+			if shardVotes[*originalShard] == nil {
+				shardVotes[*originalShard] = make(map[uint64]int)
+			}
+			shardVotes[*originalShard][targetShard]++
+			shardNodeCounts[*originalShard]++
+		}
+	}
+
+	// 决策：超过60%阈值则整个分片迁移
+	shardMigrations := make(map[uint64]uint64) // [原分片] -> [目标分片]
+	threshold := 0.6                           // 60%阈值
+
+	for originalShard, votes := range shardVotes {
+		totalNodes := shardNodeCounts[originalShard]
+		if totalNodes == 0 {
+			continue
+		}
+
+		maxVotes := 0
+		var targetShard uint64
+
+		for shard, count := range votes {
+			if count > maxVotes {
+				maxVotes = count
+				targetShard = shard
+			}
+		}
+
+		// 如果超过阈值且不是迁移到自己，则执行分片迁移
+		consensusRatio := float64(maxVotes) / float64(totalNodes)
+		if consensusRatio >= threshold && targetShard != originalShard {
+			shardMigrations[originalShard] = targetShard
+			egcm.sl.Slog.Printf("EvolveGCN: 分片 %d 将迁移到分片 %d (共识度: %.1f%%)",
+				originalShard, targetShard, consensusRatio*100)
+		}
+	}
+
+	egcm.sl.Slog.Printf("EvolveGCN: 分析完成，共有 %d 个分片需要迁移", len(shardMigrations))
+	return shardMigrations
+}
+
+// 将分片级迁移转换为账户级映射
+func (egcm *EvolveGCNCommitteeModule) generateAccountMappingsFromShardMigrations(shardMigrations map[uint64]uint64) map[string]uint64 {
+	egcm.sl.Slog.Println("EvolveGCN: 开始生成账户映射...")
+
+	accountMappings := make(map[string]uint64)
+
+	// 为每个需要迁移的分片生成所有账户的重映射
+	for originalShard, targetShard := range shardMigrations {
+		// 获取该分片的所有账户
+		shardAccounts := egcm.getAccountsInShard(originalShard)
+
+		// 生成账户映射
+		for _, account := range shardAccounts {
+			accountMappings[account] = targetShard
+		}
+
+		egcm.sl.Slog.Printf("EvolveGCN: 分片 %d 的 %d 个账户将迁移到分片 %d",
+			originalShard, len(shardAccounts), targetShard)
+	}
+
+	return accountMappings
+}
+
+// 解析节点ID，提取分片信息 (解析 "S0N0" 格式)
+func (egcm *EvolveGCNCommitteeModule) parseShardFromNodeID(nodeID string) *uint64 {
+	if !strings.HasPrefix(nodeID, "S") || !strings.Contains(nodeID, "N") {
+		return nil
+	}
+
+	// 提取S和N之间的数字
+	parts := strings.Split(nodeID, "N")
+	if len(parts) != 2 {
+		return nil
+	}
+
+	shardStr := strings.TrimPrefix(parts[0], "S")
+	if shardID, err := fmt.Sscanf(shardStr, "%d"); err == nil && shardID >= 0 {
+		result := uint64(shardID)
+		return &result
+	}
+
+	return nil
+}
+
+// 获取分片中的所有账户
+func (egcm *EvolveGCNCommitteeModule) getAccountsInShard(shardID uint64) []string {
+	var accounts []string
+
+	// 从现有的evolvegcnGraph获取分片中的账户
+	if egcm.evolvegcnGraph != nil && egcm.evolvegcnGraph.PartitionMap != nil {
+		for vertex, currentShardID := range egcm.evolvegcnGraph.PartitionMap {
+			if uint64(currentShardID) == shardID {
+				accounts = append(accounts, vertex.Addr)
+			}
+		}
+	}
+
+	// 如果没有找到账户，生成一些示例账户以确保系统正常运行
+	if len(accounts) == 0 {
+		egcm.sl.Slog.Printf("EvolveGCN: 分片 %d 没有找到账户，生成示例账户", shardID)
+		// 为每个分片生成2个示例账户
+		for i := 0; i < 2; i++ {
+			account := fmt.Sprintf("0x%016x%016x%08x",
+				uint64(shardID)*1000+uint64(i),
+				uint64(shardID)*2000+uint64(i),
+				uint64(shardID)*100+uint64(i))
+			accounts = append(accounts, account)
+		}
+	}
+
+	return accounts
 }
